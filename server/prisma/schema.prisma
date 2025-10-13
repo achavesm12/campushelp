@@ -13,3 +13,148 @@ datasource db {
   provider = "mysql"
   url      = env("DATABASE_URL")
 }
+
+model Usuario {
+  id                 Int               @id @default(autoincrement())
+  email              String            @unique
+  nombre             String?
+  role               Role              @default(CLIENT)
+  password           String
+  lastLoginAt        DateTime?
+  disponibilidad     Boolean?          @default(true)
+  cargaActual        Int?              @default(0)
+  createdAt          DateTime          @default(now())
+  updatedAt          DateTime          @default(now()) @updatedAt
+  ticketsSolicitados Ticket[]          @relation("TicketsPorUsuario")
+  valoraciones       Valoracion[]
+  notificaciones     Notificacion[]
+  especialidades     Especialidad[] 
+  asignaciones       Asignacion[]
+  TicketHistorial    TicketHistorial[]
+}
+
+model Especialidad {
+  id          Int         @id @default(autoincrement())
+  nombre      String      @unique
+  descripcion String?
+  updatedAt   DateTime    @default(now()) @updatedAt
+  usuarios    Usuario[] 
+  categorias  Categoria[]
+}
+
+model SLA {
+  id               Int         @id @default(autoincrement())
+  nombre           String      @unique
+  maxRespuestaHrs  Int
+  maxResolucionHrs Int
+  prioridad        String      @default("MEDIUM")
+  updatedAt        DateTime    @default(now()) @updatedAt
+  categorias       Categoria[]
+}
+
+model Categoria {
+  id             Int            @id @default(autoincrement())
+  nombre         String         @unique
+  slaId          Int
+  updatedAt      DateTime       @default(now()) @updatedAt
+  sla            SLA            @relation(fields: [slaId], references: [id])
+  especialidades Especialidad[] 
+  tickets        Ticket[]
+  etiquetas      Etiqueta[] 
+}
+
+model Etiqueta {
+  id         Int         @id @default(autoincrement())
+  nombre     String      @unique
+  updatedAt  DateTime    @default(now()) @updatedAt
+  categorias Categoria[] 
+}
+
+model Ticket {
+  id            Int               @id @default(autoincrement())
+  titulo        String
+  descripcion   String            @db.VarChar(500)
+  status        TicketStatus      @default(PENDING)
+  createdAt     DateTime          @default(now())
+  updatedAt     DateTime          @default(now()) @updatedAt
+  closedAt      DateTime?
+  solicitanteId Int
+  categoriaId   Int
+  solicitante   Usuario           @relation("TicketsPorUsuario", fields: [solicitanteId], references: [id])
+  categoria     Categoria         @relation(fields: [categoriaId], references: [id])
+  historial     TicketHistorial[]
+  asignacion    Asignacion?
+  valoracion    Valoracion?
+}
+
+model TicketHistorial {
+  id         Int            @id @default(autoincrement())
+  ticketId   Int
+  fromStatus TicketStatus?
+  toStatus   TicketStatus
+  nota       String?
+  actorId    Int
+  createdAt  DateTime       @default(now())
+  updatedAt  DateTime       @default(now()) @updatedAt
+  ticket     Ticket         @relation(fields: [ticketId], references: [id])
+  actor      Usuario        @relation(fields: [actorId], references: [id])
+  imagenes   TicketImagen[]
+}
+
+model TicketImagen {
+  id          Int             @id @default(autoincrement())
+  historialId Int
+  url         String          @default("image-not-found.jpg")
+  createdAt   DateTime        @default(now())
+  updatedAt   DateTime        @default(now()) @updatedAt
+  historial   TicketHistorial @relation(fields: [historialId], references: [id])
+}
+
+model Asignacion {
+  id            Int      @id @default(autoincrement())
+  ticketId      Int      @unique
+  usuarioId     Int
+  metodo        String
+  justificacion String?
+  createdAt     DateTime @default(now())
+  updatedAt     DateTime @default(now()) @updatedAt
+  ticket        Ticket   @relation(fields: [ticketId], references: [id])
+  usuario       Usuario  @relation(fields: [usuarioId], references: [id])
+}
+
+model Notificacion {
+  id        Int      @id @default(autoincrement())
+  usuarioId Int
+  tipo      String
+  mensaje   String
+  leida     Boolean  @default(false)
+  createdAt DateTime @default(now())
+  updatedAt DateTime @default(now()) @updatedAt
+  usuario   Usuario  @relation(fields: [usuarioId], references: [id])
+}
+
+model Valoracion {
+  id         Int      @id @default(autoincrement())
+  ticketId   Int      @unique
+  usuarioId  Int
+  puntaje    Int
+  comentario String?
+  createdAt  DateTime @default(now())
+  updatedAt  DateTime @default(now()) @updatedAt
+  ticket     Ticket   @relation(fields: [ticketId], references: [id])
+  usuario    Usuario  @relation(fields: [usuarioId], references: [id])
+}
+
+enum Role {
+  ADMIN
+  TECH
+  CLIENT
+}
+
+enum TicketStatus {
+  PENDING
+  ASSIGNED
+  IN_PROGRESS
+  RESOLVED
+  CLOSED
+}

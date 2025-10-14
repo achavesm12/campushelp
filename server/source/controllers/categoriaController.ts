@@ -36,29 +36,29 @@ export class CategoriaController {
     };
 
     getById = async (request: Request, response: Response, next: NextFunction) => {
-    try {
-        const idCategoria = parseInt(request.params.id);
-        if (isNaN(idCategoria)) {
-            return next(AppError.badRequest("El ID no es válido"));
+        try {
+            const idCategoria = parseInt(request.params.id);
+            if (isNaN(idCategoria)) {
+                return next(AppError.badRequest("El ID no es válido"));
+            }
+
+            const categoria = await this.prisma.categoria.findFirst({
+                where: { id: idCategoria },
+                include: {
+                    etiquetas: true, // trae todas las etiquetas asociadas
+                    especialidades: true, // trae todas las especialidades asociadas
+                    sla: true, // si quieres incluir el SLA
+                },
+            });
+
+            if (!categoria) {
+                return response.status(404).json({ message: "Categoría no encontrada" });
+            }
+
+            response.status(200).json(categoria);
+        } catch (error) {
+            next(error);
         }
-
-        const categoria = await this.prisma.categoria.findFirst({
-            where: { id: idCategoria },
-            include: {
-                etiquetas: true, // trae todas las etiquetas asociadas
-                especialidades: true, // trae todas las especialidades asociadas
-                sla: true, // si quieres incluir el SLA
-            },
-        });
-
-        if (!categoria) {
-            return response.status(404).json({ message: "Categoría no encontrada" });
-        }
-
-        response.status(200).json(categoria);
-    } catch (error) {
-        next(error);
-    }
-};
+    };
 
 }

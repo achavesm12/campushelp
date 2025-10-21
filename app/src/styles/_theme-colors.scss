@@ -134,4 +134,23 @@ $_rest: (
 );
 
 $primary-palette: map.merge(map.get($_palettes, primary), $_rest);
+$secondary-palette: map.merge(map.get($_palettes, secondary), $_rest);
 $tertiary-palette: map.merge(map.get($_palettes, tertiary), $_rest);
+
+// Colores base
+$surface: #1D2B53;
+$background: #1D2B53;
+$on-surface: #ffffff;
+$on-background: #ffffff;
+
+/* $_rest: (
+  secondary: map.get($_palettes, secondary),
+  neutral: map.get($_palettes, neutral),
+  neutral-variant: map.get($_palettes,  neutral-variant),
+  error: map.get($_palettes, error),
+);
+
+$primary-palette: map.merge(map.get($_palettes, primary), $_rest);
+$tertiary-palette: map.merge(map.get($_palettes, tertiary), $_rest);
+
+ */

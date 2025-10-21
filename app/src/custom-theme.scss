@@ -7,29 +7,38 @@
 @use '@angular/material' as mat;
 
 html {
-  @include mat.theme((
+@include mat.theme((
     color: (
-      primary: mat.$rose-palette,
-      tertiary: mat.$red-palette,
+      primary: (
+        40: #6C5B7B,
+        90: #FAEAF1,
+      ),
+      secondary: (
+        40: #C06C84,
+        90: #FAEAF1,
+      ),
+      tertiary: (
+        40: #F8BBD0,
+        90: #FFFFFF,
+      ),
+      neutral: (
+        40: #2E294E,
+        90: #FAEAF1,
+      ),
+      error: mat.$red-palette,
     ),
     typography: Roboto,
     density: 0,
   ));
 }
 
-body {
-  // Default the application to a light color theme. This can be changed to
-  // `dark` to enable the dark color theme, or to `light dark` to defer to the
-  // user's system settings.
-  color-scheme: light;
+body { color-scheme: dark;
 
-  // Set a default background, font and text colors for the application using
-  // Angular Material's system-level CSS variables. Learn more about these
-  // variables at https://material.angular.dev/guide/system-variables
-  background-color: var(--mat-sys-surface);
-  color: var(--mat-sys-on-surface);
-  font: var(--mat-sys-body-medium);
-
-  // Reset the user agent margin.
-  margin: 0;
-}
+--mat-sys-color-surface: #2E294E; 
+--mat-sys-color-background: #2E294E;
+--mat-sys-color-on-surface: #FAEAF1; 
+--mat-sys-color-on-background: #FAEAF1;
+background-color: var(--mat-sys-color-surface);
+color: var(--mat-sys-color-on-surface); 
+font: var(--mat-sys-body-medium); 
+margin: 0; }

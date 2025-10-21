@@ -1,0 +1,12 @@
+.inicio-container,
+.acerca-container {
+    padding: 2rem;
+    color: white;
+}
+
+.inicio-links {
+    margin-top: 1rem;
+    display: flex;
+    gap: 1rem;
+    flex-wrap: wrap;
+}

@@ -34,6 +34,8 @@ import { MatIconModule } from '@angular/material/icon';
 import { MatMenuModule } from '@angular/material/menu';
 import { MatSidenavModule } from '@angular/material/sidenav';
 import { MatListModule } from '@angular/material/list';
+import {MatBadgeModule} from '@angular/material/badge' 
+
 
 @NgModule({
   declarations: [
@@ -48,7 +50,8 @@ import { MatListModule } from '@angular/material/list';
     MatIconModule,
     MatMenuModule,
     MatSidenavModule,
-    MatListModule
+    MatListModule,
+    MatBadgeModule
   ],
   exports: [
     Header,

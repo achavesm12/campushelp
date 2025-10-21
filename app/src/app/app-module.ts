@@ -1,6 +1,5 @@
 import { NgModule, provideBrowserGlobalErrorListeners } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
-import { provideHttpClient } from '@angular/common/http';
 
 import { CoreModule } from './core/core-module';
 import { ShareModule } from './share/share-module';
@@ -12,6 +11,9 @@ import { TicketModule } from './ticket/ticket-module';
 import { AsignacionModule } from './asignacion/asignacion-module';
 import { AppRoutingModule } from './app-routing-module';
 import { App } from './app';
+import { NgxSonnerToaster } from 'ngx-sonner';
+import { HTTP_INTERCEPTORS, provideHttpClient, withInterceptorsFromDi } from '@angular/common/http';
+import { HttpErrorInterceptorService } from './share/interceptor/http-error-interceptor.service';
 
 @NgModule({
   declarations: [
@@ -27,11 +29,17 @@ import { App } from './app';
     TecnicoModule,
     CategoriaModule,
     TicketModule,
-    AsignacionModule
+    AsignacionModule,
+    NgxSonnerToaster
   ],
   providers: [
     provideBrowserGlobalErrorListeners(),
-    provideHttpClient()
+    provideHttpClient(withInterceptorsFromDi()),
+    {
+      provide: HTTP_INTERCEPTORS,
+      useClass: HttpErrorInterceptorService,
+      multi: true
+    }
   ],
   bootstrap: [App]
 })

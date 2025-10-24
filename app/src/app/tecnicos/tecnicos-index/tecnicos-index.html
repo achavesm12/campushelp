@@ -1,0 +1,38 @@
+<div class="grid-container">
+    
+
+    @if(datos().length > 0) {
+    <div class="product-list">
+        @for (item of datos(); track item.id) {
+        <div class="product-card">
+            <mat-card appearance="outlined">
+                <mat-card-header class="secondary-title title">
+                    <mat-card-title>{{ item.nombre }}</mat-card-title>
+                </mat-card-header>
+
+                <mat-card-content class="content">
+                    <div><strong>Carga actual:</strong> {{ item.cargaActual }}</div>
+                    <div>
+                        <strong>Disponible:</strong>
+                        <mat-icon [color]="item.disponibilidad ? 'primary' : 'warn'">
+                            {{ item.disponibilidad ? 'check_circle' : 'cancel' }}
+                        </mat-icon>
+                    </div>
+                </mat-card-content>
+
+                <mat-card-footer class="footer">
+                    <button matMiniFab matTooltip="Detalle Técnico" aria-label="Detalle Técnico" class="bg-primary"
+                        (click)="detalle(item.id)">
+                        <mat-icon class="mat-18">info</mat-icon>
+                    </button>
+                </mat-card-footer>
+            </mat-card>
+        </div>
+        }
+    </div>
+    } @else {
+    <div>
+        <p>No se encontraron técnicos con los filtros aplicados.</p>
+    </div>
+    }
+</div>

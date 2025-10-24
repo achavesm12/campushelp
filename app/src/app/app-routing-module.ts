@@ -5,8 +5,14 @@ import { PageNotFound } from './share/page-not-found/page-not-found';
 
 const routes: Routes = [
   { path: 'inicio', component: Inicio },
+  {
+    path: 'tecnicos',
+    loadChildren: () =>
+      import('./tecnicos/tecnico-module').then(m => m.TecnicoModule)
+  },
   { path: '', redirectTo: '/inicio', pathMatch: 'full' },
   { path: '**', component: PageNotFound }
+
 ];
 
 @NgModule({

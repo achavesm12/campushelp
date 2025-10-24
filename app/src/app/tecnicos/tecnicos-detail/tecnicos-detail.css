@@ -1,0 +1,19 @@
+.detail-card {
+    margin: 2rem auto;
+    max-width: 600px;
+    padding: 1.5rem;
+}
+
+.detail-content p {
+    margin: 0.75rem 0;
+    font-size: 16px;
+}
+
+.chip-secondary {
+    margin-right: 5px;
+    margin-bottom: 5px;
+    font-size: 14px;
+    background-color: #ffffff22; /* un fondo blanco translúcido */
+    color: #ffffff;              /* texto blanco para mejor contraste */
+    border: 1px solid #ffffff33; /* borde sutil */
+}

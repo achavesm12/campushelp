@@ -5,10 +5,9 @@ import cors from 'cors';
 import path from 'path';
 import { ErrorMiddleware } from './middleware/error.middleware';
 import { AppRoutes } from './routes/routes'; // asegúrate de tener tu archivo de rutas
-import { TecnicoRoutes } from './routes/tecnico.routes';
 
 //Recordar
-import "./config/passport";
+//import "./config/passport";
 
 
 const rootDir = __dirname;

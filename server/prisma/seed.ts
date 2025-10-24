@@ -67,9 +67,11 @@ const main = async () => {
 
         // 7️⃣ Conectar especialidades a los técnicos
         const tecnicos = [
-            { id: 2, especialidades: [1, 2] }, // Técnico1: Redes, Software
-            { id: 3, especialidades: [3, 4] }, // Técnico2: Hardware, Correo
+            { id: 4, especialidades: [1, 2] }, // Técnico 1: Redes, Software
+            { id: 5, especialidades: [3] },    // Técnico 2: Hardware
+            { id: 6, especialidades: [4] },    // Técnico 3: Correo
         ];
+
 
         for (const tec of tecnicos) {
             await prisma.usuario.update({
@@ -88,7 +90,11 @@ const main = async () => {
             { titulo: "Problema con WiFi", descripcion: "El internet se desconecta", solicitanteId: 3, categoriaId: 1, status: TicketStatus.PENDING },
             { titulo: "Error Office", descripcion: "No puedo abrir Word", solicitanteId: 4, categoriaId: 2, status: TicketStatus.ASSIGNED },
             { titulo: "Impresora no funciona", descripcion: "La impresora del laboratorio no imprime", solicitanteId: 3, categoriaId: 2, status: TicketStatus.PENDING },
+            { titulo: "Falla en correo", descripcion: "No llegan los mensajes", solicitanteId: 4, categoriaId: 1, status: TicketStatus.ASSIGNED },
+            { titulo: "Red lenta", descripcion: "La red del edificio es muy lenta", solicitanteId: 3, categoriaId: 1, status: TicketStatus.PENDING },
+            { titulo: "Sin acceso al sistema", descripcion: "No puedo ingresar al sistema institucional", solicitanteId: 4, categoriaId: 2, status: TicketStatus.RESOLVED },
         ];
+
 
         for (const t of tickets) {
             await prisma.ticket.create({ data: t });
@@ -96,9 +102,16 @@ const main = async () => {
         console.log("✅ Tickets insertados");
 
         // 9️⃣ Asignaciones de tickets
+        // 9️⃣ Asignaciones actualizadas
         const asignaciones = [
-            { ticketId: 2, usuarioId: 2, metodo: "Manual", justificacion: "Asignado a Tecnico1" },
+            { ticketId: 2, usuarioId: 4, metodo: "Manual", justificacion: "Asignado a Técnico 1 por administrador" },
+            { ticketId: 3, usuarioId: 5, metodo: "Automático", justificacion: "Asignado automáticamente por disponibilidad" },
+            { ticketId: 4, usuarioId: 6, metodo: "Manual", justificacion: "Asignación manual del coordinador" },
+            { ticketId: 5, usuarioId: 4, metodo: "Automático", justificacion: "Técnico especializado en correo electrónico" },
+            { ticketId: 6, usuarioId: 5, metodo: "Manual", justificacion: "Asignado por experiencia previa" },
+            { ticketId: 7, usuarioId: 6, metodo: "Automático", justificacion: "Asignación automática basada en carga de trabajo" },
         ];
+
 
         for (const a of asignaciones) {
             await prisma.asignacion.create({ data: a });

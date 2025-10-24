@@ -5,7 +5,7 @@ import { CoreModule } from './core/core-module';
 import { ShareModule } from './share/share-module';
 import { HomeModule } from './home/home-module';
 import { UsuarioModule } from './usuario/usuario-module';
-import { TecnicoModule } from './tecnico/tecnico-module';
+//import { TecnicoModule } from './tecnicos/tecnico-module';
 import { CategoriaModule } from './categoria/categoria-module';
 import { TicketModule } from './ticket/ticket-module';
 import { AsignacionModule } from './asignacion/asignacion-module';
@@ -15,10 +15,12 @@ import { NgxSonnerToaster } from 'ngx-sonner';
 import { HTTP_INTERCEPTORS, provideHttpClient, withInterceptorsFromDi } from '@angular/common/http';
 import { HttpErrorInterceptorService } from './share/interceptor/http-error-interceptor.service';
 
+
 @NgModule({
   declarations: [
-    App
+    App,
   ],
+
   imports: [
     BrowserModule,
     AppRoutingModule,
@@ -26,7 +28,7 @@ import { HttpErrorInterceptorService } from './share/interceptor/http-error-inte
     ShareModule,
     HomeModule,
     UsuarioModule,
-    TecnicoModule,
+    //TecnicoModule,
     CategoriaModule,
     TicketModule,
     AsignacionModule,

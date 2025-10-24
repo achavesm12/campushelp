@@ -11,4 +11,10 @@ export const slas = [
         maxResolucionHrs: 24,
         prioridad: "MEDIUM",
     },
+    {
+        nombre: "Solicitudes generales",
+        maxRespuestaHrs: 12,
+        maxResolucionHrs: 48,
+        prioridad: "LOW",
+    }
 ];

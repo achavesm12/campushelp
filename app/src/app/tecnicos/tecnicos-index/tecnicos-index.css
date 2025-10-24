@@ -1,3 +1,4 @@
+/* ----- Contenedor general ----- */
 .grid-container {
     display: flex;
     flex-direction: column;
@@ -5,47 +6,127 @@
     padding: 1rem;
 }
 
-.filter {
-    background-color: #2a2550;
-    /* más oscuro para que contraste */
-    color: white;
-}
-
-.full-width {
-    width: 100%;
-}
-
+/* ----- Lista de tarjetas ----- */
 .product-list {
     display: flex;
     flex-wrap: wrap;
-    gap: 1rem;
+    gap: 1.5rem;
     margin-top: 1rem;
+    justify-content: center;
 }
 
+/* ----- Tarjeta individual ----- */
 .product-card {
-    width: 260px;
+    width: 280px;
+    max-width: 100%;
+    border-radius: 16px;
+    overflow: hidden;
+    transition: transform 0.2s ease-in-out, box-shadow 0.2s;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
 }
 
+.product-card:hover {
+    transform: scale(1.02);
+    box-shadow: 0 8px 20px rgba(0, 0, 0, 0.25);
+}
+
+/* ----- Estilo del mat-card ----- */
 mat-card {
-    background-color: #3a3360;
+    background: linear-gradient(135deg, #4d4c7d, #3a3360);
     color: white;
+    border-radius: 16px !important;
+    padding: 1.2rem;
+    position: relative;
+    box-shadow: 0 6px 16px rgba(0, 0, 0, 0.2);
+    transition: box-shadow 0.3s;
 }
 
-mat-form-field {
-    color: white;
+mat-card:hover {
+    box-shadow: 0 10px 24px rgba(0, 0, 0, 0.35);
 }
 
-.mat-form-field-wrapper,
-.mat-form-field-infix {
-    color: white;
+/* ----- Header (avatar + nombre) ----- */
+.card-header {
+    display: flex;
+    align-items: center;
+    gap: 0.8rem;
+    margin-bottom: 0.5rem;
 }
 
+.avatar {
+    width: 50px;
+    height: 50px;
+    background-color: #a699d8;
+    color: #fff;
+    font-weight: bold;
+    font-size: 1.4rem;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border-radius: 50%;
+    box-shadow: 0 0 8px rgba(255, 255, 255, 0.2);
+}
+
+.info h2 {
+    font-size: 1rem;
+    margin: 0;
+    font-weight: 600;
+}
+
+/* ----- Cuerpo de la tarjeta ----- */
+.card-body {
+    flex-grow: 1;
+}
+
+.card-body p {
+    margin: 0.4rem 0;
+    font-size: 0.95rem;
+}
+
+/* ----- Footer con el botón ----- */
+.card-footer {
+    display: flex;
+    justify-content: flex-end;
+    align-items: center;
+    margin-top: auto;
+}
+
+.card-footer button {
+    background-color: #827397;
+    border-radius: 12px;
+    box-shadow: 0 0 8px rgba(255, 255, 255, 0.3);
+    transition: background-color 0.2s, transform 0.2s;
+}
+
+.card-footer button:hover {
+    background-color: #a699d8;
+    transform: scale(1.1);
+}
+
+/* ----- Íconos ----- */
 .mat-icon {
     color: white !important;
 }
 
-.footer {
-    display: flex;
-    justify-content: end;
-    padding: 0.5rem;
+/* ----- Responsive para móviles ----- */
+@media (max-width: 600px) {
+    .product-card {
+        width: 90%;
+    }
+
+    .card-header {
+        flex-direction: row;
+        justify-content: center;
+        text-align: center;
+    }
+
+    .info h2 {
+        font-size: 1rem;
+    }
+
+    .footer {
+        justify-content: center;
+    }
 }

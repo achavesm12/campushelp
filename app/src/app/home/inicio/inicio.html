@@ -1,4 +1,32 @@
-<div class="inicio-container">
-    <h1>Bienvenido a CampusHelp</h1>
-    <p>Gestiona tus tickets, técnicos, categorías y mucho más desde este sistema.</p>
+<div class="home-container">
+    <div class="welcome-card">
+        <h1 class="title">👋 Bienvenido a <span>CampusHelp</span></h1>
+        <p class="subtitle">
+            Gestiona tus <strong>tickets</strong>, <strong>técnicos</strong> y
+            <strong>categorías</strong> desde una interfaz moderna y práctica.
+        </p>
+
+        <div class="shortcuts">
+            <!-- TARJETA TÉCNICOS -->
+            <mat-card class="shortcut-card" (click)="goTo('/tecnicos')">
+                <mat-icon>engineering</mat-icon>
+                <h3>Técnicos</h3>
+                <p>Consulta y gestiona el personal técnico del sistema.</p>
+            </mat-card>
+
+            <!-- TARJETA CATEGORÍAS -->
+            <mat-card class="shortcut-card" (click)="goTo('/categorias')">
+                <mat-icon>category</mat-icon>
+                <h3>Categorías</h3>
+                <p>Administra las categorías y sus SLA correspondientes.</p>
+            </mat-card>
+
+            <!-- TARJETA TICKETS -->
+            <mat-card class="shortcut-card" (click)="goTo('/tickets')">
+                <mat-icon>confirmation_number</mat-icon>
+                <h3>Tickets</h3>
+                <p>Visualiza y da seguimiento a los tickets registrados.</p>
+            </mat-card>
+        </div>
+    </div>
 </div>

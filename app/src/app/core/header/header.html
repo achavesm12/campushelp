@@ -1,14 +1,34 @@
 <header class="app-header">
     <div class="header-left">
-        <img src="assets/logo.png" alt="Logo Campus Help" class="logo">
-        <span class="title">CampusHelp</span>
+        <img src="logo.png" alt="Logo CampusHelp" class="logo">
     </div>
 
     <nav class="header-nav">
         <a routerLink="/inicio" routerLinkActive="active">Inicio</a>
-        <a routerLink="/tecnicos" routerLinkActive="active">Técnicos</a>
-        <a routerLink="/tickets" routerLinkActive="active">Tickets</a>
-        <a routerLink="/categorias" routerLinkActive="active">Categorías</a>        
+
+        <!-- MENÚ LISTAS -->
+        <button mat-button [matMenuTriggerFor]="menuListas">
+            Listas
+        </button>
+        <mat-menu #menuListas="matMenu">
+            <button mat-menu-item routerLink="/tecnicos">Técnicos</button>
+            <button mat-menu-item routerLink="/categorias">Categorías</button>
+            <button mat-menu-item routerLink="/tickets">Tickets</button>
+        </mat-menu>
+
+        <!-- MENÚ MANTENIMIENTOS -->
+        <button mat-button [matMenuTriggerFor]="menuMantenimientos">
+            Mantenimientos
+        </button>
+        <mat-menu #menuMantenimientos="matMenu">
+            <button mat-menu-item routerLink="/usuarios">Usuarios</button>
+            <button mat-menu-item routerLink="/configuracion">Configuración</button>
+        </mat-menu>
+
+
+
+
+        <!-- BOTÓN DE CERRAR SESIÓN -->
         <a routerLink="/login" class="logout">Cerrar sesión</a>
     </nav>
 </header>

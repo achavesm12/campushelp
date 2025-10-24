@@ -1,42 +1,115 @@
+/* ---------- HEADER PRINCIPAL ---------- */
 .app-header {
     display: flex;
     justify-content: space-between;
     align-items: center;
     background-color: #4d4c7d;
-    padding: 1rem 2rem;
+    padding: 0.75rem 2rem;
     color: white;
-    box-shadow: 0 2px 6px rgba(0, 0, 0, 0.2);
+    box-shadow: 0 2px 6px rgba(0, 0, 0, 0.25);
+    position: sticky;
+    top: 0;
+    z-index: 1000;
 }
 
+/* ---------- SECCIÓN IZQUIERDA ---------- */
 .header-left {
     display: flex;
     align-items: center;
+    gap: 0.75rem;
 }
 
 .logo {
-    height: 40px;
-    margin-right: 10px;
+    height: 45px;
+    width: 45px;
+    object-fit: contain;
+    border-radius: 10px;
+    background-color: transparent;
+    box-shadow: 0 0 4px rgba(255, 255, 255, 0.2);
 }
 
 .title {
-    font-size: 1.5rem;
+    font-size: 1.6rem;
     font-weight: 600;
+    letter-spacing: 0.5px;
 }
 
-.header-nav a {
-    margin-left: 20px;
+/* ---------- NAVEGACIÓN ---------- */
+.header-nav {
+    display: flex;
+    align-items: center;
+    gap: 1.6rem;
+}
+
+/* Enlaces y botones del header */
+.header-nav a,
+.header-nav button[mat-button] {
     text-decoration: none;
-    color: white;
-    transition: color 0.3s;
+    color: #f0f0f0;
+    transition: color 0.25s ease-in-out;
+    font-weight: 500;
+    text-transform: none;
+    background: none;
+    border: none;
+    cursor: pointer;
 }
 
 .header-nav a:hover,
+.header-nav button[mat-button]:hover,
 .header-nav a.active {
     color: #e9d5da;
 }
 
+/* ---------- BOTÓN DE CERRAR SESIÓN ---------- */
 .logout {
     background-color: #827397;
-    padding: 6px 12px;
-    border-radius: 6px;
+    padding: 6px 14px;
+    border-radius: 8px;
+    font-weight: 500;
+    color: #fff !important;
+    text-decoration: none;
+    transition: background-color 0.25s ease-in-out, transform 0.1s;
+}
+
+.logout:hover {
+    background-color: #a699d8;
+    transform: scale(1.03);
+}
+
+/* ---------- MENÚ MATERIAL ---------- */
+.mat-mdc-menu-panel {
+    background: linear-gradient(135deg, #4d4c7d, #3a3360) !important;
+    color: white !important;
+    border-radius: 10px !important;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.4) !important;
+    backdrop-filter: blur(10px);
+}
+
+.mat-mdc-menu-item {
+    color: white !important;
+    font-weight: 500 !important;
+    font-size: 0.95rem;
+    letter-spacing: 0.3px;
+    transition: background-color 0.2s ease;
+}
+
+.mat-mdc-menu-item:hover {
+    background-color: rgba(166, 153, 216, 0.25) !important;
+}
+
+/* ---------- ANIMACIÓN SUAVE DE APARICIÓN ---------- */
+.mat-mdc-menu-panel {
+    animation: fadeIn 0.2s ease-in-out;
+}
+
+@keyframes fadeIn {
+    from {
+        opacity: 0;
+        transform: translateY(-5px);
+    }
+
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
 }

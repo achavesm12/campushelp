@@ -1,0 +1,106 @@
+.page-not-found-container {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    min-height: calc(100vh - 80px);
+    background-color: #2a2550;
+    color: white;
+    padding: 2rem;
+}
+
+.grid-container {
+    max-width: 1000px;
+    width: 100%;
+    background: linear-gradient(135deg, #4d4c7d, #3a3360);
+    border-radius: 20px;
+    box-shadow: 0 8px 25px rgba(0, 0, 0, 0.3);
+    overflow: hidden;
+}
+
+/* ---------- SECCIÓN DE IMAGEN ---------- */
+.image-section {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    padding: 2rem;
+}
+
+.image-section img {
+    max-width: 80%;
+    height: auto;
+    object-fit: contain;
+    border-radius: 12px;
+    transition: transform 0.3s ease;
+}
+
+.image-section img:hover {
+    transform: scale(1.03);
+}
+
+/* ---------- SECCIÓN DE MENSAJE ---------- */
+.message-section {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: flex-start;
+    padding: 2rem 3rem;
+}
+
+.error-code {
+    font-size: 3.5rem;
+    font-weight: bold;
+    margin-bottom: 0.5rem;
+    color: #ffffff;
+}
+
+.error-title {
+    font-size: 1.8rem;
+    font-weight: 600;
+    margin-bottom: 0.5rem;
+    color: #d3cce3;
+}
+
+.error-text {
+    font-size: 1rem;
+    margin-bottom: 1.5rem;
+    color: #f0f0f0;
+    line-height: 1.5;
+}
+
+.btn-primary {
+    color: white !important;
+    border-color: #a699d8 !important;
+    transition: all 0.2s ease;
+}
+
+.btn-primary:hover {
+    background-color: #a699d8 !important;
+    color: #2a2550 !important;
+}
+
+/* ---------- RESPONSIVE ---------- */
+@media (max-width: 900px) {
+    .grid-container {
+        display: flex;
+        flex-direction: column;
+        text-align: center;
+    }
+
+    .image-section img {
+        max-width: 65%;
+        margin-bottom: 1.5rem;
+    }
+
+    .message-section {
+        align-items: center;
+        padding: 1.5rem;
+    }
+
+    .error-code {
+        font-size: 2.5rem;
+    }
+
+    .error-title {
+        font-size: 1.4rem;
+    }
+}

@@ -1,0 +1,32 @@
+<div class="grid-container">
+
+    @if(datos().length > 0) {
+    <div class="product-list">
+        @for (item of datos(); track item.id) {
+        <div class="product-card">
+            <mat-card appearance="outlined">
+                <mat-card-header class="secondary-title title">
+                    <mat-card-title>{{ item.nombre }}</mat-card-title>
+                </mat-card-header>
+
+                <mat-card-content class="content">
+                    <div><strong>Etiquetas:</strong> {{ item.etiquetas.length }}</div>
+                    <div><strong>Especialidades:</strong> {{ item.especialidades.length }}</div>
+                </mat-card-content>
+
+                <mat-card-footer class="footer">
+                    <button matMiniFab matTooltip="Detalle Categoría" aria-label="Detalle Categoría" class="bg-primary"
+                        (click)="detalle(item.id)">
+                        <mat-icon class="mat-18">info</mat-icon>
+                    </button>
+                </mat-card-footer>
+            </mat-card>
+        </div>
+        }
+    </div>
+    } @else {
+    <div>
+        <p>No se encontraron categorías registradas.</p>
+    </div>
+    }
+</div>

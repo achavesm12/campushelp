@@ -25,7 +25,14 @@ export class CategoriaController {
                             nombre: true,
                         },
                     },
+                    etiquetas: {
+                        select: {
+                            id: true,
+                            nombre: true,
+                        },
+                    },
                 },
+
                 orderBy: { nombre: 'asc' },
             });
 

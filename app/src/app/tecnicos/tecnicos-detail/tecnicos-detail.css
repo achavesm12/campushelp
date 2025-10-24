@@ -13,7 +13,15 @@
     margin-right: 5px;
     margin-bottom: 5px;
     font-size: 14px;
-    background-color: #ffffff22; /* un fondo blanco translúcido */
-    color: #ffffff;              /* texto blanco para mejor contraste */
-    border: 1px solid #ffffff33; /* borde sutil */
+    background-color: #ffffff22;
+    /* un fondo blanco translúcido */
+    color: #ffffff;
+    /* texto blanco para mejor contraste */
+    border: 1px solid #ffffff33;
+    /* borde sutil */
+}
+
+mat-card-actions {
+    display: flex;
+    justify-content: flex-end;
 }

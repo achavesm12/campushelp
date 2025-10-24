@@ -1,0 +1,55 @@
+@if(categoria()) {
+<mat-card class="detail-card" appearance="outlined">
+    <mat-card-header class="card-header-secondary">
+        <mat-card-title-group>
+            <mat-card-title>{{ categoria()?.nombre }}</mat-card-title>
+            <mat-card-subtitle>
+                SLA: {{ categoria()?.sla?.nombre }}
+            </mat-card-subtitle>
+        </mat-card-title-group>
+    </mat-card-header>
+
+    <mat-card-content class="detail-content">
+        <p>
+            <strong>Tiempo máx. de respuesta:</strong>
+            {{ categoria()?.sla?.maxRespuestaHrs }} horas
+        </p>
+        <p>
+            <strong>Tiempo máx. de resolución:</strong>
+            {{ categoria()?.sla?.maxResolucionHrs }} horas
+        </p>
+
+        <div>
+            <p><strong>Etiquetas:</strong></p>
+            <mat-chip-listbox aria-label="Etiquetas">
+                @for (item of categoria()?.etiquetas; track $index) {
+                <mat-chip-option class="chip-secondary">
+                    {{ item.nombre }}
+                </mat-chip-option>
+                }
+            </mat-chip-listbox>
+        </div>
+
+        <div>
+            <p><strong>Especialidades:</strong></p>
+            <mat-chip-listbox aria-label="Especialidades">
+                @for (item of categoria()?.especialidades; track $index) {
+                <mat-chip-option class="chip-secondary">
+                    {{ item.nombre }}
+                </mat-chip-option>
+                }
+            </mat-chip-listbox>
+        </div>
+    </mat-card-content>
+
+    <mat-card-actions>
+        <button mat-button class="bg-primary" (click)="goBack()">Regresar</button>
+    </mat-card-actions>
+</mat-card>
+}
+
+@else {
+<mat-card-content>
+    <p class="mat-body text">Categoría no encontrada</p>
+</mat-card-content>
+}

@@ -1,0 +1,51 @@
+.grid-container {
+    display: flex;
+    flex-direction: column;
+    gap: 1rem;
+    padding: 1rem;
+}
+
+.filter {
+    background-color: #2a2550;
+    /* más oscuro para que contraste */
+    color: white;
+}
+
+.full-width {
+    width: 100%;
+}
+
+.product-list {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 1rem;
+    margin-top: 1rem;
+}
+
+.product-card {
+    width: 260px;
+}
+
+mat-card {
+    background-color: #3a3360;
+    color: white;
+}
+
+mat-form-field {
+    color: white;
+}
+
+.mat-form-field-wrapper,
+.mat-form-field-infix {
+    color: white;
+}
+
+.mat-icon {
+    color: white !important;
+}
+
+.footer {
+    display: flex;
+    justify-content: end;
+    padding: 0.5rem;
+}

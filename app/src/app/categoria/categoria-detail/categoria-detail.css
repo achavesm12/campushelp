@@ -1,0 +1,32 @@
+.detail-card {
+    margin: 2rem auto;
+    max-width: 600px;
+    padding: 1rem;
+    background-color: #3a3360;
+    color: white;
+}
+
+.detail-content p {
+    margin: 0.5rem 0;
+}
+
+mat-card-title,
+mat-card-subtitle {
+    color: white;
+}
+
+mat-chip {
+    margin: 0.3rem;
+    background-color: #2a2550;
+    color: white;
+}
+
+mat-chip-option {
+    border-radius: 10px;
+    border: 1px solid white;
+}
+
+mat-card-actions {
+    display: flex;
+    justify-content: flex-end;
+}

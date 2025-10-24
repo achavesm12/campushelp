@@ -9,7 +9,7 @@ export class AppRoutes {
         
         // ----Agregar las rutas----
         router.use('/tecnico', TecnicoRoutes.routes)
-        router.use('/categoria', CategoriaRoutes.routes)
+        router.use('/categorias', CategoriaRoutes.routes)
         router.use('/ticket', TicketRoutes.routes)
         
         

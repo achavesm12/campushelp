@@ -5,8 +5,8 @@ import { CoreModule } from './core/core-module';
 import { ShareModule } from './share/share-module';
 import { HomeModule } from './home/home-module';
 import { UsuarioModule } from './usuario/usuario-module';
-//import { TecnicoModule } from './tecnicos/tecnico-module';
-import { CategoriaModule } from './categoria/categoria-module';
+import { TecnicoModule } from './tecnicos/tecnico-module';
+//import { CategoriaModule } from './categoria/categoria-module';
 import { TicketModule } from './ticket/ticket-module';
 import { AsignacionModule } from './asignacion/asignacion-module';
 import { AppRoutingModule } from './app-routing-module';
@@ -28,8 +28,8 @@ import { HttpErrorInterceptorService } from './share/interceptor/http-error-inte
     ShareModule,
     HomeModule,
     UsuarioModule,
-    //TecnicoModule,
-    CategoriaModule,
+    TecnicoModule,
+   // CategoriaModule,
     TicketModule,
     AsignacionModule,
     NgxSonnerToaster

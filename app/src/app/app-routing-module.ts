@@ -10,6 +10,12 @@ const routes: Routes = [
     loadChildren: () =>
       import('./tecnicos/tecnico-module').then(m => m.TecnicoModule)
   },
+  {
+    path: 'categorias',
+    loadChildren: () =>
+      import('./categoria/categoria-module').then(m => m.CategoriaModule)
+  },
+
   { path: '', redirectTo: '/inicio', pathMatch: 'full' },
   { path: '**', component: PageNotFound }
 

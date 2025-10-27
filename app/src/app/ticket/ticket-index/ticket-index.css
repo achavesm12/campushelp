@@ -1,0 +1,87 @@
+.ticket-container {
+    display: flex;
+    flex-direction: column;
+    gap: 1rem;
+    padding: 1rem;
+}
+
+.ticket-item {
+    display: flex;
+    flex-direction: column;
+    padding: 1rem;
+    background: #1e1e3f;
+    border-left: 6px solid #4D4C7D;
+    color: white;
+    border-radius: 12px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.3);
+}
+
+.ticket-header {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+}
+
+.ticket-avatar {
+    width: 45px;
+    height: 45px;
+    background: #4D4C7D;
+    color: white;
+    font-weight: bold;
+    font-size: 1.5rem;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border-radius: 50%;
+    margin-right: 1rem;
+}
+
+.ticket-title {
+    flex: 1;
+}
+
+.ticket-title h3 {
+    margin: 0;
+    font-size: 1.2rem;
+    color: #ffffff;
+}
+
+.status-chip {
+    font-size: 0.8rem;
+    padding: 4px 8px;
+    border-radius: 6px;
+    text-transform: uppercase;
+    font-weight: bold;
+    margin-top: 4px;
+    display: inline-block;
+}
+
+.status-chip.pending {
+    background-color: #ffc107;
+    color: #000;
+}
+
+.status-chip.assigned {
+    background-color: #2196f3;
+    color: white;
+}
+
+.status-chip.in_progress {
+    background-color: #17a2b8;
+    color: white;
+}
+
+.status-chip.resolved {
+    background-color: #28a745;
+    color: white;
+}
+
+.status-chip.closed {
+    background-color: #6c757d;
+    color: white;
+}
+
+.ticket-body {
+    margin-top: 0.75rem;
+    font-size: 0.95rem;
+}

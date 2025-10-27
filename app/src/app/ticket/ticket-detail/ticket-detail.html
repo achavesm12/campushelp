@@ -1,1 +1,65 @@
-<p>ticket-detail works!</p>
+@if(ticket()) {
+<div class="detail-container">
+    <mat-card class="detail-card">
+
+        <!-- ENCABEZADO -->
+        <div class="detail-header">
+            <div class="avatar">{{ ticket()?.titulo?.charAt(0) || '?' }}</div>
+            <div class="info">
+                <h2>{{ ticket()?.titulo }}</h2>
+                <div class="estado-badge">
+                    <span class="badge" [ngClass]="ticket()?.status?.toLowerCase()">
+                        {{ ticket()?.status }}
+                    </span>
+                </div>
+            </div>
+        </div>
+
+        <div class="divider"></div>
+
+        <!-- INFORMACIÓN GENERAL -->
+        <div class="detail-body">
+            <p><strong>Descripción:</strong> {{ ticket()?.descripcion }}</p>
+            <p><strong>Fecha de creación:</strong> {{ ticket()?.createdAt | date:'medium' }}</p>
+            <p><strong>Solicitante:</strong> {{ ticket()?.solicitante?.nombre }}</p>
+            <p><strong>Categoría:</strong> {{ ticket()?.categoria?.nombre }}</p>
+            <p><strong>Prioridad:</strong> {{ ticket()?.categoria?.sla?.prioridad }}</p>
+        </div>
+
+        <div class="divider"></div>
+
+        <!-- SLA Y CUMPLIMIENTO -->
+        <div class="sla-section">
+            <p><strong>Días de resolución:</strong> {{ ticket()?.diasResolucion }}</p>
+            <p><strong>SLA de Respuesta:</strong> {{ ticket()?.categoria?.sla?.maxRespuestaHrs }} hora(s)</p>
+            <p><strong>SLA de Resolución:</strong> {{ ticket()?.categoria?.sla?.maxResolucionHrs }} hora(s)</p>
+        </div>
+
+        <div class="cumplimiento-section">
+            <p>
+                <strong>Cumplimiento de respuesta:</strong>
+                <span [ngClass]="
+                ticket()?.cumplioRespuesta === true ? 'cumple' : ticket()?.cumplioRespuesta === false ? 'no-cumple' : 'sin-dato'">
+                    {{ ticket()?.cumplioRespuesta === true ? '✔️ Cumplido' : ticket()?.cumplioRespuesta === false ? 'No cumplido' : 'Sin datos' }}
+                </span>
+            </p>
+            <p>
+                <strong>Cumplimiento de resolución:</strong>
+                <span [ngClass]="
+                ticket()?.cumplioResolucion === true ? 'cumple' : ticket()?.cumplioResolucion === false ? 'no-cumple' : 'sin-dato'">
+                    {{ ticket()?.cumplioResolucion === true ? '✔️ Cumplido' : ticket()?.cumplioResolucion === false ? 'No cumplido' : 'Sin datos' }}
+                </span>
+            </p>
+        </div>
+
+        <!-- PIE -->
+        <div class="detail-footer">
+            <button mat-stroked-button color="accent" (click)="goBack()">Regresar</button>
+        </div>
+    </mat-card>
+</div>
+} @else {
+<mat-card-content>
+    <p class="mat-body text">Ticket no encontrado</p>
+</mat-card-content>
+}

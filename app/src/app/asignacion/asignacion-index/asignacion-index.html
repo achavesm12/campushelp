@@ -1,0 +1,69 @@
+<div class="grid-container">
+    @if (datos().length > 0) {
+
+    <!-- Agrupación por día -->
+    @for (dia of diasUnicos(datos()); track dia) {
+    <div class="dia-header">
+        <h2>{{ dia | titlecase }}</h2>
+    </div>
+
+    <div class="asignacion-list">
+        @for (item of filtrarPorDia(dia); track item.id) {
+        <div class="asignacion-card" [ngClass]="estadoColor(item.estado)">
+            <mat-card class="asignacion-mat-card">
+
+                <!-- Cabecera -->
+                <div class="card-header">
+                    <mat-icon class="icono-categoria">
+                        {{
+                        item.categoria === 'Soporte de Red' ? 'wifi' :
+                        item.categoria === 'Soporte de Hardware' ? 'memory' :
+                        item.categoria === 'Soporte de Software' ? 'code' :
+                        item.categoria === 'Correo Institucional' ? 'email' :
+                        item.categoria.includes('VPN') ? 'vpn_key' :
+                        'assignment'
+                        }}
+                    </mat-icon>
+                    <div class="info">
+                        <h3>{{ item.titulo }}</h3>
+                        <p class="categoria">{{ item.categoria }}</p>
+                    </div>
+                </div>
+
+                <!-- Cuerpo -->
+                <div class="card-body">
+                    <p><strong>ID:</strong> {{ item.id }}</p>
+                    <p><strong>Estado:</strong> {{ item.estado }}</p>
+                    <p><strong>Técnico:</strong> {{ item.tecnico }}</p>
+                    <p><strong>Tiempo restante SLA:</strong> {{ item.slaRestanteHoras }} h</p>
+
+                    <!-- Barra de SLA -->
+                    <mat-progress-bar mode="determinate" [value]="calcularSLAProgreso(item.slaRestanteHoras)"
+                        color="accent">
+                    </mat-progress-bar>
+                </div>
+
+                <!-- Footer con acciones -->
+                <div class="card-footer acciones-rapidas">
+                    <button mat-icon-button matTooltip="Ver detalle del ticket" (click)="verDetalle(item.id)">
+                        <mat-icon>info</mat-icon>
+                    </button>
+                    <button mat-icon-button matTooltip="Cambiar estado (no funcional)">
+                        <mat-icon>sync</mat-icon>
+                    </button>
+                    <button mat-icon-button matTooltip="Agregar comentario (no funcional)">
+                        <mat-icon>comment</mat-icon>
+                    </button>
+                </div>
+
+            </mat-card>
+        </div>
+        }
+    </div>
+    }
+    } @else {
+    <div>
+        <p>No hay asignaciones registradas.</p>
+    </div>
+    }
+</div>

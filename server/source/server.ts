@@ -9,7 +9,6 @@ import { AppRoutes } from './routes/routes'; // asegúrate de tener tu archivo d
 //Recordar
 //import "./config/passport";
 
-
 const rootDir = __dirname;
 
 const app: Express = express()

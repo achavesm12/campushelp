@@ -12,82 +12,62 @@ export class TicketController {
             const role = (request.query.role as Role) || Role.ADMIN;
             let tickets;
 
-            //Filtro según el rol
-            if (role === Role.ADMIN) { //el admin ve todos los tickets
+            if (role === Role.ADMIN) {
+                // Todos los tickets
                 tickets = await this.prisma.ticket.findMany({
                     select: {
                         id: true,
                         titulo: true,
                         status: true,
-                        categoria: {
-                            select: {
-                                nombre: true
-                            }
-                        },
-                        solicitante: {
-                            select: {
-                                nombre: true
-                            }
-                        },
+                        categoria: { select: { nombre: true } },
+                        solicitante: { select: { id: true, nombre: true } },
                     },
-                    orderBy: {
-                        id: "asc"
-                    },
+                    orderBy: { id: 'asc' },
                 });
-            } else if (role === Role.CLIENT) { //solo los creados por él
+
+            } else if (role === Role.CLIENT) {
+                // Solo los creados por este usuario
                 tickets = await this.prisma.ticket.findMany({
-                    where: {
-                        solicitanteId: idUsuario
-                    },
+                    where: { solicitanteId: idUsuario },
                     select: {
                         id: true,
                         titulo: true,
                         status: true,
-                        categoria: {
-                            select: {
-                                nombre: true
-                            }
-                        },
+                        categoria: { select: { nombre: true } },
+                        solicitante: { select: { id: true, nombre: true } },
                     },
-                    orderBy: {
-                        id: "asc"
-                    },
+                    orderBy: { id: 'asc' },
                 });
 
             } else if (role === Role.TECH) {
-                tickets = await this.prisma.ticket.findMany({
-                    where: {
-                        asignacion: {
-                            usuarioId: idUsuario
-                        }
-                    },
-                    select: {
-                        id: true,
-                        titulo: true,
-                        status: true,
-                        categoria: {
-                            select: {
-                                nombre: true
-                            }
-                        },
-                        solicitante: {
-                            select: {
-                                nombre: true
-                            }
-                        },
-                    },
-                    orderBy: { id: "asc" },
+                // Buscar asignaciones de este técnico
+                const asignaciones = await this.prisma.asignacion.findMany({
+                    where: { usuarioId: idUsuario },
+                    select: { ticketId: true }
                 });
+
+                const ticketIds = asignaciones.map(a => a.ticketId);
+
+                tickets = await this.prisma.ticket.findMany({
+                    where: { id: { in: ticketIds } },
+                    include: {
+                        categoria: { select: { nombre: true } },
+                        solicitante: { select: { id: true, nombre: true } },
+                        asignacion: { select: { usuarioId: true } }
+                    },
+                    orderBy: { id: 'asc' }
+                });
+
             } else {
                 return next(AppError.badRequest("Rol inválido"));
             }
 
-            response.status(200).json(tickets);
-        }
-        catch (error) {
-            next(error)
+            return response.status(200).json(tickets);
+        } catch (error) {
+            next(error);
         }
     }
+
 
     getById = async (request: Request, response: Response, next: NextFunction) => {
         try {
@@ -154,10 +134,23 @@ export class TicketController {
             const fechaPrimerRespuesta = tickets.historial?.[0]?.createdAt;
 
             //verificar que la primera respuesta llegó a tiempo según el sla
-            const cumplioRespuesta = fechaPrimerRespuesta ? fechaPrimerRespuesta <= fechaLimiteRespuesta : false;
+            const cumplioRespuesta = fechaPrimerRespuesta ? fechaPrimerRespuesta <= fechaLimiteRespuesta : null;
 
             //verificar si el ticket se cerró a tiempo según el sla
-            const cumplioResolucion = tickets.closedAt ? tickets.closedAt <= fechaLimiteResolucion : false;
+            const cumplioResolucion = tickets.closedAt ? tickets.closedAt <= fechaLimiteResolucion : null;
+
+            console.log('==== DEBUG SLA ====');
+            console.log('Título:', tickets.titulo);
+            console.log('Estado:', tickets.status);
+            console.log('Fecha creación:', fechaCreacion);
+            console.log('Fecha cierre:', fechaCierre);
+            console.log('Fecha límite respuesta:', fechaLimiteRespuesta);
+            console.log('Fecha límite resolución:', fechaLimiteResolucion);
+            console.log('Fecha primer respuesta:', fechaPrimerRespuesta);
+            console.log('Cumplió respuesta:', cumplioRespuesta);
+            console.log('Cumplió resolución:', cumplioResolucion);
+            console.log('====================');
+
 
             // objeto con todos los campos
             const ticketDetalle = {
@@ -169,7 +162,7 @@ export class TicketController {
                 cumplioResolucion           //booleano si el ticket se cerró a tiempo
             };
 
-            return response.status(200).json({ data: ticketDetalle });
+            return response.status(200).json(ticketDetalle);
         }
         catch (error) {
             next(error);

@@ -1,0 +1,118 @@
+.detail-container {
+    display: flex;
+    justify-content: center;
+    padding: 1rem;
+}
+
+.detail-card {
+    width: 100%;
+    max-width: 800px;
+    padding: 1.5rem;
+    background-color: #1e1a3d;
+    color: #ffffff;
+}
+
+.detail-header {
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+}
+
+.avatar {
+    background-color: #4D4C7D;
+    color: white;
+    font-size: 1.6rem;
+    font-weight: bold;
+    width: 50px;
+    height: 50px;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.info h2 {
+    margin: 0;
+    font-size: 1.5rem;
+}
+
+.estado-badge {
+    margin-top: 0.3rem;
+}
+
+.badge {
+    padding: 0.2rem 0.6rem;
+    border-radius: 0.5rem;
+    font-size: 0.9rem;
+    font-weight: 600;
+    display: inline-block;
+}
+
+.badge.assigned {
+    background-color: #2196f3;
+    color: #fff;
+}
+
+.badge.pending {
+    background-color: #ff9800;
+    color: #fff;
+}
+
+.badge.in_progress {
+    background-color: #00bcd4;
+    color: #fff;
+}
+
+.badge.resolved {
+    background-color: #4caf50;
+    color: #fff;
+}
+
+.badge.closed {
+    background-color: #9e9e9e;
+    color: #fff;
+}
+
+.divider {
+    border-bottom: 1px solid #ccc;
+    margin: 1.2rem 0;
+}
+
+.detail-body p,
+.sla-section p,
+.cumplimiento-section p {
+    margin: 0.5rem 0;
+}
+
+.cumple {
+    color: #4caf50;
+    font-weight: bold;
+}
+
+.no-cumple {
+    color: #f44336;
+    font-weight: bold;
+}
+
+.detail-footer {
+    margin-top: 1.5rem;
+    text-align: right;
+}
+
+.cumple {
+    color: #4CAF50;
+    /* verde */
+    font-weight: bold;
+}
+
+.no-cumple {
+    color: #F44336;
+    /* rojo */
+    font-weight: bold;
+}
+
+.sin-dato {
+    color: #999;
+    /* gris neutro */
+    font-style: italic;
+}

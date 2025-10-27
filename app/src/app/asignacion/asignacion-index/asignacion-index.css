@@ -1,0 +1,109 @@
+.grid-container {
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 1rem;
+}
+
+.dia-header {
+    margin-top: 1.5rem;
+    margin-bottom: 0.5rem;
+    font-weight: 600;
+    font-size: 1.4rem;
+    color: #b3a7ff;
+    padding-left: 0.5rem;
+    border-bottom: 1px solid #5c5c88;
+}
+
+.asignacion-list {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 1rem;
+    padding-left: 0.5rem;
+}
+
+.asignacion-card {
+    width: 260px;
+    border-radius: 1rem;
+}
+
+.asignacion-mat-card {
+    padding: 1rem;
+    border-radius: 1rem;
+    background-color: #2f2b4f;
+    box-shadow: 0 2px 6px rgba(0, 0, 0, 0.3);
+    height: 100%;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+}
+
+/* Cabecera */
+.card-header {
+    display: flex;
+    align-items: center;
+    margin-bottom: 0.5rem;
+}
+
+.icono-categoria {
+    font-size: 26px;
+    margin-right: 10px;
+    color: #90caf9;
+}
+
+.info h3 {
+    margin: 0;
+    font-size: 1rem;
+    font-weight: bold;
+}
+
+.info .categoria {
+    margin: 0;
+    font-size: 0.85rem;
+    color: #ccc;
+}
+
+/* Cuerpo */
+.card-body p {
+    margin: 4px 0;
+    font-size: 0.85rem;
+    color: #e0e0e0;
+}
+
+.card-body strong {
+    color: #ffffff;
+}
+
+mat-progress-bar {
+    height: 4px;
+    margin-top: 0.4rem;
+    margin-bottom: 0.8rem;
+}
+
+/* Footer */
+.card-footer {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-top: auto;
+}
+
+/* Estados de color */
+.estado-pendiente {
+    border-left: 4px solid #f44336;
+}
+
+.estado-asignado {
+    border-left: 4px solid #ff9800;
+}
+
+.estado-enprogreso {
+    border-left: 4px solid #2196f3;
+}
+
+.estado-resuelto {
+    border-left: 4px solid #4caf50;
+}
+
+.estado-cerrado {
+    border-left: 4px solid #9e9e9e;
+}

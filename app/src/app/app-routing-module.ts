@@ -15,10 +15,19 @@ const routes: Routes = [
     loadChildren: () =>
       import('./categoria/categoria-module').then(m => m.CategoriaModule)
   },
+  {
+    path: 'tickets',
+    loadChildren: () =>
+      import('./ticket/ticket-module').then(m => m.TicketModule)
+  },
+  {
+  path: 'asignaciones',
+  loadChildren: () =>
+    import('./asignacion/asignacion-module').then(m => m.AsignacionModule)
+},
 
   { path: '', redirectTo: '/inicio', pathMatch: 'full' },
   { path: '**', component: PageNotFound }
-
 ];
 
 @NgModule({

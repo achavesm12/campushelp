@@ -49,7 +49,7 @@ const main = async () => {
         });
         console.log("✅ Categorías insertadas");
 
-        // 6️⃣ Conectar especialidades y etiquetas a cada categoría
+        // 6️⃣ Relaciones
         for (const cat of categorias) {
             await prisma.categoria.update({
                 where: { nombre: cat.nombre },
@@ -63,15 +63,14 @@ const main = async () => {
                 },
             });
         }
-        console.log("✅ Relaciones entre categorías, especialidades y etiquetas creadas");
+        console.log("✅ Relaciones creadas");
 
-        // 7️⃣ Conectar especialidades a los técnicos
+        // 7️⃣ Asignar especialidades a técnicos
         const tecnicos = [
-            { id: 4, especialidades: [1, 2] }, // Técnico 1: Redes, Software
-            { id: 5, especialidades: [3] },    // Técnico 2: Hardware
-            { id: 6, especialidades: [4] },    // Técnico 3: Correo
+            { id: 4, especialidades: [1, 2] },
+            { id: 5, especialidades: [3] },
+            { id: 6, especialidades: [4] },
         ];
-
 
         for (const tec of tecnicos) {
             await prisma.usuario.update({
@@ -83,35 +82,117 @@ const main = async () => {
                 },
             });
         }
-        console.log("✅ Especialidades asignadas a todos los técnicos");
+        console.log("✅ Especialidades asignadas a técnicos");
 
-        // 8️⃣ Tickets de prueba usando enum TicketStatus
+        // 8️⃣ Tickets con todos los estados
         const tickets = [
-            { titulo: "Problema con WiFi", descripcion: "El internet se desconecta", solicitanteId: 3, categoriaId: 1, status: TicketStatus.PENDING },
-            { titulo: "Error Office", descripcion: "No puedo abrir Word", solicitanteId: 4, categoriaId: 2, status: TicketStatus.ASSIGNED },
-            { titulo: "Impresora no funciona", descripcion: "La impresora del laboratorio no imprime", solicitanteId: 3, categoriaId: 2, status: TicketStatus.PENDING },
-            { titulo: "Falla en correo", descripcion: "No llegan los mensajes", solicitanteId: 4, categoriaId: 1, status: TicketStatus.ASSIGNED },
-            { titulo: "Red lenta", descripcion: "La red del edificio es muy lenta", solicitanteId: 3, categoriaId: 1, status: TicketStatus.PENDING },
-            { titulo: "Sin acceso al sistema", descripcion: "No puedo ingresar al sistema institucional", solicitanteId: 4, categoriaId: 2, status: TicketStatus.RESOLVED },
+            {
+                id: 1,
+                titulo: "Problema con WiFi",
+                descripcion: "El internet se desconecta constantemente",
+                solicitanteId: 3,
+                categoriaId: 1,
+                status: TicketStatus.ASSIGNED,
+                createdAt: new Date("2025-10-31T09:00:00"),
+            },
+            {
+                id: 2,
+                titulo: "Error Office",
+                descripcion: "No puedo abrir Microsoft Word",
+                solicitanteId: 4,
+                categoriaId: 3,
+                status: TicketStatus.ASSIGNED,
+                createdAt: new Date("2025-10-25T08:00:00"),
+            },
+            {
+                id: 3,
+                titulo: "Impresora no funciona",
+                descripcion: "La impresora del laboratorio no imprime",
+                solicitanteId: 5,
+                categoriaId: 2,
+                status: TicketStatus.IN_PROGRESS,
+                createdAt: new Date("2025-10-26T08:00:00"),
+            },
+            {
+                id: 4,
+                titulo: "Problemas de acceso a correo",
+                descripcion: "No puedo ingresar a mi correo institucional",
+                solicitanteId: 3,
+                categoriaId: 4,
+                status: TicketStatus.RESOLVED,
+                createdAt: new Date("2025-10-27T08:00:00"),
+            },
+            {
+                id: 5,
+                titulo: "Solicito acceso al sistema académico",
+                descripcion: "No tengo permisos para ingresar",
+                solicitanteId: 4,
+                categoriaId: 5,
+                status: TicketStatus.CLOSED,
+                createdAt: new Date("2025-10-28T08:00:00"),
+                closedAt: new Date("2025-10-28T13:00:00"),
+            },
+            {
+                id: 6,
+                titulo: "VPN no se conecta",
+                descripcion: "VPN falla actualización",
+                solicitanteId: 5,
+                categoriaId: 1,
+                status: TicketStatus.PENDING,
+                createdAt: new Date("2025-10-28T14:00:00"),
+            }
         ];
-
 
         for (const t of tickets) {
             await prisma.ticket.create({ data: t });
         }
         console.log("✅ Tickets insertados");
 
-        // 9️⃣ Asignaciones de tickets
-        // 9️⃣ Asignaciones actualizadas
+        // 9️⃣ Asignaciones
         const asignaciones = [
-            { ticketId: 2, usuarioId: 4, metodo: "Manual", justificacion: "Asignado a Técnico 1 por administrador" },
-            { ticketId: 3, usuarioId: 5, metodo: "Automático", justificacion: "Asignado automáticamente por disponibilidad" },
-            { ticketId: 4, usuarioId: 6, metodo: "Manual", justificacion: "Asignación manual del coordinador" },
-            { ticketId: 5, usuarioId: 4, metodo: "Automático", justificacion: "Técnico especializado en correo electrónico" },
-            { ticketId: 6, usuarioId: 5, metodo: "Manual", justificacion: "Asignado por experiencia previa" },
-            { ticketId: 7, usuarioId: 6, metodo: "Automático", justificacion: "Asignación automática basada en carga de trabajo" },
+            {
+                ticketId: 1,
+                usuarioId: 6,
+                metodo: "Manual",
+                justificacion: "Asignado como ejemplo adicional",
+                createdAt: new Date("2025-10-31T09:00:00Z"),
+            },
+            {
+                ticketId: 2,
+                usuarioId: 4,
+                metodo: "Manual",
+                justificacion: "Asignado a Técnico 1 por administrador",
+                createdAt: new Date("2025-10-25T08:00:00Z"),
+            },
+            {
+                ticketId: 3,
+                usuarioId: 5,
+                metodo: "Automático",
+                justificacion: "Asignado automáticamente por disponibilidad",
+                createdAt: new Date("2025-10-26T08:00:00Z"),
+            },
+            {
+                ticketId: 4,
+                usuarioId: 6,
+                metodo: "Manual",
+                justificacion: "Asignación manual del coordinador",
+                createdAt: new Date("2025-10-27T08:00:00Z"),
+            },
+            {
+                ticketId: 5,
+                usuarioId: 4,
+                metodo: "Automático",
+                justificacion: "Técnico especializado en correo electrónico",
+                createdAt: new Date("2025-10-28T08:00:00Z"),
+            },
+            {
+                ticketId: 6,
+                usuarioId: 5,
+                metodo: "Manual",
+                justificacion: "Asignado por experiencia previa",
+                createdAt: new Date("2025-10-28T14:00:00Z"),
+            }
         ];
-
 
         for (const a of asignaciones) {
             await prisma.asignacion.create({ data: a });
@@ -119,6 +200,7 @@ const main = async () => {
         console.log("✅ Asignaciones creadas");
 
         console.log("🌿 Seed ejecutado correctamente ✅");
+
     } catch (error) {
         console.error("❌ Error en seed:", error);
     } finally {

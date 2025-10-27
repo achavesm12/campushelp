@@ -6,7 +6,6 @@ import { TecnicosDetail } from './tecnicos-detail/tecnicos-detail';
 const routes: Routes = [
 { path: '', component: TecnicosIndex },
 { path: ':id', component: TecnicosDetail }
-
 ];
 
 @NgModule({

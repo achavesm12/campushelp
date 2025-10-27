@@ -1,1 +1,29 @@
-<p>ticket-index works!</p>
+<div class="ticket-container">
+    @if(tickets().length > 0) {
+    @for (ticket of tickets(); track ticket.id) {
+    <mat-card class="ticket-item">
+        <div class="ticket-header">
+            <div class="ticket-avatar">
+                {{ ticket.titulo.charAt(0).toUpperCase() }}
+            </div>
+            <div class="ticket-title">
+                <h3>{{ ticket.titulo }}</h3>
+                <span class="status-chip" [ngClass]="ticket.status.toLowerCase()">
+                    {{ ticket.status }}
+                </span>
+            </div>
+            <button mat-icon-button (click)="verDetalle(ticket.id)" matTooltip="Ver Detalle">
+                <mat-icon>info</mat-icon>
+            </button>
+        </div>
+
+        <div class="ticket-body">
+            <p><strong>Categoría:</strong> {{ ticket.categoria?.nombre }}</p>
+            <p><strong>Solicitante:</strong> {{ ticket.solicitante?.nombre }}</p>
+        </div>
+    </mat-card>
+    }
+    } @else {
+    <p>No se encontraron tickets registrados.</p>
+    }
+</div>

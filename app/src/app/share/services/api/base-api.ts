@@ -76,4 +76,23 @@ export class BaseAPI<T extends BaseEntity> {
   delete(item: T) {
     return this.http.delete<T>(`${this.urlAPI}/${this.endpoint}/${item.id}`);
   }
+
+  getByUsuarioYRol(idUsuario: number, rol: string): Observable<T[]> {
+    const params = {
+      idUsuario: idUsuario.toString(),
+      role: rol
+    };
+
+    return this.http.get<T[]>(`${this.urlAPI}/${this.endpoint}`, { params });
+  }
+
+  /**
+ * Permite obtener datos de otro tipo (distinto de T) desde el mismo endpoint base.
+ * Útil cuando el backend devuelve modelos extendidos para visualización.
+ */
+  getCustom<U>(): Observable<U[]> {
+    return this.http.get<U[]>(`${this.urlAPI}/${this.endpoint}`);
+  }
+
+
 }

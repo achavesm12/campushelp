@@ -2,13 +2,13 @@ export const environment = {
     production: false,
     apiURL: 'http://localhost:3000',
 
-    endPointTickets: 'tickets',
+    endPointTickets: 'ticket',
     endPointUsuarios: 'usuarios',
     endPointTecnicos: 'tecnico',
     endPointEspecialidades: 'especialidades',
     endPointCategorias: 'categorias',
     endPointSla: 'sla',
-    endPointAsignaciones: 'asignaciones',
+    endPointAsignaciones: 'asignacion',
     endPointLogin: 'auth/login',
     endPointValoraciones: 'valoraciones'
 };

@@ -1,4 +1,4 @@
-import { TicketEnum } from '../enums/ticket-enum';
+import { TicketEnum } from '../enums/ticket.enum';
 import { TicketImagenModel } from './ticket-imagen.model';
 
 export interface TicketHistorialModel {

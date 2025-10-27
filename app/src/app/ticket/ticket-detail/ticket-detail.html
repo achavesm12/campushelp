@@ -39,23 +39,51 @@
             <p>
                 <strong>Cumplimiento de respuesta:</strong>
                 <span [ngClass]="
-                ticket()?.cumplioRespuesta === true ? 'cumple' : ticket()?.cumplioRespuesta === false ? 'no-cumple' : 'sin-dato'">
-                    {{ ticket()?.cumplioRespuesta === true ? '✔️ Cumplido' : ticket()?.cumplioRespuesta === false ? 'No cumplido' : 'Sin datos' }}
+            ticket()?.cumplioRespuesta === true ? 'cumple' :
+            ticket()?.cumplioRespuesta === false ? 'no-cumple' : 'sin-dato'">
+                    {{ ticket()?.cumplioRespuesta === true ? '✔️ Cumplido' :
+                    ticket()?.cumplioRespuesta === false ? 'No cumplido' : 'Sin datos' }}
                 </span>
             </p>
+
             <p>
                 <strong>Cumplimiento de resolución:</strong>
                 <span [ngClass]="
-                ticket()?.cumplioResolucion === true ? 'cumple' : ticket()?.cumplioResolucion === false ? 'no-cumple' : 'sin-dato'">
-                    {{ ticket()?.cumplioResolucion === true ? '✔️ Cumplido' : ticket()?.cumplioResolucion === false ? 'No cumplido' : 'Sin datos' }}
+            ticket()?.cumplioResolucion === true ? 'cumple' :
+            ticket()?.cumplioResolucion === false ? 'no-cumple' : 'sin-dato'">
+                    {{ ticket()?.cumplioResolucion === true ? '✔️ Cumplido' :
+                    ticket()?.cumplioResolucion === false ? 'No cumplido' : 'Sin datos' }}
                 </span>
             </p>
         </div>
+
+        <!-- VALORACIÓN DEL SERVICIO (solo lectura) -->
+        @if (ticket()?.status === 'CLOSED') {
+        <section class="valoracion-section">
+            <h3>Valoración del servicio</h3>
+
+            @if (valoracion) {
+            <div class="valoracion-existente">
+                <p><strong>Puntaje:</strong></p>
+                <div class="stars">
+                    @for (i of [1, 2, 3, 4, 5]; track i) {
+                    <mat-icon [class.active]="i <= valoracion.puntaje">star</mat-icon>
+                    }
+                </div>
+                <p><strong>Comentario:</strong> {{ valoracion.comentario || 'Sin comentario' }}</p>
+                <p class="fecha">Registrado el {{ valoracion.createdAt | date:'medium' }}</p>
+            </div>
+            } @else {
+            <p class="sin-valoracion">Este ticket no tiene valoración registrada.</p>
+            }
+        </section>
+        }
 
         <!-- PIE -->
         <div class="detail-footer">
             <button mat-stroked-button color="accent" (click)="goBack()">Regresar</button>
         </div>
+
     </mat-card>
 </div>
 } @else {

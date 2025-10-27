@@ -18,16 +18,26 @@ import { NotificationService } from '../services/app/notification.service';
 export class HttpErrorInterceptorService implements HttpInterceptor {
   //Recuerde que es necesario llamarlo como Proveedor
   //en AppModule
-  constructor(private noti: NotificationService) {}
+  constructor(private noti: NotificationService) { }
   intercept(
     request: HttpRequest<any>,
     next: HttpHandler
   ): Observable<HttpEvent<any>> {
     console.log('Request URL: ' + request.url);
-    //Capturar el error
+
     return next.handle(request).pipe(
       catchError((error: HttpErrorResponse) => {
         let message: string | null = null;
+
+        // --- Ignorar 404 de valoraciones ---
+        const url = request.url || '';
+        if (error.status === 404 && url.includes('/valoraciones/ticket/')) {
+          console.log('404 ignorado para valoraciones (sin reseña)');
+          // devolvemos el error sin notificación para que el componente lo maneje
+          throw error;
+        }
+        // -----------------------------------
+
         if (error.error instanceof ErrorEvent) {
           console.log('Error del Lado del Cliente');
           message = `Error: ${error.error.message}`;
@@ -38,8 +48,8 @@ export class HttpErrorInterceptorService implements HttpInterceptor {
           //Códigos de estado HTTP con su respectivo mensaje
           switch (error.status) {
             case 0:
-              message="Error desconocido"
-              break
+              message = 'Error desconocido';
+              break;
             case 400:
               message = 'Solicitud incorrecta';
               break;
@@ -63,9 +73,14 @@ export class HttpErrorInterceptorService implements HttpInterceptor {
               break;
           }
         }
-        this.noti.error('Error '+error.status,message,5000)
+
+        // ✅ Mostrar notificación solo si no fue un 404 de valoraciones
+        this.noti.error('Error ' + error.status, message, 5000);
         throw new Error(error.message);
       })
     );
+
+
+
   }
 }

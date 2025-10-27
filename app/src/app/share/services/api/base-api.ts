@@ -94,5 +94,19 @@ export class BaseAPI<T extends BaseEntity> {
     return this.http.get<U[]>(`${this.urlAPI}/${this.endpoint}`);
   }
 
+  /**
+   * Permite obtener por ticketId
+   */
+  getByTicket(ticketId: number): Observable<T> {
+    return this.http.get<T>(`${this.urlAPI}/${this.endpoint}/ticket/${ticketId}`);
+  }
+
+  /** 
+  //Nuevo método genérico para crear una valoración o entidad similar
+  */
+  createForTicket(data: any): Observable<T> {
+    return this.http.post<T>(`${this.urlAPI}/${this.endpoint}`, data);
+  }
+
 
 }

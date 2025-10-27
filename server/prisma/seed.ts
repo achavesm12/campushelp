@@ -140,7 +140,17 @@ const main = async () => {
                 categoriaId: 1,
                 status: TicketStatus.PENDING,
                 createdAt: new Date("2025-10-28T14:00:00"),
-            }
+            },
+            {
+                id: 7,
+                titulo: "Restablecer contraseña",
+                descripcion: "No puedo ingresar al sistema y necesito restablecer la clave.",
+                solicitanteId: 5,
+                categoriaId: 2,
+                status: TicketStatus.CLOSED,
+                createdAt: new Date("2025-10-29T09:00:00"),
+                closedAt: new Date("2025-10-29T11:30:00"),
+            },
         ];
 
         for (const t of tickets) {
@@ -198,6 +208,33 @@ const main = async () => {
             await prisma.asignacion.create({ data: a });
         }
         console.log("✅ Asignaciones creadas");
+
+        // 🔟 Valoraciones (para tickets cerrados)
+        const valoraciones = [
+            {
+                ticketId: 5,
+                usuarioId: 4, // solicitante del ticket 5
+                puntaje: 5,
+                comentario: "Excelente servicio, el técnico resolvió el problema muy rápido y fue muy amable.",
+                createdAt: new Date("2025-10-28T14:00:00"),
+                updatedAt: new Date("2025-10-28T14:00:00"),
+            },
+            {
+                ticketId: 7,
+                usuarioId: 5, // solicitante del ticket 7
+                puntaje: 3,
+                comentario: "El problema se resolvió correctamente, pero tomó más tiempo del esperado.",
+                createdAt: new Date("2025-10-29T12:00:00"),
+                updatedAt: new Date("2025-10-29T12:00:00"),
+            },
+        ];
+
+        await prisma.valoracion.createMany({
+            data: valoraciones,
+            skipDuplicates: true,
+        });
+        console.log("✅ Valoraciones insertadas");
+
 
         console.log("🌿 Seed ejecutado correctamente ✅");
 

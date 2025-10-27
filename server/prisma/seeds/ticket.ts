@@ -53,5 +53,16 @@ export const tickets = [
         categoriaId: 1,
         status: "PENDING",
         createdAt: new Date("2025-10-28T14:00:00"),
+    },
+    {
+        id: 7,
+        titulo: "Restablecer contraseña",
+        descripcion: "No puedo ingresar al sistema y necesito restablecer la clave.",
+        solicitanteId: 5,
+        categoriaId: 2,
+        status: "CLOSED",
+        createdAt: new Date("2025-10-29T09:00:00"),
+        closedAt: new Date("2025-10-29T11:30:00"),
     }
+
 ];

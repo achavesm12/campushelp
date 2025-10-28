@@ -88,7 +88,9 @@ export class TicketController {
                     historial: {
                         include: {
                             imagenes: true,
-                            actor: true
+                            actor: {
+                                select: { id: true, nombre: true, email: true }
+                            }
                         },
                         orderBy: {
                             createdAt: 'asc'
@@ -139,7 +141,7 @@ export class TicketController {
             //verificar si el ticket se cerró a tiempo según el sla
             const cumplioResolucion = tickets.closedAt ? tickets.closedAt <= fechaLimiteResolucion : null;
 
-            console.log('==== DEBUG SLA ====');
+            console.log('DEBUG SLA');
             console.log('Título:', tickets.titulo);
             console.log('Estado:', tickets.status);
             console.log('Fecha creación:', fechaCreacion);

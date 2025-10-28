@@ -1,5 +1,6 @@
 import { TicketEnum } from '../enums/ticket.enum';
 import { TicketImagenModel } from './ticket-imagen.model';
+import { UsuarioModel } from './usuario.model';
 
 export interface TicketHistorialModel {
     id: number;
@@ -8,6 +9,7 @@ export interface TicketHistorialModel {
     toStatus: TicketEnum;
     nota?: string;
     actorId: number;
+    actor?: UsuarioModel;
     createdAt: Date;
     updatedAt: Date;
     imagenes: TicketImagenModel[];

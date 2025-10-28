@@ -42,7 +42,7 @@
             ticket()?.cumplioRespuesta === true ? 'cumple' :
             ticket()?.cumplioRespuesta === false ? 'no-cumple' : 'sin-dato'">
                     {{ ticket()?.cumplioRespuesta === true ? '✔️ Cumplido' :
-                    ticket()?.cumplioRespuesta === false ? 'No cumplido' : 'Sin datos' }}
+                    ticket()?.cumplioRespuesta === false ? 'No cumplido' : 'No disponible' }}
                 </span>
             </p>
 
@@ -52,10 +52,49 @@
             ticket()?.cumplioResolucion === true ? 'cumple' :
             ticket()?.cumplioResolucion === false ? 'no-cumple' : 'sin-dato'">
                     {{ ticket()?.cumplioResolucion === true ? '✔️ Cumplido' :
-                    ticket()?.cumplioResolucion === false ? 'No cumplido' : 'Sin datos' }}
+                    ticket()?.cumplioResolucion === false ? 'No cumplido' : 'No disponible' }}
                 </span>
             </p>
         </div>
+
+        <!-- HISTORIAL DE ESTADOS -->
+        <section class="historial-section">
+            <h3>Historial de estados</h3>
+
+            @if (ticket()?.historial?.length) {
+            <div class="historial-list">
+                @for (item of ticket()?.historial; track item.id) {
+                <div class="historial-item">
+                    <div class="historial-header">
+                        <span class="estado">
+                            {{ item.fromStatus || 'Inicio' }} → <strong>{{ item.toStatus }}</strong>
+                        </span>
+                        <span class="fecha">{{ item.createdAt | date:'medium' }}</span>
+                    </div>
+
+                    <p class="nota">
+                        <strong>Observación:</strong> {{ item.nota || 'Sin observación' }}
+                    </p>
+
+                    <p class="actor">
+                        <strong>Registrado por:</strong> {{ item.actor?.nombre || 'Desconocido' }}
+                    </p>
+
+                    @if (item.imagenes?.length) {
+                    <div class="imagenes">
+                        @for (img of item.imagenes; track img.id) {
+                        <img [src]="'http://localhost:3000/images/' + img.url" alt="Evidencia" class="evidencia-img" />
+                        }
+                    </div>
+                    }
+                </div>
+                }
+            </div>
+            } @else {
+            <p class="sin-historial">No hay historial registrado para este ticket.</p>
+            }
+        </section>
+
 
         <!-- VALORACIÓN DEL SERVICIO (solo lectura) -->
         @if (ticket()?.status === 'CLOSED') {

@@ -42,8 +42,8 @@ export const tickets = [
         solicitanteId: 4,
         categoriaId: 5,
         status: "CLOSED",
-        createdAt: new Date("2025-10-28T08:00:00"),
-        closedAt: new Date("2025-10-28T13:00:00"),
+        createdAt: new Date("2025-10-27T08:00:00"),
+        closedAt: new Date("2025-10-27T13:00:00"),
     },
     {
         id: 6,

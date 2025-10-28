@@ -13,8 +13,8 @@ export class TicketIndex implements OnInit {
   tickets = signal<any[]>([]);
 
   //**ids técnicos: 4, 5, 6 **
-  //idUsuarioActual: number = 4; //tecnico 
- // rolUsuario: RoleEnum = RoleEnum.TECH;
+  //idUsuarioActual: number = 5; //tecnico 
+  //rolUsuario: RoleEnum = RoleEnum.TECH;
 
   idUsuarioActual: number = 1; //admin
   rolUsuario: RoleEnum = RoleEnum.ADMIN;

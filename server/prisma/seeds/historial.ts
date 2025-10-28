@@ -6,7 +6,12 @@ export const historialTickets = [
         toStatus: "ASSIGNED",
         actorId: 4, // Técnico 1
         nota: "Asignado por administrador",
-        createdAt: new Date("2025-10-25T08:15:00")
+        createdAt: new Date("2025-10-25T08:15:00"),
+        imagenes: {
+            create: [
+                { url: "error-office.png" }
+            ]
+        }
     },
 
     // Ticket 3 - IN_PROGRESS
@@ -34,7 +39,12 @@ export const historialTickets = [
         toStatus: "ASSIGNED",
         actorId: 6, // Técnico 3
         nota: "Asignación manual",
-        createdAt: new Date("2025-10-27T08:05:00")
+        createdAt: new Date("2025-10-27T08:05:00"),
+        imagenes: {
+            create: [
+                { url: "falla-red.jpg" }
+            ]
+        }
     },
     {
         ticketId: 4,
@@ -60,7 +70,10 @@ export const historialTickets = [
         toStatus: "ASSIGNED",
         actorId: 4,
         nota: "Técnico asignado",
-        createdAt: new Date("2025-10-28T08:00:00")
+        createdAt: new Date("2025-10-28T08:00:00"),
+        imagenes: {
+            create: [{ url: "ticket-asigned.jpg" }],
+        },
     },
     {
         ticketId: 5,
@@ -68,7 +81,10 @@ export const historialTickets = [
         toStatus: "IN_PROGRESS",
         actorId: 4,
         nota: "Gestionando acceso",
-        createdAt: new Date("2025-10-28T09:00:00")
+        createdAt: new Date("2025-10-28T09:00:00"),
+        imagenes: {
+            create: [{ url: "ticket-process.jpg" }],
+        },
     },
     {
         ticketId: 5,
@@ -76,16 +92,20 @@ export const historialTickets = [
         toStatus: "RESOLVED",
         actorId: 4,
         nota: "Resuelto",
-        createdAt: new Date("2025-10-28T11:00:00")
+        createdAt: new Date("2025-10-28T11:00:00"),
+        imagenes: {
+            create: [{ url: "ticket-solution.jpg" }],
+        },
     },
     {
         ticketId: 5,
         fromStatus: "RESOLVED",
         toStatus: "CLOSED",
-        actorId: 3, // Cliente (cierre)
+        actorId: 7, 
         nota: "Gracias por el soporte",
-        createdAt: new Date("2025-10-28T13:00:00")
+        createdAt: new Date("2025-10-28T13:00:00"),
+        imagenes: {
+            create: [{ url: "acceso-sistema.jpg" }],
+        },
     },
-
-    // Ticket 6 - PENDING (sin historial aún = sin datos)
 ];

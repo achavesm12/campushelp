@@ -181,3 +181,81 @@
 .valoracion-form button {
     align-self: flex-end;
 }
+
+/* === HISTORIAL === */
+.historial-section {
+    margin-top: 2rem;
+    background-color: #2b2655;
+    border-radius: 10px;
+    padding: 1.5rem;
+    border: 1px solid #3f3a70;
+    color: #fff;
+}
+
+.historial-section h3 {
+    color: #ffc107;
+    margin-bottom: 1rem;
+    font-weight: 600;
+}
+
+.historial-list {
+    display: flex;
+    flex-direction: column;
+    gap: 1.2rem;
+}
+
+.historial-item {
+    background-color: #1e1a3d;
+    border-left: 4px solid #00bcd4;
+    border-radius: 8px;
+    padding: 1rem;
+}
+
+.historial-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 0.5rem;
+}
+
+.estado {
+    font-weight: 600;
+    color: #4fc3f7;
+}
+
+.fecha {
+    font-size: 0.85rem;
+    color: #bbb;
+}
+
+.nota,
+.actor {
+    margin: 0.4rem 0;
+    color: #ddd;
+}
+
+.imagenes {
+    display: flex;
+    gap: 10px;
+    flex-wrap: wrap;
+    margin-top: 0.5rem;
+}
+
+.evidencia-img {
+    width: 140px;
+    height: 100px;
+    object-fit: cover;
+    border-radius: 6px;
+    border: 1px solid #555;
+    transition: transform 0.3s ease;
+}
+
+.evidencia-img:hover {
+    transform: scale(1.05);
+    border-color: #ffc107;
+}
+
+.sin-historial {
+    color: #bbb;
+    font-style: italic;
+}

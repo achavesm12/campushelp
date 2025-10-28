@@ -12,10 +12,7 @@ const main = async () => {
         console.log("🌱 Iniciando seed...");
 
         // 1️⃣ Usuarios
-        await prisma.usuario.createMany({
-            data: usuarios,
-            skipDuplicates: true,
-        });
+        await prisma.usuario.createMany({ data: usuarios, skipDuplicates: true });
         console.log("✅ Usuarios insertados");
 
         // 2️⃣ Especialidades
@@ -26,22 +23,16 @@ const main = async () => {
         console.log("✅ Especialidades insertadas");
 
         // 3️⃣ SLA
-        await prisma.sLA.createMany({
-            data: slas,
-            skipDuplicates: true,
-        });
+        await prisma.sLA.createMany({ data: slas, skipDuplicates: true });
         console.log("✅ SLA insertados");
 
         // 4️⃣ Etiquetas
-        await prisma.etiqueta.createMany({
-            data: etiquetas,
-            skipDuplicates: true,
-        });
+        await prisma.etiqueta.createMany({ data: etiquetas, skipDuplicates: true });
         console.log("✅ Etiquetas insertadas");
 
         // 5️⃣ Categorías
         await prisma.categoria.createMany({
-            data: categorias.map(cat => ({
+            data: categorias.map((cat) => ({
                 nombre: cat.nombre,
                 slaId: cat.slaId,
             })),
@@ -49,17 +40,15 @@ const main = async () => {
         });
         console.log("✅ Categorías insertadas");
 
-        // 6️⃣ Relaciones
+        // 6️⃣ Relaciones categoría-especialidad-etiqueta
         for (const cat of categorias) {
             await prisma.categoria.update({
                 where: { nombre: cat.nombre },
                 data: {
                     especialidades: {
-                        connect: cat.especialidades.map(e => ({ id: e.id })),
+                        connect: cat.especialidades.map((e) => ({ id: e.id })),
                     },
-                    etiquetas: {
-                        connect: cat.etiquetas.map(t => ({ id: t.id })),
-                    },
+                    etiquetas: { connect: cat.etiquetas.map((t) => ({ id: t.id })) },
                 },
             });
         }
@@ -77,14 +66,14 @@ const main = async () => {
                 where: { id: tec.id },
                 data: {
                     especialidades: {
-                        connect: tec.especialidades.map(id => ({ id })),
+                        connect: tec.especialidades.map((id) => ({ id })),
                     },
                 },
             });
         }
         console.log("✅ Especialidades asignadas a técnicos");
 
-        // 8️⃣ Tickets con todos los estados
+        // 8️⃣ Tickets
         const tickets = [
             {
                 id: 1,
@@ -126,7 +115,7 @@ const main = async () => {
                 id: 5,
                 titulo: "Solicito acceso al sistema académico",
                 descripcion: "No tengo permisos para ingresar",
-                solicitanteId: 4,
+                solicitanteId: 7, // Cliente Ana María
                 categoriaId: 5,
                 status: TicketStatus.CLOSED,
                 createdAt: new Date("2025-10-28T08:00:00"),
@@ -153,9 +142,7 @@ const main = async () => {
             },
         ];
 
-        for (const t of tickets) {
-            await prisma.ticket.create({ data: t });
-        }
+        for (const t of tickets) await prisma.ticket.create({ data: t });
         console.log("✅ Tickets insertados");
 
         // 9️⃣ Asignaciones
@@ -201,43 +188,112 @@ const main = async () => {
                 metodo: "Manual",
                 justificacion: "Asignado por experiencia previa",
                 createdAt: new Date("2025-10-28T14:00:00Z"),
-            }
+            },
         ];
 
-        for (const a of asignaciones) {
-            await prisma.asignacion.create({ data: a });
-        }
+        for (const a of asignaciones) await prisma.asignacion.create({ data: a });
         console.log("✅ Asignaciones creadas");
 
-        // 🔟 Valoraciones (para tickets cerrados)
+        // 🔟 Valoraciones
         const valoraciones = [
             {
                 ticketId: 5,
-                usuarioId: 4, // solicitante del ticket 5
+                usuarioId: 7,
                 puntaje: 5,
-                comentario: "Excelente servicio, el técnico resolvió el problema muy rápido y fue muy amable.",
+                comentario:
+                    "Excelente servicio, el técnico fue muy eficiente y amable.",
                 createdAt: new Date("2025-10-28T14:00:00"),
                 updatedAt: new Date("2025-10-28T14:00:00"),
             },
             {
                 ticketId: 7,
-                usuarioId: 5, // solicitante del ticket 7
+                usuarioId: 5,
                 puntaje: 3,
-                comentario: "El problema se resolvió correctamente, pero tomó más tiempo del esperado.",
+                comentario:
+                    "El problema se resolvió, pero tomó más tiempo del esperado.",
                 createdAt: new Date("2025-10-29T12:00:00"),
                 updatedAt: new Date("2025-10-29T12:00:00"),
             },
         ];
 
-        await prisma.valoracion.createMany({
-            data: valoraciones,
-            skipDuplicates: true,
-        });
+        await prisma.valoracion.createMany({ data: valoraciones, skipDuplicates: true });
         console.log("✅ Valoraciones insertadas");
 
+        // 11️⃣ Historial con evidencias
+        const historialTickets = [
+            {
+                ticketId: 2,
+                fromStatus: TicketStatus.PENDING,
+                toStatus: TicketStatus.ASSIGNED,
+                actorId: 4,
+                nota: "Asignado por administrador",
+                createdAt: new Date("2025-10-25T08:15:00"),
+                imagenes: { create: [{ url: "error-office.png" }] },
+            },
+            {
+                ticketId: 4,
+                fromStatus: TicketStatus.ASSIGNED,
+                toStatus: TicketStatus.IN_PROGRESS,
+                actorId: 6,
+                nota: "Resolviendo acceso al correo",
+                createdAt: new Date("2025-10-27T09:00:00"),
+                imagenes: { create: [{ url: "falla-red.jpg" }] },
+            },
+            // ✅ Ticket 5 completo
+            {
+                ticketId: 5,
+                fromStatus: TicketStatus.PENDING,
+                toStatus: TicketStatus.ASSIGNED,
+                actorId: 4,
+                nota: "Administrador asigna el ticket al técnico 1.",
+                createdAt: new Date("2025-10-28T08:05:00"),
+                imagenes: { create: [{ url: "ticket-asigned.jpg" }] },
+            },
+            {
+                ticketId: 5,
+                fromStatus: TicketStatus.ASSIGNED,
+                toStatus: TicketStatus.IN_PROGRESS,
+                actorId: 4,
+                nota: "Técnico inicia la revisión del acceso al sistema.",
+                createdAt: new Date("2025-10-28T09:00:00"),
+                imagenes: { create: [{ url: "ticket-process.jpg" }] },
+            },
+            {
+                ticketId: 5,
+                fromStatus: TicketStatus.IN_PROGRESS,
+                toStatus: TicketStatus.RESOLVED,
+                actorId: 4,
+                nota: "Acceso al sistema restaurado correctamente.",
+                createdAt: new Date("2025-10-28T11:00:00"),
+                imagenes: { create: [{ url: "ticket-solution.jpg" }] },
+            },
+            {
+                ticketId: 5,
+                fromStatus: TicketStatus.RESOLVED,
+                toStatus: TicketStatus.CLOSED,
+                actorId: 7,
+                nota: "Cliente confirma la solución y cierra el ticket.",
+                createdAt: new Date("2025-10-28T13:00:00"),
+                imagenes: { create: [{ url: "acceso-sistema.jpg" }] },
+            },
+        ];
+
+        for (const item of historialTickets) {
+            await prisma.ticketHistorial.create({
+                data: {
+                    ticketId: item.ticketId,
+                    fromStatus: item.fromStatus,
+                    toStatus: item.toStatus,
+                    actorId: item.actorId,
+                    nota: item.nota,
+                    createdAt: item.createdAt,
+                    imagenes: item.imagenes ?? undefined,
+                },
+            });
+        }
+        console.log("✅ Historial de tickets insertado con imágenes");
 
         console.log("🌿 Seed ejecutado correctamente ✅");
-
     } catch (error) {
         console.error("❌ Error en seed:", error);
     } finally {
@@ -246,12 +302,4 @@ const main = async () => {
     }
 };
 
-main()
-    .then(async () => {
-        await prisma.$disconnect();
-        console.log("🔌 Conexión cerrada");
-    })
-    .catch(async (e) => {
-        console.error("⚠️ Error general:", e);
-        await prisma.$disconnect();
-    });
+main();

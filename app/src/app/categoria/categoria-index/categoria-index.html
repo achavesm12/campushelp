@@ -1,3 +1,13 @@
+<!-- Encabezado con botón para crear categoría -->
+<div class="actions-header">
+    <button mat-flat-button class="btn-primary" (click)="nuevaCategoria()">
+        <mat-icon>add</mat-icon>
+        <span>Agregar Categoría</span>
+    </button>
+</div>
+
+
+
 <div class="grid-container">
     @if(datos().length > 0) {
     <div class="product-list">
@@ -23,6 +33,12 @@
                     <button mat-icon-button matTooltip="Detalle Categoría" aria-label="Detalle Categoría"
                         (click)="detalle(item.id)">
                         <mat-icon>info</mat-icon>
+                    </button>
+
+                    <!-- Editar -->
+                    <button mat-icon-button matTooltip="Editar Categoría" aria-label="Editar Categoría"
+                        (click)="editar(item.id)">
+                        <mat-icon>edit</mat-icon>
                     </button>
                 </div>
             </mat-card>

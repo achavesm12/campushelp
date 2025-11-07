@@ -59,14 +59,14 @@ export class BaseAPI<T extends BaseEntity> {
     * Crea un nuevo elemento
     * Ejemplo: POST http://localhost:3000/productos
     */
-  create(item: T): Observable<T> {
+  create(item: Partial<T>): Observable<T> {
     return this.http.post<T>(`${this.urlAPI}/${this.endpoint}`, item);
   }
   /**
      * Actualiza un elemento existente
      * Ejemplo: PUT http://localhost:3000/productos/5
      */
-  update(item: T): Observable<T> {
+  update(item: Partial<T>): Observable<T> {
     return this.http.put<T>(`${this.urlAPI}/${this.endpoint}/${item.id}`, item);
   }
   /**
@@ -102,11 +102,23 @@ export class BaseAPI<T extends BaseEntity> {
   }
 
   /** 
-  //Nuevo método genérico para crear una valoración o entidad similar
+  *Nuevo método genérico para crear una valoración o entidad similar
   */
   createForTicket(data: any): Observable<T> {
     return this.http.post<T>(`${this.urlAPI}/${this.endpoint}`, data);
   }
 
+  /**
+  *Obtiene todas las etiquetas disponibles
+  */
+  getEtiquetas(): Observable<any[]> {
+    return this.http.get<any[]>(`${this.urlAPI}/etiquetas`);
+  }
 
+  /**
+  *Obtiene todos los SLA disponibles
+  */
+  getSlas(): Observable<any[]> {
+    return this.http.get<any[]>(`${this.urlAPI}/sla`);
+  }
 }

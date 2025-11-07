@@ -1,0 +1,148 @@
+<form [formGroup]="categoriaForm" (ngSubmit)="submitCategorias()" novalidate>
+
+    <div class="detail-container">
+        <mat-card class="detail-card">
+
+            <input type="hidden" formControlName="id" />
+
+            <mat-card class="form-card">
+                <mat-card-header class="primary-title title">
+                    <mat-card-title>{{ titleForm }} Categoría</mat-card-title>
+                </mat-card-header>
+
+                <mat-card-content>
+
+                    <!-- 🏷️ NOMBRE DE CATEGORÍA -->
+                    <div class="row">
+                        <div class="col">
+                            <mat-form-field class="full-width" floatLabel="auto">
+                                <mat-label>Nombre de la categoría</mat-label>
+                                <input matInput formControlName="nombre" placeholder="Ej: Soporte a usuario final" />
+                                @if (categoriaForm.controls['nombre'].invalid &&
+                                categoriaForm.controls['nombre'].touched) {
+                                <mat-error>
+                                    @if (categoriaForm.controls['nombre'].errors?.['required']) {
+                                    El nombre es obligatorio
+                                    }
+                                    @if (categoriaForm.controls['nombre'].errors?.['minlength']) {
+                                    Mínimo 3 caracteres
+                                    }
+                                </mat-error>
+                                }
+                            </mat-form-field>
+                        </div>
+                    </div>
+
+                    <!-- ⚙️ SLA -->
+                    <div class="row">
+                        <div class="col">
+                            <mat-form-field class="full-width" floatLabel="auto">
+                                <mat-label>SLA asociado</mat-label>
+                                <mat-select formControlName="slaId" placeholder="Seleccione un SLA">
+                                    @for (sla of slaList(); track sla.id) {
+                                    <mat-option [value]="sla.id">
+                                        {{ sla.nombre }} — Resp: {{ sla.maxRespuestaHrs }}h / Res: {{
+                                        sla.maxResolucionHrs }}h
+                                    </mat-option>
+                                    }
+                                </mat-select>
+                                @if (categoriaForm.controls['slaId'].invalid && categoriaForm.controls['slaId'].touched)
+                                {
+                                <mat-error>Debe seleccionar un SLA</mat-error>
+                                }
+                            </mat-form-field>
+                        </div>
+                    </div>
+
+                    <!-- 🏷️ ETIQUETAS -->
+                    <div class="row">
+                        <div class="col">
+                            <mat-form-field class="full-width" floatLabel="auto">
+                                <mat-label>Etiquetas asociadas</mat-label>
+                                <mat-select formControlName="etiquetas" multiple
+                                    placeholder="Seleccione una o varias etiquetas">
+                                    @for (item of etiquetasList(); track item.id) {
+                                    <mat-option [value]="item.id">{{ item.nombre }}</mat-option>
+                                    }
+                                </mat-select>
+                                @if (categoriaForm.controls['etiquetas'].invalid &&
+                                categoriaForm.controls['etiquetas'].touched) {
+                                <mat-error>Debe seleccionar al menos una etiqueta</mat-error>
+                                }
+                            </mat-form-field>
+                        </div>
+                    </div>
+
+                    <!-- 🧠 ESPECIALIDADES -->
+                    <div class="row">
+                        <div class="col">
+                            <mat-form-field class="full-width" floatLabel="auto">
+                                <mat-label>Especialidades relacionadas</mat-label>
+                                <mat-select formControlName="especialidades" multiple
+                                    placeholder="Seleccione una o varias especialidades">
+                                    @for (esp of especialidadesList(); track esp.id) {
+                                    <mat-option [value]="esp.id">{{ esp.nombre }}</mat-option>
+                                    }
+                                </mat-select>
+                                @if (categoriaForm.controls['especialidades'].invalid &&
+                                categoriaForm.controls['especialidades'].touched) {
+                                <mat-error>Debe seleccionar al menos una especialidad</mat-error>
+                                }
+                            </mat-form-field>
+                        </div>
+                    </div>
+
+                    <!-- ⏱️ TIEMPOS DE RESPUESTA Y RESOLUCIÓN -->
+                    <div class="row">
+                        <div class="col">
+                            <mat-form-field class="full-width" floatLabel="auto">
+                                <mat-label>Tiempo de respuesta (minutos)</mat-label>
+                                <input matInput type="number" formControlName="slaRespuestaMinutos"
+                                    placeholder="Ej: 30" />
+                                @if (categoriaForm.controls['slaRespuestaMinutos'].invalid &&
+                                categoriaForm.controls['slaRespuestaMinutos'].touched) {
+                                <mat-error>
+                                    @if (categoriaForm.controls['slaRespuestaMinutos'].errors?.['required']) {
+                                    Campo obligatorio
+                                    }
+                                    @if (categoriaForm.controls['slaRespuestaMinutos'].errors?.['min']) {
+                                    Debe ser mayor a 0
+                                    }
+                                </mat-error>
+                                }
+                            </mat-form-field>
+                        </div>
+
+                        <div class="col">
+                            <mat-form-field class="full-width" floatLabel="auto">
+                                <mat-label>Tiempo de resolución (minutos)</mat-label>
+                                <input matInput type="number" formControlName="slaResolucionMinutos"
+                                    placeholder="Ej: 240" />
+                                @if (categoriaForm.controls['slaResolucionMinutos'].invalid &&
+                                categoriaForm.controls['slaResolucionMinutos'].touched) {
+                                <mat-error>
+                                    @if (categoriaForm.controls['slaResolucionMinutos'].errors?.['required']) {
+                                    Campo obligatorio
+                                    }
+                                    @if (categoriaForm.controls['slaResolucionMinutos'].errors?.['min']) {
+                                    Debe ser mayor a 0
+                                    }
+                                </mat-error>
+                                }
+                            </mat-form-field>
+                        </div>
+                    </div>
+
+                </mat-card-content>
+
+                <!-- 🧭 BOTONES DE ACCIÓN -->
+                <mat-card-actions class="button-row">
+                    <button matButton class="btn-tertiary" type="button" (click)="onReset()">Reset</button>
+                    <button matButton class="btn-secondary" type="button" (click)="onBack()">Regresar</button>
+                    <button matButton class="btn-primary" type="submit" [disabled]="loading()">Guardar</button>
+                </mat-card-actions>
+            </mat-card>
+        </mat-card>
+    </div>
+
+</form>

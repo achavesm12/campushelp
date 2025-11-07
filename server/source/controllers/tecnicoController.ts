@@ -1,6 +1,8 @@
-import { Request, Response, NextFunction, request } from "express";
+import { Request, Response, NextFunction, request, response } from "express";
 import { AppError } from "../errors/custom.error";
 import { PrismaClient } from "../../generated/prisma";
+import { Prisma } from '../../generated/prisma';
+
 
 export class TecnicoController {
     prisma = new PrismaClient();
@@ -42,6 +44,7 @@ export class TecnicoController {
         }
     };
 
+    //obtener por id
     getById = async (request: Request, response: Response, next: NextFunction) => {
         try {
             const idTecnico = parseInt(request.params.id);
@@ -56,6 +59,7 @@ export class TecnicoController {
                     },
                     especialidades: {
                         select: {
+                            id: true,
                             nombre: true,
                             descripcion: true,
                         },
@@ -87,49 +91,102 @@ export class TecnicoController {
         }
     };
 
-
-
-    //obtener técnico por ID
-    /*getById = async (request: Request, response: Response, next: NextFunction) => {
+    //crear un técnico
+    create = async (request: Request, response: Response, next: NextFunction) => {
         try {
-            let idTecnico = parseInt(request.params.id)
-            const tecnico = await this.prisma.usuario.findUnique({
-                where: { id: idTecnico },
-                include: {
-                    asignaciones: {
-                        include: {
-                            ticket: true
-                        }
-                    },
+            const body = request.body;
+
+            const newTecnico = await this.prisma.usuario.create({
+                data: {
+                    nombre: body.nombre,
+                    email: body.email,
+                    password: '1234',
+                    role: 'TECH',
+                    disponibilidad: body.disponibilidad ?? true,
+                    cargaActual: 0,
                     especialidades: {
-                        select: {
-                            nombre: true,
-                            descripcion: true
-                        }
-                    }
-                }
+                        connect: body.especialidades.map((e: number) => ({ id: e })),
+                    },
+                },
+                include: { especialidades: true },
             });
 
+            response.status(201).json(newTecnico);
+        } catch (error: any) {
+            console.error('Error creando el técnico:', error);
 
-            if (!tecnico || tecnico.role !== 'TECH') {
-                return response.status(404).json({ message: 'Técnico no encontrado' });
+            // Detección del error P2002 (clave única violada)
+            if (error instanceof Prisma.PrismaClientKnownRequestError && error.code === 'P2002') {
+                const target =
+                    Array.isArray(error.meta?.target) ? error.meta.target[0] : error.meta?.target;
+
+                if (target === 'email' || target === 'Usuario_email_key') {
+                    return response.status(400).json({
+                        message: 'El correo ingresado ya está registrado.',
+                    });
+                }
             }
 
-            const carga = tecnico.asignaciones.filter(asig => asig.ticket?.status !== 'CLOSED').length;
+            //Error genérico
+            return response.status(500).json({
+                message: 'Error interno al crear el técnico',
+                details: error.message,
+            });
+        }
+    };
 
-            const detalle = {
-                id: tecnico.id,
-                nombre: tecnico.nombre,
-                email: tecnico.email,
-                disponibilidad: tecnico.disponibilidad,
-                cargaActual: carga,
-                especialidades: tecnico.especialidades
-            };
 
-            response.json(tecnico);
+    update = async (request: Request, response: Response, next: NextFunction) => {
+        try {
+            const body = request.body;
+            const idTecnico = parseInt(request.params.id);
+
+            //obtener el técnico existente
+            const tecnicoExistente = await this.prisma.usuario.findUnique({
+                where: { id: idTecnico },
+                include: {
+                    especialidades: {
+                        select: { id: true }
+                    },
+                },
+            });
+
+            if (!tecnicoExistente) {
+                response.status(404).json({ message: "El técnico no existe" });
+                return;
+            }
+
+            //desconectar las viejas especialidades y conectar las nuevas
+            const disconnectEsp = tecnicoExistente.especialidades.map(
+                (esp: { id: number }) => ({ id: esp.id })
+            );
+
+            const connectEsp = body.especialidades ? body.especialidades.map(
+                (esp: { id: number }) => ({ id: esp.id })) : [];
+
+            //actualizar el técnico
+            const updateTecnico = await this.prisma.usuario.update({
+                where: { id: idTecnico },
+                data: {
+                    nombre: body.nombre,
+                    email: body.email,
+                    password: body.password,
+                    disponibilidad: body.disponibilidad,
+                    especialidades: {
+                        disconnect: disconnectEsp,
+                        connect: connectEsp,
+                    },
+                },
+                include: {
+                    especialidades: true
+                }
+            });
+            response.json(updateTecnico);
 
         } catch (error: any) {
+            console.error("Error actualizando los datos: ", error);
             next(error);
         }
-    }; */
+    };
+
 }

@@ -1,0 +1,214 @@
+/* === CONTENEDOR PRINCIPAL === */
+.detail-container {
+    display: flex;
+    justify-content: center;
+    padding: 1rem;
+}
+
+.detail-card {
+    width: 100%;
+    max-width: 800px;
+    padding: 1.5rem;
+    background-color: #1e1a3d;
+    color: #ffffff;
+}
+
+/* === TARJETA DEL FORMULARIO === */
+.form-card {
+    width: 100%;
+    max-width: 800px;
+    padding: 2rem 2.5rem;
+    border-radius: 20px;
+    background-color: #2b2655;
+    border: 1px solid #3f3a70;
+    box-shadow: 0 8px 25px rgba(0, 0, 0, 0.5);
+    color: #f5f5ff;
+    font-family: "Poppins", sans-serif;
+    animation: fadeIn 0.6s ease-in-out;
+}
+
+/* === EFECTO DE ENTRADA === */
+@keyframes fadeIn {
+    from {
+        opacity: 0;
+        transform: translateY(20px);
+    }
+
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+/* === TÍTULO === */
+mat-card-title {
+    font-size: 1.9rem;
+    font-weight: 600;
+    color: #dcd3ff;
+    margin-bottom: 1.8rem;
+    text-align: center;
+}
+
+/* === FILAS Y COLUMNAS === */
+.full-width {
+    width: 100%;
+}
+
+.row {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 1.5rem;
+    margin-bottom: 1rem;
+}
+
+.col {
+    flex: 1;
+    min-width: 250px;
+}
+
+/* === CAMPOS === */
+mat-form-field {
+    background-color: rgba(255, 255, 255, 0.08);
+    border-radius: 10px;
+    padding: 0.4rem 0.8rem;
+    transition: all 0.2s ease;
+    width: 100%;
+}
+
+mat-form-field:hover {
+    background-color: rgba(255, 255, 255, 0.12);
+}
+
+mat-label {
+    color: #cfc7ff !important;
+    font-weight: 500;
+}
+
+input[matInput],
+mat-select {
+    color: #ffffff !important;
+    font-size: 0.95rem;
+}
+
+/* === MENSAJES DE ERROR === */
+mat-error {
+    color: #ff7b7b;
+    font-weight: 500;
+    font-size: 0.85rem;
+}
+
+/* === MAT-SELECT === */
+.mat-mdc-select-panel {
+    background-color: #322d63 !important;
+    color: white !important;
+    border-radius: 10px !important;
+    box-shadow: 0 8px 25px rgba(0, 0, 0, 0.5) !important;
+    z-index: 2000 !important;
+}
+
+.mat-mdc-option:hover:not(.mdc-list-item--disabled) {
+    background-color: #4d4782 !important;
+}
+
+/* === ETIQUETAS MULTISELECT (chips) === */
+.mat-mdc-chip {
+    background-color: #3f3a70 !important;
+    color: #ffffff !important;
+}
+
+/* === TIEMPOS (RESPUESTA / RESOLUCIÓN) === */
+.time-fields {
+    display: flex;
+    gap: 1rem;
+    justify-content: space-between;
+}
+
+.time-fields .col {
+    flex: 1;
+}
+
+/* === ENCABEZADO DE ACCIONES === */
+.actions-header {
+    display: flex;
+    justify-content: flex-end;
+    align-items: center;
+    margin-bottom: 1rem;
+    padding-right: 1rem;
+}
+
+/* === BOTÓN PRINCIPAL (Agregar Categoría) === */
+button.btn-primary {
+    background-color: #827397;
+    color: white;
+    border-radius: 25px;
+    padding: 0.6rem 1.5rem;
+    font-weight: 600;
+    font-size: 0.95rem;
+    box-shadow: 0 0 10px rgba(166, 153, 216, 0.4);
+    transition: all 0.2s ease-in-out;
+    display: flex;
+    align-items: center;
+    gap: 6px;
+}
+
+button.btn-primary:hover {
+    background-color: #a699d8;
+    transform: scale(1.05);
+}
+
+button.btn-primary mat-icon {
+    font-size: 20px;
+    vertical-align: middle;
+}
+
+/* === OTROS BOTONES === */
+.button-row {
+    display: flex;
+    justify-content: center;
+    gap: 1.2rem;
+    margin-top: 2rem;
+}
+
+button.btn-secondary {
+    background-color: transparent;
+    border: 1px solid #a699d8;
+    color: #a699d8;
+    border-radius: 10px;
+    font-weight: 500;
+    padding: 0.6rem 1.4rem;
+}
+
+button.btn-tertiary {
+    background-color: transparent;
+    border: 1px solid #827397;
+    color: #827397;
+    border-radius: 10px;
+    font-weight: 500;
+    padding: 0.6rem 1.4rem;
+}
+
+/* === FOCUS === */
+mat-form-field.mat-focused {
+    border: 1px solid #9c88ff;
+    box-shadow: 0 0 8px #9c88ff50;
+}
+
+/* === RESPONSIVE === */
+@media (max-width: 600px) {
+    .form-card {
+        padding: 1.5rem;
+    }
+
+    .button-row {
+        flex-direction: column;
+        align-items: stretch;
+    }
+
+    mat-card-title {
+        font-size: 1.6rem;
+    }
+
+    .time-fields {
+        flex-direction: column;
+    }
+}

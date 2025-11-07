@@ -29,4 +29,13 @@ export class TecnicosIndex {
   detalle(id: number) {
     this.router.navigate(['/tecnicos', id]);
   }
+
+  nuevoTecnico(): void {
+    this.router.navigate(['/tecnicos/form']);
+  }
+
+  editar(id: number): void {
+  this.router.navigate([`/tecnicos/form/${id}`]);
+}
+
 }

@@ -4,6 +4,9 @@ import { CategoriaRoutes } from './categoria.routes';
 import { TicketRoutes } from './ticket.routes';
 import { AsignacionRoutes } from './asignacion.routes';
 import { ValoracionRoutes } from './valoracion.routes';
+import { EspecialidadRoutes } from './especialidad.routes';
+import { SlaRoutes } from './sla.routes';
+import { EtiquetaRoutes } from './etiqueta.routes';
 
 export class AppRoutes {
     static get routes(): Router {
@@ -15,6 +18,10 @@ export class AppRoutes {
         router.use('/ticket', TicketRoutes.routes)
         router.use('/asignacion', AsignacionRoutes.routes)
         router.use('/valoraciones', ValoracionRoutes.routes)
+        router.use('/especialidad', EspecialidadRoutes.routes);
+        router.use('/sla', SlaRoutes.routes);
+        router.use('/etiquetas', EtiquetaRoutes.routes);
+
 
         return router;
     }

@@ -1,3 +1,10 @@
+<!-- Encabezado con botón para crear técnico -->
+<div class="actions-header">
+    <button mat-flat-button color="primary" (click)="nuevoTecnico()">
+        <mat-icon>add</mat-icon> Agregar Técnico
+    </button>
+</div>
+
 <div class="grid-container">
     @if(datos().length > 0) {
     <div class="product-list">
@@ -29,6 +36,13 @@
                         (click)="detalle(item.id)">
                         <mat-icon>info</mat-icon>
                     </button>
+
+                    <!-- Editar -->
+                    <button mat-icon-button matTooltip="Editar Técnico" aria-label="Editar Técnico"
+                        (click)="editar(item.id)">
+                        <mat-icon>edit</mat-icon>
+                    </button>
+
                 </div>
             </mat-card>
         </div>

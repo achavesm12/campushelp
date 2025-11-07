@@ -5,7 +5,7 @@ export const environment = {
     endPointTickets: 'ticket',
     endPointUsuarios: 'usuarios',
     endPointTecnicos: 'tecnico',
-    endPointEspecialidades: 'especialidades',
+    endPointEspecialidades: 'especialidad',
     endPointCategorias: 'categorias',
     endPointSla: 'sla',
     endPointAsignaciones: 'asignacion',

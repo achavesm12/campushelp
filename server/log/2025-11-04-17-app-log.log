@@ -1,0 +1,108 @@
+2025-11-04 17:38:00.029 error: 	canam--Se produjo un error interno del servidor 
+Invalid `this.prisma.usuario.findUnique()` invocation in
+C:\Web\campushelper\server\source\controllers\tecnicoController.ts:50:55
+
+  47 try {
+  48     const idTecnico = parseInt(request.params.id);
+  49 
+→ 50     const tecnico = await this.prisma.usuario.findUnique({
+           where: {
+         +   id: Int
+           },
+           include: {
+             asignaciones: {
+               include: {
+                 ticket: true
+               }
+             },
+             especialidades: {
+               select: {
+                 nombre: true,
+                 descripcion: true
+               }
+             }
+           }
+         })
+
+Argument `id` is missing.
+2025-11-04 17:41:15.934 error: 	canam--Se produjo un error interno del servidor 
+Invalid `this.prisma.usuario.findUnique()` invocation in
+C:\Web\campushelper\server\source\controllers\tecnicoController.ts:50:55
+
+  47 try {
+  48     const idTecnico = parseInt(request.params.id);
+  49 
+→ 50     const tecnico = await this.prisma.usuario.findUnique({
+           where: {
+         +   id: Int
+           },
+           include: {
+             asignaciones: {
+               include: {
+                 ticket: true
+               }
+             },
+             especialidades: {
+               select: {
+                 nombre: true,
+                 descripcion: true
+               }
+             }
+           }
+         })
+
+Argument `id` is missing.
+2025-11-04 17:41:25.199 error: 	canam--Se produjo un error interno del servidor 
+Invalid `this.prisma.usuario.findUnique()` invocation in
+C:\Web\campushelper\server\source\controllers\tecnicoController.ts:50:55
+
+  47 try {
+  48     const idTecnico = parseInt(request.params.id);
+  49 
+→ 50     const tecnico = await this.prisma.usuario.findUnique({
+           where: {
+         +   id: Int
+           },
+           include: {
+             asignaciones: {
+               include: {
+                 ticket: true
+               }
+             },
+             especialidades: {
+               select: {
+                 nombre: true,
+                 descripcion: true
+               }
+             }
+           }
+         })
+
+Argument `id` is missing.
+2025-11-04 17:43:06.606 error: 	canam--Se produjo un error interno del servidor 
+Invalid `this.prisma.usuario.findUnique()` invocation in
+C:\Web\campushelper\server\source\controllers\tecnicoController.ts:50:55
+
+  47 try {
+  48     const idTecnico = parseInt(request.params.id);
+  49 
+→ 50     const tecnico = await this.prisma.usuario.findUnique({
+           where: {
+         +   id: Int
+           },
+           include: {
+             asignaciones: {
+               include: {
+                 ticket: true
+               }
+             },
+             especialidades: {
+               select: {
+                 nombre: true,
+                 descripcion: true
+               }
+             }
+           }
+         })
+
+Argument `id` is missing.

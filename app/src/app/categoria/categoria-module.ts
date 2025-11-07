@@ -21,13 +21,16 @@ import { MatDialogModule } from '@angular/material/dialog';
 import { MatRadioModule } from '@angular/material/radio';
 import { MatDividerModule } from '@angular/material/divider';
 import { MatTooltipModule } from '@angular/material/tooltip';
-
+import { CategoriaForm } from './categoria-form/categoria-form';
+import { MatSlideToggleModule } from '@angular/material/slide-toggle';
+import { ReactiveFormsModule } from '@angular/forms';
 
 
 @NgModule({
   declarations: [
     CategoriasIndex,
-    CategoriaDetail
+    CategoriaDetail,
+    CategoriaForm
 
   ],
   imports: [
@@ -48,7 +51,9 @@ import { MatTooltipModule } from '@angular/material/tooltip';
     MatRadioModule,
     MatChipsModule,
     MatBadgeModule,
-    MatTooltipModule
+    MatTooltipModule,
+    MatSlideToggleModule,
+    ReactiveFormsModule
   ]
 })
 export class CategoriaModule { }

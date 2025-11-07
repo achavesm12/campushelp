@@ -29,4 +29,12 @@ export class CategoriasIndex {
   detalle(id: number) {
     this.router.navigate(['/categorias', id]);
   }
+
+  nuevaCategoria(): void {
+    this.router.navigate(['/categorias/form']);
+  }
+
+  editar(id: number): void {
+    this.router.navigate([`/categorias/form/${id}`]);
+  }
 }

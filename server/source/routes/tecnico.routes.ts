@@ -4,11 +4,19 @@ export class TecnicoRoutes {
     static get routes(): Router {
         const router = Router()
         const controller = new TecnicoController()
-        //localhost:3000/orden
-        router.get('/', controller.get) //1 o 0
-        //localhost:3000/orden/2
-        router.get('/:id', controller.getById) //tiene parametro
 
+        //localhost:3000/tecnico/update
+        router.put('/update/:id', controller.update);
+
+        //localhost:3000/tecnico
+        router.get('/', controller.get); //1 o 0
+
+        router.post('/', controller.create);
+
+        //localhost:3000/tecnico/2
+        router.get('/:id', controller.getById); //tiene parametro
+
+        router.put('/:id', controller.update);
 
         return router
     }

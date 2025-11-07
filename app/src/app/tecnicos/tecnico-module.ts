@@ -18,14 +18,19 @@ import { MatDialogModule } from '@angular/material/dialog';
 import { MatRadioModule } from '@angular/material/radio';
 import { MatDividerModule } from '@angular/material/divider';
 import { MatTooltipModule } from '@angular/material/tooltip';
+import { ReactiveFormsModule } from '@angular/forms';
+import { MatSlideToggleModule } from '@angular/material/slide-toggle';
+
 
 import { TecnicosIndex } from './tecnicos-index/tecnicos-index';
 import { TecnicosDetail } from './tecnicos-detail/tecnicos-detail';
+import { TecnicosForm } from './tecnicos-form/tecnicos-form';
 
 @NgModule({
   declarations: [
     TecnicosIndex,
-    TecnicosDetail
+    TecnicosDetail,
+    TecnicosForm
   ],
 
   imports: [
@@ -47,6 +52,8 @@ import { TecnicosDetail } from './tecnicos-detail/tecnicos-detail';
     MatChipsModule,
     MatBadgeModule,
     MatTooltipModule,
+    ReactiveFormsModule,
+    MatSlideToggleModule,
   ]
 })
 export class TecnicoModule { }

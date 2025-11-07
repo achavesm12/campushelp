@@ -1,4 +1,4 @@
-/* ----- Contenedor general ----- */
+/* ----- CONTENEDOR GENERAL ----- */
 .grid-container {
     display: flex;
     flex-direction: column;
@@ -6,7 +6,43 @@
     padding: 1rem;
 }
 
-/* ----- Lista de tarjetas ----- */
+/* ----- ENCABEZADO DE ACCIONES ----- */
+.actions-header {
+    display: flex;
+    justify-content: flex-end;
+    align-items: center;
+    margin-bottom: 1rem;
+    padding-right: 1rem;
+}
+
+/* ----- BOTÓN PRINCIPAL (Agregar Categoría) ----- */
+button.btn-primary {
+    background-color: #827397 !important;
+    color: #ffffff !important;
+    border-radius: 25px;
+    padding: 0.6rem 1.5rem;
+    font-weight: 600;
+    font-size: 0.95rem;
+    box-shadow: 0 0 10px rgba(166, 153, 216, 0.4);
+    transition: all 0.2s ease-in-out;
+    display: flex;
+    align-items: center;
+    gap: 6px;
+    text-transform: none;
+    /* evita texto en mayúsculas */
+}
+
+button.btn-primary:hover {
+    background-color: #a699d8 !important;
+    transform: scale(1.05);
+}
+
+button.btn-primary mat-icon {
+    font-size: 20px;
+    vertical-align: middle;
+}
+
+/* ----- LISTA DE TARJETAS ----- */
 .product-list {
     display: flex;
     flex-wrap: wrap;
@@ -15,7 +51,7 @@
     justify-content: center;
 }
 
-/* ----- Tarjeta individual ----- */
+/* ----- TARJETA INDIVIDUAL ----- */
 .product-card {
     width: 280px;
     max-width: 100%;
@@ -32,7 +68,7 @@
     box-shadow: 0 8px 20px rgba(0, 0, 0, 0.25);
 }
 
-/* ----- mat-card ----- */
+/* ----- MAT-CARD ----- */
 mat-card.category-card {
     background: linear-gradient(135deg, #4d4c7d, #3a3360);
     color: white;
@@ -47,7 +83,7 @@ mat-card.category-card:hover {
     box-shadow: 0 10px 24px rgba(0, 0, 0, 0.35);
 }
 
-/* ----- Header (avatar + nombre) ----- */
+/* ----- HEADER (AVATAR + NOMBRE) ----- */
 .card-header {
     display: flex;
     align-items: center;
@@ -55,7 +91,7 @@ mat-card.category-card:hover {
     margin-bottom: 0.5rem;
 }
 
-/* ---- Muestra la inicial de nombre y le da estilo ---- */
+/* ---- AVATAR (INICIAL DEL NOMBRE) ---- */
 .avatar {
     width: 50px;
     height: 50px;
@@ -76,7 +112,7 @@ mat-card.category-card:hover {
     font-weight: 600;
 }
 
-/* ----- Cuerpo ----- */
+/* ----- CUERPO ----- */
 .card-body {
     flex-grow: 1;
 }
@@ -86,7 +122,7 @@ mat-card.category-card:hover {
     font-size: 0.95rem;
 }
 
-/* ----- Footer ----- */
+/* ----- FOOTER ----- */
 .card-footer {
     display: flex;
     justify-content: flex-end;
@@ -106,12 +142,12 @@ mat-card.category-card:hover {
     transform: scale(1.1);
 }
 
-/* ----- Iconos ----- */
+/* ----- ICONOS ----- */
 .mat-icon {
     color: white !important;
 }
 
-/* ----- Responsive ----- */
+/* ----- RESPONSIVE ----- */
 @media (max-width: 600px) {
     .product-card {
         width: 90%;

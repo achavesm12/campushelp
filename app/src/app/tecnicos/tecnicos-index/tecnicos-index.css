@@ -6,6 +6,27 @@
     padding: 1rem;
 }
 
+/* ----- Botón superior para crear técnico ----- */
+.actions-header {
+    display: flex;
+    justify-content: flex-end;
+    margin-bottom: 0.5rem;
+}
+
+.actions-header button {
+    background-color: #827397;
+    color: #fff;
+    font-weight: 600;
+    border-radius: 12px;
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.25);
+    transition: background-color 0.2s, transform 0.2s;
+}
+
+.actions-header button:hover {
+    background-color: #a699d8;
+    transform: scale(1.05);
+}
+
 /* ----- Lista de tarjetas ----- */
 .product-list {
     display: flex;
@@ -85,11 +106,13 @@ mat-card:hover {
     font-size: 0.95rem;
 }
 
-/* ----- Footer con el botón ----- */
+/* ----- Footer con botones ----- */
 .card-footer {
     display: flex;
     justify-content: flex-end;
     align-items: center;
+    gap: 0.6rem;
+    /* separa los botones detalle/editar */
     margin-top: auto;
 }
 
@@ -110,6 +133,13 @@ mat-card:hover {
     color: white !important;
 }
 
+/* ----- Mensaje vacío ----- */
+.empty {
+    text-align: center;
+    font-style: italic;
+    margin-top: 2rem;
+}
+
 /* ----- Responsive para móviles ----- */
 @media (max-width: 600px) {
     .product-card {
@@ -127,6 +157,10 @@ mat-card:hover {
     }
 
     .footer {
+        justify-content: center;
+    }
+
+    .actions-header {
         justify-content: center;
     }
 }

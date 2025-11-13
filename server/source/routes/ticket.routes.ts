@@ -9,6 +9,9 @@ export class TicketRoutes {
         //localhost:3000/orden/2
         router.get('/:id', controller.getById) //tiene parametro
 
+        router.post('/', controller.create);
+
+
 
         return router
     }

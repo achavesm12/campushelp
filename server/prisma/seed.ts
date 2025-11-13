@@ -4,6 +4,7 @@ import { especialidades } from "./seeds/especialidades";
 import { categorias } from "./seeds/categorias";
 import { etiquetas } from "./seeds/etiquetas";
 import { slas } from "./seeds/sla";
+import { prioridades } from "./seeds/prioridades";
 
 const prisma = new PrismaClient();
 
@@ -11,26 +12,26 @@ const main = async () => {
     try {
         console.log("🌱 Iniciando seed...");
 
-        // 1️⃣ Usuarios
+        // Usuarios
         await prisma.usuario.createMany({ data: usuarios, skipDuplicates: true });
         console.log("✅ Usuarios insertados");
 
-        // 2️⃣ Especialidades
+        // Especialidades
         await prisma.especialidad.createMany({
             data: especialidades,
             skipDuplicates: true,
         });
         console.log("✅ Especialidades insertadas");
 
-        // 3️⃣ SLA
+        // SLA
         await prisma.sLA.createMany({ data: slas, skipDuplicates: true });
         console.log("✅ SLA insertados");
 
-        // 4️⃣ Etiquetas
+        // Etiquetas
         await prisma.etiqueta.createMany({ data: etiquetas, skipDuplicates: true });
         console.log("✅ Etiquetas insertadas");
 
-        // 5️⃣ Categorías
+        // Categorías (solo nombre + slaId)
         await prisma.categoria.createMany({
             data: categorias.map((cat) => ({
                 nombre: cat.nombre,
@@ -40,7 +41,7 @@ const main = async () => {
         });
         console.log("✅ Categorías insertadas");
 
-        // 6️⃣ Relaciones categoría-especialidad-etiqueta
+        // Relaciones categoría–especialidad–etiqueta
         for (const cat of categorias) {
             await prisma.categoria.update({
                 where: { nombre: cat.nombre },
@@ -52,9 +53,9 @@ const main = async () => {
                 },
             });
         }
-        console.log("✅ Relaciones creadas");
+        console.log("✅ Relaciones de categorías creadas");
 
-        // 7️⃣ Asignar especialidades a técnicos
+        // Asignar especialidades a técnicos
         const tecnicos = [
             { id: 4, especialidades: [1, 2] },
             { id: 5, especialidades: [3] },
@@ -73,7 +74,14 @@ const main = async () => {
         }
         console.log("✅ Especialidades asignadas a técnicos");
 
-        // 8️⃣ Tickets
+        // Prioridades
+        await prisma.prioridad.createMany({
+            data: prioridades,
+            skipDuplicates: true,
+        });
+        console.log("✅ Prioridades insertadas");
+
+        // Tickets
         const tickets = [
             {
                 id: 1,
@@ -81,6 +89,7 @@ const main = async () => {
                 descripcion: "El internet se desconecta constantemente",
                 solicitanteId: 3,
                 categoriaId: 1,
+                prioridadId: 3,
                 status: TicketStatus.ASSIGNED,
                 createdAt: new Date("2025-10-31T09:00:00"),
             },
@@ -90,6 +99,7 @@ const main = async () => {
                 descripcion: "No puedo abrir Microsoft Word",
                 solicitanteId: 4,
                 categoriaId: 3,
+                prioridadId: 2,
                 status: TicketStatus.ASSIGNED,
                 createdAt: new Date("2025-10-25T08:00:00"),
             },
@@ -99,6 +109,7 @@ const main = async () => {
                 descripcion: "La impresora del laboratorio no imprime",
                 solicitanteId: 5,
                 categoriaId: 2,
+                prioridadId: 3,
                 status: TicketStatus.IN_PROGRESS,
                 createdAt: new Date("2025-10-26T08:00:00"),
             },
@@ -108,6 +119,7 @@ const main = async () => {
                 descripcion: "No puedo ingresar a mi correo institucional",
                 solicitanteId: 3,
                 categoriaId: 4,
+                prioridadId: 4,
                 status: TicketStatus.RESOLVED,
                 createdAt: new Date("2025-10-27T08:00:00"),
             },
@@ -115,8 +127,9 @@ const main = async () => {
                 id: 5,
                 titulo: "Solicito acceso al sistema académico",
                 descripcion: "No tengo permisos para ingresar",
-                solicitanteId: 7, // Cliente Ana María
+                solicitanteId: 7,
                 categoriaId: 5,
+                prioridadId: 1,
                 status: TicketStatus.CLOSED,
                 createdAt: new Date("2025-10-28T08:00:00"),
                 closedAt: new Date("2025-10-28T13:00:00"),
@@ -127,6 +140,7 @@ const main = async () => {
                 descripcion: "VPN falla actualización",
                 solicitanteId: 5,
                 categoriaId: 1,
+                prioridadId: 2,
                 status: TicketStatus.PENDING,
                 createdAt: new Date("2025-10-28T14:00:00"),
             },
@@ -136,6 +150,7 @@ const main = async () => {
                 descripcion: "No puedo ingresar al sistema y necesito restablecer la clave.",
                 solicitanteId: 5,
                 categoriaId: 2,
+                prioridadId: 1,
                 status: TicketStatus.CLOSED,
                 createdAt: new Date("2025-10-29T09:00:00"),
                 closedAt: new Date("2025-10-29T11:30:00"),
@@ -145,7 +160,7 @@ const main = async () => {
         for (const t of tickets) await prisma.ticket.create({ data: t });
         console.log("✅ Tickets insertados");
 
-        // 9️⃣ Asignaciones
+        // Asignaciones
         const asignaciones = [
             {
                 ticketId: 1,
@@ -194,14 +209,13 @@ const main = async () => {
         for (const a of asignaciones) await prisma.asignacion.create({ data: a });
         console.log("✅ Asignaciones creadas");
 
-        // 🔟 Valoraciones
+        // Valoraciones
         const valoraciones = [
             {
                 ticketId: 5,
                 usuarioId: 7,
                 puntaje: 5,
-                comentario:
-                    "Excelente servicio, el técnico fue muy eficiente y amable.",
+                comentario: "Excelente servicio, el técnico fue muy eficiente y amable.",
                 createdAt: new Date("2025-10-28T14:00:00"),
                 updatedAt: new Date("2025-10-28T14:00:00"),
             },
@@ -209,8 +223,7 @@ const main = async () => {
                 ticketId: 7,
                 usuarioId: 5,
                 puntaje: 3,
-                comentario:
-                    "El problema se resolvió, pero tomó más tiempo del esperado.",
+                comentario: "El problema se resolvió, pero tomó más tiempo del esperado.",
                 createdAt: new Date("2025-10-29T12:00:00"),
                 updatedAt: new Date("2025-10-29T12:00:00"),
             },
@@ -219,7 +232,7 @@ const main = async () => {
         await prisma.valoracion.createMany({ data: valoraciones, skipDuplicates: true });
         console.log("✅ Valoraciones insertadas");
 
-        // 11️⃣ Historial con evidencias
+        // Historial con evidencias
         const historialTickets = [
             {
                 ticketId: 2,
@@ -239,7 +252,6 @@ const main = async () => {
                 createdAt: new Date("2025-10-27T09:00:00"),
                 imagenes: { create: [{ url: "falla-red.jpg" }] },
             },
-            // ✅ Ticket 5 completo
             {
                 ticketId: 5,
                 fromStatus: TicketStatus.PENDING,
@@ -278,21 +290,21 @@ const main = async () => {
             },
         ];
 
-        for (const item of historialTickets) {
+        for (const h of historialTickets) {
             await prisma.ticketHistorial.create({
                 data: {
-                    ticketId: item.ticketId,
-                    fromStatus: item.fromStatus,
-                    toStatus: item.toStatus,
-                    actorId: item.actorId,
-                    nota: item.nota,
-                    createdAt: item.createdAt,
-                    imagenes: item.imagenes ?? undefined,
+                    ticketId: h.ticketId,
+                    fromStatus: h.fromStatus,
+                    toStatus: h.toStatus,
+                    actorId: h.actorId,
+                    nota: h.nota,
+                    createdAt: h.createdAt,
+                    imagenes: h.imagenes,
                 },
             });
         }
-        console.log("✅ Historial de tickets insertado con imágenes");
 
+        console.log("✅ Historial insertado con imágenes");
         console.log("🌿 Seed ejecutado correctamente ✅");
     } catch (error) {
         console.error("❌ Error en seed:", error);

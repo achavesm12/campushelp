@@ -1,43 +1,35 @@
+/* === CONTENEDOR PRINCIPAL === */
 .detail-container {
     display: flex;
     justify-content: center;
-    padding: 1rem;
+    padding: 1.5rem;
 }
 
+/* === TARJETA PRINCIPAL === */
 .detail-card {
     width: 100%;
-    max-width: 800px;
+    max-width: 850px;
     padding: 1.5rem;
-    background-color: #1e1a3d;
-    color: #ffffff;
-}
-
-/* === CONTENEDOR PRINCIPAL (centrado en pantalla) === */
-.form-container {
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    min-height: 100vh;
-    /* Centrado vertical */
-    background-color: #1e1a3d;
-    padding: 2rem;
+    background-color: transparent;
+    color: #0F172A;
 }
 
 /* === TARJETA DEL FORMULARIO === */
 .form-card {
     width: 100%;
-    max-width: 800px;
+    max-width: 850px;
     padding: 2rem 2.5rem;
     border-radius: 20px;
-    background-color: #2b2655;
-    border: 1px solid #3f3a70;
-    box-shadow: 0 8px 25px rgba(0, 0, 0, 0.5);
-    color: #f5f5ff;
+    backdrop-filter: blur(14px);
+    background: rgba(255, 255, 255, 0.55);
+    border: 1px solid rgba(255, 255, 255, 0.35);
+    box-shadow: 0 8px 25px rgba(0, 0, 0, 0.25);
+    color: #1a1a2e;
     font-family: "Poppins", sans-serif;
     animation: fadeIn 0.6s ease-in-out;
 }
 
-/* === EFECTO DE ENTRADA === */
+/* === ANIMACIÓN DE ENTRADA === */
 @keyframes fadeIn {
     from {
         opacity: 0;
@@ -54,7 +46,7 @@
 mat-card-title {
     font-size: 1.9rem;
     font-weight: 600;
-    color: #dcd3ff;
+    color: #4D4C7D;
     margin-bottom: 1.8rem;
     text-align: center;
 }
@@ -77,7 +69,7 @@ mat-card-title {
 }
 
 mat-form-field {
-    background-color: rgba(255, 255, 255, 0.08);
+    background: rgba(255, 255, 255, 0.6);
     border-radius: 10px;
     padding: 0.4rem 0.8rem;
     transition: all 0.2s ease;
@@ -85,54 +77,53 @@ mat-form-field {
 }
 
 mat-form-field:hover {
-    background-color: rgba(255, 255, 255, 0.12);
+    background: rgba(255, 255, 255, 0.8);
 }
 
 mat-label {
-    color: #cfc7ff !important;
+    color: #4D4C7D !important;
     font-weight: 500;
 }
 
 input[matInput],
 mat-select {
-    color: #ffffff !important;
+    color: #1a1a2e !important;
     font-size: 0.95rem;
 }
 
 /* === MENSAJES DE ERROR === */
 mat-error {
-    color: #ff7b7b;
+    color: #c62828;
     font-weight: 500;
     font-size: 0.85rem;
 }
 
 /* === MAT-SELECT === */
 .mat-mdc-select-panel {
-    background-color: #322d63 !important;
-    color: white !important;
+    background: rgba(255, 255, 255, 0.95) !important;
+    color: #1a1a2e !important;
     border-radius: 10px !important;
-    box-shadow: 0 8px 25px rgba(0, 0, 0, 0.5) !important;
-    z-index: 2000 !important;
+    box-shadow: 0 8px 25px rgba(0, 0, 0, 0.3) !important;
 }
 
 .mat-mdc-option:hover:not(.mdc-list-item--disabled) {
-    background-color: #4d4782 !important;
+    background-color: rgba(130, 115, 151, 0.15) !important;
 }
 
 /* === SLIDE TOGGLE === */
 mat-slide-toggle {
-    color: #e0dcff;
+    color: #4D4C7D;
     font-weight: 500;
     margin-top: 0.5rem;
 }
 
 mat-slide-toggle.mat-checked .mdc-switch__track {
-    background-color: #a699d8 !important;
+    background-color: #827397 !important;
 }
 
 /* === CARGA ACTUAL === */
 mat-hint {
-    color: #bfb8e6;
+    color: #4D4C7D;
     font-size: 0.8rem;
 }
 
@@ -145,42 +136,54 @@ mat-hint {
 }
 
 button.btn-primary {
-    background-color: #827397;
+    background: linear-gradient(135deg, #4D4C7D, #827397);
     color: white;
     border-radius: 10px;
     padding: 0.6rem 1.4rem;
     font-weight: 600;
-    transition: all 0.2s;
-    box-shadow: 0 0 10px rgba(166, 153, 216, 0.4);
+    transition: all 0.25s ease;
+    box-shadow: 0 0 10px rgba(130, 115, 151, 0.3);
 }
 
 button.btn-primary:hover {
-    background-color: #a699d8;
+    background: linear-gradient(135deg, #827397, #E9D5DA);
     transform: scale(1.05);
 }
 
 button.btn-secondary {
     background-color: transparent;
-    border: 1px solid #a699d8;
-    color: #a699d8;
+    border: 1px solid #827397;
+    color: #4D4C7D;
     border-radius: 10px;
     font-weight: 500;
     padding: 0.6rem 1.4rem;
+    transition: all 0.2s ease;
+}
+
+button.btn-secondary:hover {
+    background: rgba(130, 115, 151, 0.1);
+    transform: scale(1.03);
 }
 
 button.btn-tertiary {
     background-color: transparent;
-    border: 1px solid #827397;
+    border: 1px solid #E9D5DA;
     color: #827397;
     border-radius: 10px;
     font-weight: 500;
     padding: 0.6rem 1.4rem;
+    transition: all 0.2s ease;
 }
 
-/* === EFECTO EN FOCUS === */
+button.btn-tertiary:hover {
+    background: rgba(233, 213, 218, 0.15);
+    transform: scale(1.03);
+}
+
+/* === FOCUS === */
 mat-form-field.mat-focused {
-    border: 1px solid #9c88ff;
-    box-shadow: 0 0 8px #9c88ff50;
+    border: 1px solid #827397;
+    box-shadow: 0 0 8px rgba(130, 115, 151, 0.35);
 }
 
 /* === RESPONSIVE === */

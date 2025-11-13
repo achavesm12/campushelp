@@ -170,7 +170,8 @@ export class CategoriaController {
                 },
             });
 
-            response.status(200).json({ message: "Categoría actualizada correctamente", categoria: updateCategoria, });
+            response.status(200).json(updateCategoria);
+            //response.status(200).json({ message: "Categoría actualizada correctamente", categoria: updateCategoria, });
         } catch (error) {
             console.error("Error al actualizar la categoría", error);
             next(error);

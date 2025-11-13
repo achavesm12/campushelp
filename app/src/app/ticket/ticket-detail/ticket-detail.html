@@ -18,44 +18,45 @@
         <div class="divider"></div>
 
         <!-- INFORMACIÓN GENERAL -->
-        <div class="detail-body">
-            <p><strong>Descripción:</strong> {{ ticket()?.descripcion }}</p>
-            <p><strong>Fecha de creación:</strong> {{ ticket()?.createdAt | date:'medium' }}</p>
-            <p><strong>Solicitante:</strong> {{ ticket()?.solicitante?.nombre }}</p>
-            <p><strong>Categoría:</strong> {{ ticket()?.categoria?.nombre }}</p>
-            <p><strong>Prioridad:</strong> {{ ticket()?.categoria?.sla?.prioridad }}</p>
-        </div>
-
-        <div class="divider"></div>
+        <section class="info-section">
+            <h3>Información general</h3>
+            <div class="info-content">
+                <p><strong>Descripción:</strong> {{ ticket()?.descripcion }}</p>
+                <p><strong>Fecha de creación:</strong> {{ ticket()?.createdAt | date:'medium' }}</p>
+                <p><strong>Solicitante:</strong> {{ ticket()?.solicitante?.nombre }}</p>
+                <p><strong>Categoría:</strong> {{ ticket()?.categoria?.nombre }}</p>
+                <p><strong>Prioridad:</strong> {{ ticket()?.categoria?.sla?.prioridad }}</p>
+            </div>
+        </section>
 
         <!-- SLA Y CUMPLIMIENTO -->
-        <div class="sla-section">
-            <p><strong>Días de resolución:</strong> {{ ticket()?.diasResolucion }}</p>
-            <p><strong>SLA de Respuesta:</strong> {{ ticket()?.categoria?.sla?.maxRespuestaHrs }} hora(s)</p>
-            <p><strong>SLA de Resolución:</strong> {{ ticket()?.categoria?.sla?.maxResolucionHrs }} hora(s)</p>
-        </div>
+        <section class="sla-section-box">
+            <h3>SLA y cumplimiento</h3>
+            <div class="sla-content">
+                <p><strong>Días de resolución:</strong> {{ ticket()?.diasResolucion }}</p>
+                <p><strong>SLA de Respuesta:</strong> {{ ticket()?.categoria?.sla?.maxRespuestaHrs }} hora(s)</p>
+                <p><strong>SLA de Resolución:</strong> {{ ticket()?.categoria?.sla?.maxResolucionHrs }} hora(s)</p>
 
-        <div class="cumplimiento-section">
-            <p>
-                <strong>Cumplimiento de respuesta:</strong>
-                <span [ngClass]="
-            ticket()?.cumplioRespuesta === true ? 'cumple' :
-            ticket()?.cumplioRespuesta === false ? 'no-cumple' : 'sin-dato'">
-                    {{ ticket()?.cumplioRespuesta === true ? '✔️ Cumplido' :
-                    ticket()?.cumplioRespuesta === false ? 'No cumplido' : 'No disponible' }}
-                </span>
-            </p>
+                <p>
+                    <strong>Cumplimiento de respuesta:</strong>
+                    <span [ngClass]="ticket()?.cumplioRespuesta === true ? 'cumple' :
+                    ticket()?.cumplioRespuesta === false ? 'no-cumple' : 'sin-dato'">
+                        {{ ticket()?.cumplioRespuesta === true ? '✔️ Cumplido' :
+                        ticket()?.cumplioRespuesta === false ? 'No cumplido' : 'No disponible' }}
+                    </span>
+                </p>
 
-            <p>
-                <strong>Cumplimiento de resolución:</strong>
-                <span [ngClass]="
-            ticket()?.cumplioResolucion === true ? 'cumple' :
-            ticket()?.cumplioResolucion === false ? 'no-cumple' : 'sin-dato'">
-                    {{ ticket()?.cumplioResolucion === true ? '✔️ Cumplido' :
-                    ticket()?.cumplioResolucion === false ? 'No cumplido' : 'No disponible' }}
-                </span>
-            </p>
-        </div>
+                <p>
+                    <strong>Cumplimiento de resolución:</strong>
+                    <span [ngClass]="ticket()?.cumplioResolucion === true ? 'cumple' :
+                    ticket()?.cumplioResolucion === false ? 'no-cumple' : 'sin-dato'">
+                        {{ ticket()?.cumplioResolucion === true ? '✔️ Cumplido' :
+                        ticket()?.cumplioResolucion === false ? 'No cumplido' : 'No disponible' }}
+                    </span>
+                </p>
+            </div>
+        </section>
+
 
         <!-- HISTORIAL DE ESTADOS -->
         <section class="historial-section">

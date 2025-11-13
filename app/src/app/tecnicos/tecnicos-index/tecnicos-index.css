@@ -1,166 +1,176 @@
-/* ----- Contenedor general ----- */
-.grid-container {
-    display: flex;
-    flex-direction: column;
-    gap: 1rem;
-    padding: 1rem;
-}
-
-/* ----- Botón superior para crear técnico ----- */
+/* === ENCABEZADO DE ACCIONES === */
 .actions-header {
     display: flex;
     justify-content: flex-end;
-    margin-bottom: 0.5rem;
+    align-items: center;
+    padding: 0.5rem 1rem 0 1rem;
 }
 
+/* === BOTÓN AGREGAR TÉCNICO === */
 .actions-header button {
-    background-color: #827397;
-    color: #fff;
+    background: linear-gradient(135deg, #4D4C7D, #827397);
+    color: #fff !important;
     font-weight: 600;
-    border-radius: 12px;
-    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.25);
-    transition: background-color 0.2s, transform 0.2s;
+    letter-spacing: 0.4px;
+    padding: 0.75rem 1.8rem;
+    border-radius: 14px;
+    border: none;
+    box-shadow: 0 6px 18px rgba(0, 0, 0, 0.25);
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    text-transform: none;
+    transition: all 0.25s ease;
+}
+
+.actions-header button mat-icon {
+    font-size: 22px;
+    color: #fff;
+    transition: transform 0.25s ease;
 }
 
 .actions-header button:hover {
-    background-color: #a699d8;
-    transform: scale(1.05);
+    background: linear-gradient(135deg, #827397, #E9D5DA);
+    transform: translateY(-3px);
+    box-shadow: 0 10px 25px rgba(0, 0, 0, 0.35);
 }
 
-/* ----- Lista de tarjetas ----- */
+.actions-header button:hover mat-icon {
+    transform: rotate(90deg) scale(1.1);
+}
+
+.actions-header button:active {
+    transform: translateY(0);
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.25);
+}
+
+@media (max-width: 600px) {
+    .actions-header {
+        justify-content: center;
+    }
+
+    .actions-header button {
+        width: 100%;
+        justify-content: center;
+    }
+}
+
+/* === GRID PRINCIPAL === */
+.grid-container {
+    display: flex;
+    flex-direction: column;
+    gap: 1.5rem;
+    padding: 1rem 2rem;
+}
+
+/* === CONTENEDOR DE CARDS === */
 .product-list {
     display: flex;
     flex-wrap: wrap;
-    gap: 1.5rem;
-    margin-top: 1rem;
     justify-content: center;
+    gap: 2rem;
 }
 
-/* ----- Tarjeta individual ----- */
-.product-card {
+/* === CARD INDIVIDUAL === */
+.technician-card {
     width: 280px;
-    max-width: 100%;
-    border-radius: 16px;
+    height: auto;
+    padding: 0;
+    border-radius: 18px;
+    backdrop-filter: blur(12px);
+    background: rgba(255, 255, 255, 0.25);
+    border: 1px solid rgba(255, 255, 255, 0.25);
+    box-shadow: 0 8px 20px rgba(0, 0, 0, 0.25);
+    color: #0F172A;
     overflow: hidden;
-    transition: transform 0.2s ease-in-out, box-shadow 0.2s;
+    transition: transform 0.25s ease, box-shadow 0.25s ease;
     display: flex;
     flex-direction: column;
     justify-content: space-between;
 }
 
-.product-card:hover {
-    transform: scale(1.02);
-    box-shadow: 0 8px 20px rgba(0, 0, 0, 0.25);
+/* === CINTA SUPERIOR === */
+.technician-card::before {
+    content: "";
+    display: block;
+    height: 6px;
+    width: 100%;
+    background: linear-gradient(90deg, #4D4C7D, #827397, #E9D5DA);
 }
 
-/* ----- Estilo del mat-card ----- */
-mat-card {
-    background: linear-gradient(135deg, #4d4c7d, #3a3360);
-    color: white;
-    border-radius: 16px !important;
-    padding: 1.2rem;
-    position: relative;
-    box-shadow: 0 6px 16px rgba(0, 0, 0, 0.2);
-    transition: box-shadow 0.3s;
+/* === CUERPO DEL CARD === */
+.technician-card-content {
+    padding: 1.5rem;
 }
 
-mat-card:hover {
-    box-shadow: 0 10px 24px rgba(0, 0, 0, 0.35);
+.technician-card:hover {
+    transform: translateY(-6px) scale(1.03);
+    box-shadow: 0 12px 28px rgba(0, 0, 0, 0.35);
+    background: rgba(255, 255, 255, 0.35);
 }
 
-/* ----- Header (avatar + nombre) ----- */
+/* === ENCABEZADO CON AVATAR === */
 .card-header {
     display: flex;
     align-items: center;
     gap: 0.8rem;
-    margin-bottom: 0.5rem;
+    margin-bottom: 0.8rem;
 }
 
 .avatar {
-    width: 50px;
-    height: 50px;
-    background-color: #a699d8;
+    width: 55px;
+    height: 55px;
+    border-radius: 50%;
+    background: linear-gradient(145deg, #4D4C7D, #827397);
     color: #fff;
-    font-weight: bold;
-    font-size: 1.4rem;
+    font-size: 1.5rem;
+    font-weight: 600;
     display: flex;
     align-items: center;
     justify-content: center;
-    border-radius: 50%;
-    box-shadow: 0 0 8px rgba(255, 255, 255, 0.2);
+    box-shadow: 0 0 12px rgba(77, 76, 125, 0.4);
 }
 
 .info h2 {
-    font-size: 1rem;
-    margin: 0;
+    font-size: 1.1rem;
     font-weight: 600;
+    margin: 0;
+    color: #1a1a2e;
 }
 
-/* ----- Cuerpo de la tarjeta ----- */
-.card-body {
-    flex-grow: 1;
-}
-
+/* === CONTENIDO === */
 .card-body p {
     margin: 0.4rem 0;
     font-size: 0.95rem;
+    color: #1e1e1e;
 }
 
-/* ----- Footer con botones ----- */
+.card-body mat-icon {
+    vertical-align: middle;
+    font-size: 20px;
+}
+
+/* === FOOTER DE ACCIONES === */
 .card-footer {
     display: flex;
     justify-content: flex-end;
-    align-items: center;
     gap: 0.6rem;
-    /* separa los botones detalle/editar */
-    margin-top: auto;
+    margin-top: 1rem;
 }
 
 .card-footer button {
-    background-color: #827397;
-    border-radius: 12px;
-    box-shadow: 0 0 8px rgba(255, 255, 255, 0.3);
-    transition: background-color 0.2s, transform 0.2s;
+    background: rgba(77, 76, 125, 0.15);
+    color: #4D4C7D;
+    border-radius: 8px;
+    transition: all 0.2s ease;
 }
 
 .card-footer button:hover {
-    background-color: #a699d8;
+    background: #827397;
+    color: #fff;
     transform: scale(1.1);
 }
 
-/* ----- Íconos ----- */
 .mat-icon {
-    color: white !important;
-}
-
-/* ----- Mensaje vacío ----- */
-.empty {
-    text-align: center;
-    font-style: italic;
-    margin-top: 2rem;
-}
-
-/* ----- Responsive para móviles ----- */
-@media (max-width: 600px) {
-    .product-card {
-        width: 90%;
-    }
-
-    .card-header {
-        flex-direction: row;
-        justify-content: center;
-        text-align: center;
-    }
-
-    .info h2 {
-        font-size: 1rem;
-    }
-
-    .footer {
-        justify-content: center;
-    }
-
-    .actions-header {
-        justify-content: center;
-    }
+    color: inherit !important;
 }

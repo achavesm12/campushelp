@@ -4,7 +4,7 @@ import * as dotenv from 'dotenv';
 import cors from 'cors';
 import path from 'path';
 import { ErrorMiddleware } from './middleware/error.middleware';
-import { AppRoutes } from './routes/routes'; // asegúrate de tener tu archivo de rutas
+import { AppRoutes } from './routes/routes';
 
 //Recordar
 //import "./config/passport";

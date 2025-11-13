@@ -1,3 +1,14 @@
+<!--
+<div class="actions-header">
+    <button mat-flat-button class="btn-primary" (click)="nuevoTicket()">
+        <mat-icon>add</mat-icon>
+        <span>Agregar Ticket</span>
+    </button>
+</div>
+
+-->
+
+
 <div class="ticket-container">
     @if(tickets().length > 0) {
     @for (ticket of tickets(); track ticket.id) {

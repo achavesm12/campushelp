@@ -1,109 +1,179 @@
+/* === CONTENEDOR PRINCIPAL === */
 .grid-container {
-    max-width: 1200px;
-    margin: 0 auto;
-    padding: 1rem;
+    display: flex;
+    flex-direction: column;
+    gap: 1.5rem;
+    padding: 1rem 2rem;
+    align-items: flex-start;
 }
 
+/* === ENCABEZADO DE DÍA === */
 .dia-header {
     margin-top: 1.5rem;
     margin-bottom: 0.5rem;
     font-weight: 600;
     font-size: 1.4rem;
-    color: #b3a7ff;
+    color: #000000;
     padding-left: 0.5rem;
-    border-bottom: 1px solid #5c5c88;
+    border-bottom: 2px solid rgba(77, 76, 125, 0.25);
+    width: 100%;
 }
 
+/* === LISTA DE ASIGNACIONES === */
 .asignacion-list {
     display: flex;
     flex-wrap: wrap;
-    gap: 1rem;
-    padding-left: 0.5rem;
+    justify-content: flex-start;
+    gap: 1.5rem;
+    width: 100%;
 }
 
+/* === CARD PRINCIPAL === */
 .asignacion-card {
-    width: 260px;
-    border-radius: 1rem;
-}
-
-.asignacion-mat-card {
-    padding: 1rem;
-    border-radius: 1rem;
-    background-color: #2f2b4f;
-    box-shadow: 0 2px 6px rgba(0, 0, 0, 0.3);
-    height: 100%;
+    width: 280px;
+    height: auto;
+    border-radius: 18px;
+    backdrop-filter: blur(12px);
+    background: rgba(255, 255, 255, 0.25);
+    border: 1px solid rgba(255, 255, 255, 0.25);
+    box-shadow: 0 8px 20px rgba(0, 0, 0, 0.25);
+    color: #0F172A;
+    overflow: hidden;
+    transition: transform 0.25s ease, box-shadow 0.25s ease;
     display: flex;
     flex-direction: column;
     justify-content: space-between;
+    position: relative;
 }
 
-/* Cabecera */
+/* === EFECTO HOVER === */
+.asignacion-card:hover {
+    transform: translateY(-5px) scale(1.02);
+    box-shadow: 0 12px 28px rgba(0, 0, 0, 0.35);
+    background: rgba(255, 255, 255, 0.35);
+}
+
+/* === COLOR DE BANDA SEGÚN ESTADO === */
+.asignacion-card::before {
+    content: "";
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 6px;
+    height: 100%;
+    border-radius: 10px 0 0 10px;
+    background-color: transparent;
+}
+
+/* Colores por estado */
+.estado-pendiente::before {
+    background-color: #f44336;
+}
+
+.estado-asignado::before {
+    background-color: #ff9800;
+}
+
+.estado-enprogreso::before {
+    background-color: #2196f3;
+}
+
+.estado-resuelto::before {
+    background-color: #4caf50;
+}
+
+.estado-cerrado::before {
+    background-color: #9e9e9e;
+}
+
+/* === CUERPO DEL CARD === */
+.asignacion-mat-card {
+    padding: 1.5rem;
+}
+
+/* === ENCABEZADO CON ICONO Y TÍTULO === */
 .card-header {
     display: flex;
     align-items: center;
-    margin-bottom: 0.5rem;
+    gap: 0.8rem;
+    margin-bottom: 0.8rem;
 }
 
 .icono-categoria {
-    font-size: 26px;
-    margin-right: 10px;
-    color: #90caf9;
+    font-size: 28px;
+    color: #4D4C7D;
+    background: rgba(233, 213, 218, 0.2);
+    border-radius: 50%;
+    padding: 6px;
+    box-shadow: 0 0 10px rgba(77, 76, 125, 0.3);
+    transition: transform 0.2s ease, background-color 0.2s ease;
+}
+
+.icono-categoria:hover {
+    transform: scale(1.1);
+    background-color: rgba(233, 213, 218, 0.35);
 }
 
 .info h3 {
+    font-size: 1.05rem;
+    font-weight: 600;
     margin: 0;
-    font-size: 1rem;
-    font-weight: bold;
+    color: #1a1a2e;
 }
 
 .info .categoria {
     margin: 0;
     font-size: 0.85rem;
-    color: #ccc;
+    color: #555;
 }
 
-/* Cuerpo */
+/* === CUERPO DE LA TARJETA === */
 .card-body p {
     margin: 4px 0;
-    font-size: 0.85rem;
-    color: #e0e0e0;
+    font-size: 0.9rem;
+    color: #1e1e1e;
 }
 
 .card-body strong {
-    color: #ffffff;
+    color: #4D4C7D;
 }
 
+/* === BARRA DE PROGRESO === */
 mat-progress-bar {
-    height: 4px;
-    margin-top: 0.4rem;
+    height: 5px;
+    border-radius: 5px;
+    margin-top: 0.6rem;
     margin-bottom: 0.8rem;
 }
 
-/* Footer */
+/* === FOOTER DE ACCIONES === */
 .card-footer {
     display: flex;
-    justify-content: space-between;
-    align-items: center;
-    margin-top: auto;
+    justify-content: flex-end;
+    gap: 0.6rem;
+    margin-top: 1rem;
 }
 
-/* Estados de color */
-.estado-pendiente {
-    border-left: 4px solid #f44336;
+.card-footer button {
+    background: rgba(77, 76, 125, 0.15);
+    color: #4D4C7D;
+    border-radius: 8px;
+    transition: all 0.2s ease;
 }
 
-.estado-asignado {
-    border-left: 4px solid #ff9800;
+.card-footer button:hover {
+    background: #827397;
+    color: #fff;
+    transform: scale(1.1);
 }
 
-.estado-enprogreso {
-    border-left: 4px solid #2196f3;
-}
+/* === RESPONSIVE === */
+@media (max-width: 700px) {
+    .asignacion-list {
+        justify-content: center;
+    }
 
-.estado-resuelto {
-    border-left: 4px solid #4caf50;
-}
-
-.estado-cerrado {
-    border-left: 4px solid #9e9e9e;
+    .asignacion-card {
+        width: 90%;
+    }
 }

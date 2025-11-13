@@ -6,3 +6,47 @@ body {
     margin: 0;
     font-family: Roboto, "Helvetica Neue", sans-serif;
 }
+
+/*
+* Cuando se abre un combo (mat-select) angular lo saca del form y lo pone fuera del componente,
+* al final del doc, en algo llamado overlay container.
+
+* Cuando se coloca en el styles se le obliga a usar estos estilos para el combo, y no el que
+* Angular quiera, además se utiliza !important que es para "obligarlo a usarlos como yo quiero.
+*/
+
+/*menu desplegable*/
+.mat-mdc-select-panel {
+    background-color: #ffffff !important;
+    /*fondo*/
+    color: #1a1a2e !important;
+    /*texto*/
+    border-radius: 10px !important;
+    box-shadow: 0 8px 25px rgba(0, 0, 0, 0.25) !important;
+}
+
+/*opciones del menú*/
+.mat-mdc-option {
+    color: #1a1a2e !important;
+    font-weight: 500;
+    background: transparent !important;
+    transition: background-color 0.2s ease, color 0.2s ease;
+}
+
+/*pasar el mouse por encima*/
+.mat-mdc-option:hover:not(.mdc-list-item--disabled) {
+    background-color: #E9D5DA !important;
+    color: #4D4C7D !important;
+}
+
+/*opción seleccionada actualmente*/
+.mat-mdc-option.mdc-list-item--selected {
+    background-color: #827397 !important;
+    color: #fff !important;
+    font-weight: 600;
+}
+
+/*contenedor invisible que crea angular alrededor del menú*/
+.cdk-overlay-pane {
+    filter: drop-shadow(0px 6px 12px rgba(0, 0, 0, 0.25)) !important;
+}

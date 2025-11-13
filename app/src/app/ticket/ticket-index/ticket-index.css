@@ -1,41 +1,85 @@
+/* === BOTÓN DE ACCIONES === */
+.actions-header {
+    display: flex;
+    justify-content: flex-end;
+    align-items: center;
+    padding: 0.5rem 1.5rem;
+}
+
+/* Botón principal estilo lavanda */
+.btn-primary {
+    background-color: #827397 !important;
+    color: #ffffff !important;
+    font-weight: 600;
+    border-radius: 25px;
+    padding: 0.6rem 1.5rem;
+    font-size: 0.95rem;
+    box-shadow: 0 4px 10px rgba(166, 153, 216, 0.3);
+    transition: all 0.25s ease;
+}
+
+.btn-primary:hover {
+    background-color: #a699d8 !important;
+    transform: scale(1.05);
+    box-shadow: 0 6px 15px rgba(166, 153, 216, 0.4);
+}
+
+.btn-primary mat-icon {
+    margin-right: 6px;
+    vertical-align: middle;
+}
+
+/* === CONTENEDOR PRINCIPAL === */
 .ticket-container {
     display: flex;
     flex-direction: column;
-    gap: 1rem;
-    padding: 1rem;
+    gap: 1.2rem;
+    padding: 1.5rem;
 }
 
+/* === TARJETA DEL TICKET === */
 .ticket-item {
-    display: flex;
-    flex-direction: column;
-    padding: 1rem;
-    background: #1e1e3f;
-    border-left: 6px solid #4D4C7D;
-    color: white;
-    border-radius: 12px;
-    box-shadow: 0 0 10px rgba(0, 0, 0, 0.3);
+    background: rgba(255, 255, 255, 0.25);
+    backdrop-filter: blur(10px);
+    border: 1px solid rgba(255, 255, 255, 0.3);
+    border-left: 6px solid #827397;
+    border-radius: 16px;
+    box-shadow: 0 8px 20px rgba(0, 0, 0, 0.25);
+    padding: 1.2rem 1.5rem;
+    transition: all 0.25s ease;
+    color: #1a1a2e;
 }
 
+.ticket-item:hover {
+    transform: translateY(-5px) scale(1.02);
+    background: rgba(255, 255, 255, 0.35);
+    box-shadow: 0 10px 25px rgba(0, 0, 0, 0.35);
+}
+
+/* === HEADER === */
 .ticket-header {
     display: flex;
     align-items: center;
     justify-content: space-between;
+    gap: 1rem;
 }
 
+/* Avatar circular */
 .ticket-avatar {
-    width: 45px;
-    height: 45px;
-    background: #4D4C7D;
-    color: white;
-    font-weight: bold;
+    width: 55px;
+    height: 55px;
+    background: linear-gradient(135deg, #4D4C7D, #827397);
+    color: #fff;
     font-size: 1.5rem;
+    font-weight: 600;
     display: flex;
     align-items: center;
     justify-content: center;
     border-radius: 50%;
-    margin-right: 1rem;
+    box-shadow: 0 0 10px rgba(77, 76, 125, 0.3);
 }
 
+/* Título */
 .ticket-title {
     flex: 1;
 }
@@ -43,45 +87,82 @@
 .ticket-title h3 {
     margin: 0;
     font-size: 1.2rem;
-    color: #ffffff;
+    font-weight: 600;
+    color: #2e294e;
 }
 
+/* === CHIPS DE ESTADO === */
 .status-chip {
     font-size: 0.8rem;
-    padding: 4px 8px;
-    border-radius: 6px;
+    padding: 4px 10px;
+    border-radius: 8px;
     text-transform: uppercase;
-    font-weight: bold;
-    margin-top: 4px;
+    font-weight: 600;
     display: inline-block;
+    margin-top: 6px;
+    box-shadow: 0 2px 6px rgba(0, 0, 0, 0.15);
 }
 
 .status-chip.pending {
-    background-color: #ffc107;
-    color: #000;
+    background-color: #F9E79F;
+    color: #6C5B7B;
 }
 
 .status-chip.assigned {
-    background-color: #2196f3;
-    color: white;
+    background-color: #AED6F1;
+    color: #154360;
 }
 
 .status-chip.in_progress {
-    background-color: #17a2b8;
-    color: white;
+    background-color: #D6EAF8;
+    color: #1B4F72;
 }
 
 .status-chip.resolved {
-    background-color: #28a745;
-    color: white;
+    background-color: #ABEBC6;
+    color: #145A32;
 }
 
 .status-chip.closed {
-    background-color: #6c757d;
-    color: white;
+    background-color: #D7DBDD;
+    color: #424949;
 }
 
+/* === BODY === */
 .ticket-body {
     margin-top: 0.75rem;
     font-size: 0.95rem;
+    color: #1a1a2e;
+}
+
+/* === ÍCONO === */
+.ticket-header button mat-icon {
+    color: #4D4C7D;
+    transition: color 0.3s ease;
+}
+
+.ticket-header button:hover mat-icon {
+    color: #827397;
+}
+
+/* === RESPONSIVE === */
+@media (max-width: 600px) {
+    .ticket-item {
+        padding: 1rem;
+    }
+
+    .ticket-header {
+        flex-direction: column;
+        align-items: flex-start;
+    }
+
+    .ticket-avatar {
+        width: 45px;
+        height: 45px;
+        font-size: 1.2rem;
+    }
+
+    .actions-header {
+        justify-content: center;
+    }
 }

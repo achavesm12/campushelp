@@ -85,8 +85,6 @@ export class CategoriaForm implements OnInit, OnDestroy {
       slaId: [null, [Validators.required]],
       etiquetas: [[], Validators.required],
       especialidades: [[], Validators.required],
-      slaRespuestaMinutos: [null, [Validators.required, Validators.min(1)]],
-      slaResolucionMinutos: [null, [Validators.required, Validators.min(1)]],
     });
   }
 
@@ -114,9 +112,7 @@ export class CategoriaForm implements OnInit, OnDestroy {
       nombre: data.nombre,
       slaId: data.slaId,
       etiquetas: data.etiquetas?.map(e => e.id) ?? [],
-      especialidades: data.especialidades?.map(e => e.id) ?? [],
-      slaRespuestaMinutos: data.sla?.maxRespuestaHrs ? data.sla?.maxRespuestaHrs * 60 : null,
-      slaResolucionMinutos: data.sla?.maxResolucionHrs ? data.sla?.maxResolucionHrs * 60 : null,
+      especialidades: data.especialidades?.map(e => e.id) ?? []
     });
   }
 
@@ -130,12 +126,6 @@ export class CategoriaForm implements OnInit, OnDestroy {
     }
 
     const form = this.categoriaForm.getRawValue();
-
-    // Validación: resolución > respuesta
-    if (form.slaResolucionMinutos <= form.slaRespuestaMinutos) {
-      this.noti.error("Validación", "El tiempo de resolución debe ser mayor al de respuesta", 2000);
-      return;
-    }
 
     const payload = {
       ...form,

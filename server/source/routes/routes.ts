@@ -7,6 +7,7 @@ import { ValoracionRoutes } from './valoracion.routes';
 import { EspecialidadRoutes } from './especialidad.routes';
 import { SlaRoutes } from './sla.routes';
 import { EtiquetaRoutes } from './etiqueta.routes';
+import { PrioridadRoutes } from './prioridad.routes';
 
 export class AppRoutes {
     static get routes(): Router {
@@ -21,7 +22,7 @@ export class AppRoutes {
         router.use('/especialidad', EspecialidadRoutes.routes);
         router.use('/sla', SlaRoutes.routes);
         router.use('/etiquetas', EtiquetaRoutes.routes);
-
+        router.use("/prioridades", PrioridadRoutes.routes);
 
         return router;
     }

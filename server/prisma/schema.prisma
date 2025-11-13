@@ -28,7 +28,7 @@ model Usuario {
   ticketsSolicitados Ticket[]          @relation("TicketsPorUsuario")
   valoraciones       Valoracion[]
   notificaciones     Notificacion[]
-  especialidades     Especialidad[] 
+  especialidades     Especialidad[]
   asignaciones       Asignacion[]
   TicketHistorial    TicketHistorial[]
 }
@@ -38,7 +38,7 @@ model Especialidad {
   nombre      String      @unique
   descripcion String?
   updatedAt   DateTime    @default(now()) @updatedAt
-  usuarios    Usuario[] 
+  usuarios    Usuario[]
   categorias  Categoria[]
 }
 
@@ -58,16 +58,22 @@ model Categoria {
   slaId          Int
   updatedAt      DateTime       @default(now()) @updatedAt
   sla            SLA            @relation(fields: [slaId], references: [id])
-  especialidades Especialidad[] 
+  especialidades Especialidad[]
   tickets        Ticket[]
-  etiquetas      Etiqueta[] 
+  etiquetas      Etiqueta[]
 }
 
 model Etiqueta {
   id         Int         @id @default(autoincrement())
   nombre     String      @unique
   updatedAt  DateTime    @default(now()) @updatedAt
-  categorias Categoria[] 
+  categorias Categoria[]
+}
+
+model Prioridad {
+  id      Int      @id @default(autoincrement())
+  nombre  String   @unique 
+  tickets Ticket[]
 }
 
 model Ticket {
@@ -85,6 +91,8 @@ model Ticket {
   historial     TicketHistorial[]
   asignacion    Asignacion?
   valoracion    Valoracion?
+  prioridadId   Int
+  prioridad     Prioridad         @relation(fields: [prioridadId], references: [id])
 }
 
 model TicketHistorial {

@@ -2,6 +2,7 @@ import { Request, Response, NextFunction } from "express";
 import { PrismaClient, Role } from "../../generated/prisma";
 import { AppError } from "../errors/custom.error";
 import { join } from "../../generated/prisma/runtime/library";
+import { deAT } from "date-fns/locale";
 
 export class TicketController {
     prisma = new PrismaClient();
@@ -169,5 +170,92 @@ export class TicketController {
         catch (error) {
             next(error);
         }
-    }
+    };
+
+    create = async (request: Request, response: Response, next: NextFunction) => {
+        try {
+            const body = request.body;
+
+            const { titulo, descripcion, prioridadId, etiquetaId, solicitanteId } = body;
+
+            //validaciones
+
+            //validación prioridad
+            const prioridad = await this.prisma.prioridad.findUnique({
+                where: { id: prioridadId },
+            });
+
+            if (!prioridad) {
+                return response.status(400).json({ message: "Error con la prioridad" });
+            }
+
+            //obtener etiqueta y categoría
+            const etiqueta = await this.prisma.etiqueta.findUnique({
+                where: { id: etiquetaId },
+                include: {
+                    categorias: {
+                        include: {
+                            sla: true
+                        }
+                    },
+                },
+            });
+
+            if (!etiqueta) {
+                return response.status(400).json({ message: "La etiqueta no existe", });
+            }
+
+            if (etiqueta.categorias.length !== 1) {
+                return next(AppError.badRequest("La etiqueta debe tener solo una categoría asociada"));
+            }
+
+            const categoria = etiqueta.categorias[0];
+
+
+            //se pide la fecha actual para crear y el calculo automático del sla
+            const fechaCreacion = new Date();
+
+            //se obtiene la fecha actual + sla y se * para convertirlos a milisegundos 
+            // 3.600.000 milisegundos por hora
+            const slaRespuesta = new Date(fechaCreacion.getTime() + categoria.sla.maxRespuestaHrs * 3600000);
+
+            const slaResolucion = new Date(fechaCreacion.getTime() + categoria.sla.maxResolucionHrs * 3600000);
+
+            //Crear ticket
+            const newTicket = this.prisma.ticket.create({
+                data: {
+                    titulo,
+                    descripcion,
+                    prioridadId,
+                    solicitanteId,
+                    categoriaId: categoria.id,
+                    status: "PENDING",
+                    createdAt: fechaCreacion,
+                },
+                include: {
+                    prioridad: true,
+                    categoria: {
+                        include: {
+                            sla: true
+                        }
+                    },
+                    solicitante: true
+                },
+            });
+
+            response.status(201).json({
+                message: "Ticket creado correctamente", ticket: newTicket,
+                calculos: { slaRespuesta, slaResolucion }
+            });
+
+        } catch (error: any) {
+            console.error("Error creando el ticket ", error);
+
+            if (error.code === "P2002") {
+                return response.status(400).json({ message: "Ya existe un registro con ese dato único", });
+            }
+
+            response.status(500).json({ message: "Error interno al crear el ticket", details: error.message, });
+        }
+    };
 }

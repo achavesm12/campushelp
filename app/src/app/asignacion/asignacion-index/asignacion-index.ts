@@ -22,11 +22,11 @@ export class AsignacionesIndex {
   listarAsignaciones() {
     this.asignacionService.getVisual().subscribe({
       next: (respuesta: AsignacionVisualModel[]) => {
-        console.log('✅ Asignaciones desde API:', respuesta);
+        console.log('Asignaciones desde API:', respuesta);
         this.datos.set(respuesta);
       },
       error: (err) => {
-        console.error('❌ Error cargando asignaciones:', err);
+        console.error('Error cargando asignaciones:', err);
       }
     });
   }

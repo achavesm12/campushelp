@@ -1,4 +1,4 @@
-/* === CONTENEDOR PRINCIPAL === */
+/* principal container */
 .detail-container {
     display: flex;
     justify-content: center;
@@ -8,7 +8,7 @@
     background: transparent;
 }
 
-/* === TARJETA PRINCIPAL === */
+/* principal card */
 .detail-card {
     width: 100%;
     max-width: 650px;
@@ -23,7 +23,7 @@
     animation: fadeIn 0.6s ease-in-out;
 }
 
-/* === EFECTO DE ENTRADA === */
+/* efecto de entrada */
 @keyframes fadeIn {
     from {
         opacity: 0;
@@ -36,7 +36,7 @@
     }
 }
 
-/* === ENCABEZADO === */
+/* header */
 .detail-header {
     display: flex;
     align-items: center;
@@ -74,7 +74,7 @@
     margin-top: 0.3rem;
 }
 
-/* === CUERPO DEL DETALLE === */
+/* body detail */
 .detail-body {
     margin-top: 1rem;
     color: #1a1a2e;
@@ -92,7 +92,7 @@
     vertical-align: middle;
 }
 
-/* === ESPECIALIDADES === */
+/* especialidades */
 .especialidades {
     margin-top: 1.5rem;
 }
@@ -127,7 +127,7 @@
     transform: scale(1.05);
 }
 
-/* === FOOTER === */
+/* footer */
 .detail-footer {
     display: flex;
     justify-content: center;
@@ -152,7 +152,7 @@
     box-shadow: 0 12px 24px rgba(0, 0, 0, 0.35);
 }
 
-/* === RESPONSIVE === */
+/* responsive */
 @media (max-width: 600px) {
     .detail-card {
         padding: 1.5rem;

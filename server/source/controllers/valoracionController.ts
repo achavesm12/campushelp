@@ -5,7 +5,7 @@ import { AppError } from "../errors/custom.error";
 export class ValoracionController {
     prisma = new PrismaClient();
 
-    // 🔹 Obtener valoración por ID de ticket
+    // Obtener valoración por ID de ticket
     getByTicket = async (request: Request, response: Response, next: NextFunction) => {
         try {
             const idTicket = parseInt(request.params.id);
@@ -32,7 +32,7 @@ export class ValoracionController {
         }
     };
 
-    // 🔹 Crear valoración (por si más adelante se requiere)
+    // Crear valoración (por si más adelante se requiere)
     create = async (request: Request, response: Response, next: NextFunction) => {
         try {
             const { ticketId, usuarioId, puntaje, comentario } = request.body;

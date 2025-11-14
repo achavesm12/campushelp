@@ -7,27 +7,35 @@ import { MatTooltipModule } from '@angular/material/tooltip';
 import { MatButtonModule } from '@angular/material/button';
 import { MatFormFieldModule } from '@angular/material/form-field'; //mat-form-field
 import { MatInputModule } from '@angular/material/input'; //matInput
+import { MatSelectModule } from '@angular/material/select';
+import { MatOptionModule } from '@angular/material/core';
+import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
 
 import { TicketRoutingModule } from './ticket-routing-module';
 import { TicketIndex } from './ticket-index/ticket-index';
 import { TicketDetail } from './ticket-detail/ticket-detail';
+import { TicketForm } from './ticket-form/ticket-form';
 
 @NgModule({
   declarations: [
     TicketIndex,
-    TicketDetail
+    TicketDetail,
+    TicketForm
   ],
   imports: [
     CommonModule,
-    ReactiveFormsModule, 
-    FormsModule,         
+    ReactiveFormsModule,
+    FormsModule,
     TicketRoutingModule,
     MatCardModule,
     MatIconModule,
     MatTooltipModule,
     MatButtonModule,
     MatFormFieldModule,
-    MatInputModule
+    MatInputModule,
+    MatSelectModule,
+    MatOptionModule,
+    MatProgressSpinnerModule
   ]
 })
 export class TicketModule { }

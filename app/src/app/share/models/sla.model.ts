@@ -3,6 +3,6 @@ export interface SlaModel {
     nombre: string;
     maxRespuestaHrs: number;
     maxResolucionHrs: number;
-    prioridad: string; // podría convertirse a enum si se estandariza
+    prioridad: string; 
     updatedAt: Date;
 }

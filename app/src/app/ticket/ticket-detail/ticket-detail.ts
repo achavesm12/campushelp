@@ -57,7 +57,7 @@ export class TicketDetail {
       .pipe(
         catchError((err) => {
           if (err.status === 404) {
-            // ✅ No hay reseña, devolvemos null sin mostrar error
+            // si no hay reseña se devuelve null sin mostrar error
             this.valoracion = null;
             return of(null);
           }
@@ -69,7 +69,6 @@ export class TicketDetail {
         this.valoracion = val;
       });
   }
-
 
   setPuntaje(value: number) {
     this.valoracionForm.patchValue({ puntaje: value });
@@ -88,7 +87,6 @@ export class TicketDetail {
         next: () => this.cargarValoracion(payload.ticketId),
         error: (err) => console.error('Error al guardar valoración:', err)
       });
-
     }
   }
 

@@ -1,7 +1,7 @@
 @if(categoria()) {
 <div class="detail-container">
     <mat-card class="detail-card">
-        <!-- HEADER -->
+        <!-- header -->
         <div class="detail-header">
             <div class="avatar">{{ categoria()?.nombre?.charAt(0) || '?' }}</div>
             <div class="info">
@@ -12,7 +12,7 @@
 
         <div class="divider"></div>
 
-        <!-- BODY -->
+        <!-- body -->
         <div class="detail-body">
             <p>
                 <strong>Tiempo máx. de respuesta:</strong>
@@ -42,7 +42,7 @@
             </div>
         </div>
 
-        <!-- FOOTER -->
+        <!-- footer -->
         <div class="detail-footer">
             <button mat-stroked-button color="accent" (click)="goBack()">Regresar</button>
         </div>

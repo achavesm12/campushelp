@@ -55,4 +55,8 @@ export class TicketIndex implements OnInit {
   verDetalle(id: number): void {
     this.router.navigate(['/tickets', id]);
   }
+
+  nuevoTicket(): void {
+    this.router.navigate(['/tickets/create']);
+  }
 }

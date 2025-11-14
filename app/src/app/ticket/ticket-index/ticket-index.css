@@ -1,35 +1,60 @@
-/* === BOTÓN DE ACCIONES === */
+/* encabezado */
 .actions-header {
     display: flex;
     justify-content: flex-end;
     align-items: center;
-    padding: 0.5rem 1.5rem;
+    padding: 0.5rem 1rem 0 1rem;
 }
 
-/* Botón principal estilo lavanda */
-.btn-primary {
-    background-color: #827397 !important;
-    color: #ffffff !important;
+.actions-header button {
+    background: linear-gradient(135deg, #4D4C7D, #827397);
+    color: #fff !important;
     font-weight: 600;
-    border-radius: 25px;
-    padding: 0.6rem 1.5rem;
-    font-size: 0.95rem;
-    box-shadow: 0 4px 10px rgba(166, 153, 216, 0.3);
+    letter-spacing: 0.4px;
+    padding: 0.75rem 1.8rem;
+    border-radius: 14px;
+    border: none;
+    box-shadow: 0 6px 18px rgba(0, 0, 0, 0.25);
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    text-transform: none;
     transition: all 0.25s ease;
 }
 
-.btn-primary:hover {
-    background-color: #a699d8 !important;
-    transform: scale(1.05);
-    box-shadow: 0 6px 15px rgba(166, 153, 216, 0.4);
+.actions-header button mat-icon {
+    font-size: 22px;
+    color: #fff;
+    transition: transform 0.25s ease;
 }
 
-.btn-primary mat-icon {
-    margin-right: 6px;
-    vertical-align: middle;
+.actions-header button:hover {
+    background: linear-gradient(135deg, #827397, #E9D5DA);
+    transform: translateY(-3px);
+    box-shadow: 0 10px 25px rgba(0, 0, 0, 0.35);
 }
 
-/* === CONTENEDOR PRINCIPAL === */
+.actions-header button:hover mat-icon {
+    transform: rotate(90deg) scale(1.1);
+}
+
+.actions-header button:active {
+    transform: translateY(0);
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.25);
+}
+
+@media (max-width: 600px) {
+    .actions-header {
+        justify-content: center;
+    }
+
+    .actions-header button {
+        width: 100%;
+        justify-content: center;
+    }
+}
+
+/* principal container */
 .ticket-container {
     display: flex;
     flex-direction: column;
@@ -37,7 +62,7 @@
     padding: 1.5rem;
 }
 
-/* === TARJETA DEL TICKET === */
+/* === card individual */
 .ticket-item {
     background: rgba(255, 255, 255, 0.25);
     backdrop-filter: blur(10px);
@@ -56,7 +81,7 @@
     box-shadow: 0 10px 25px rgba(0, 0, 0, 0.35);
 }
 
-/* === HEADER === */
+/* header del card */
 .ticket-header {
     display: flex;
     align-items: center;
@@ -91,7 +116,7 @@
     color: #2e294e;
 }
 
-/* === CHIPS DE ESTADO === */
+/* estado */
 .status-chip {
     font-size: 0.8rem;
     padding: 4px 10px;
@@ -128,14 +153,14 @@
     color: #424949;
 }
 
-/* === BODY === */
+/* card body */ 
 .ticket-body {
     margin-top: 0.75rem;
     font-size: 0.95rem;
     color: #1a1a2e;
 }
 
-/* === ÍCONO === */
+/* icono para ver detalle */
 .ticket-header button mat-icon {
     color: #4D4C7D;
     transition: color 0.3s ease;
@@ -145,7 +170,7 @@
     color: #827397;
 }
 
-/* === RESPONSIVE === */
+/* hacerlo responsive */
 @media (max-width: 600px) {
     .ticket-item {
         padding: 1rem;

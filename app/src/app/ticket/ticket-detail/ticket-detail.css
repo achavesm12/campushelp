@@ -1,11 +1,11 @@
-/* === CONTENEDOR PRINCIPAL === */
+/* principal container */
 .detail-container {
     display: flex;
     justify-content: center;
     padding: 1rem;
 }
 
-/* === TARJETA PRINCIPAL === */
+/* card principal */
 .detail-card {
     width: 100%;
     max-width: 850px;
@@ -24,7 +24,7 @@
     box-shadow: 0 10px 30px rgba(0, 0, 0, 0.35);
 }
 
-/* === ENCABEZADO === */
+/* header */
 .detail-header {
     display: flex;
     align-items: center;
@@ -55,7 +55,7 @@
     margin-top: 0.3rem;
 }
 
-/* === BADGE DE ESTADO === */
+/* barra de estado */
 .badge {
     padding: 0.25rem 0.7rem;
     border-radius: 0.5rem;
@@ -94,7 +94,7 @@
     margin: 1.2rem 0;
 }
 
-/* === SECCIONES EN CAJITAS (info general + SLA) === */
+/* información general y sla */
 .info-section,
 .sla-section-box {
     background: rgba(255, 255, 255, 0.65);
@@ -126,7 +126,7 @@
     line-height: 1.5;
 }
 
-/* === HISTORIAL === */
+/* historial */
 .historial-section {
     margin-top: 2rem;
     background: rgba(255, 255, 255, 0.65);
@@ -171,7 +171,7 @@
     margin: 0.4rem 0;
 }
 
-/* === IMÁGENES === */
+/* imágenes */
 .imagenes {
     display: flex;
     gap: 10px;
@@ -193,7 +193,7 @@
     border-color: #4D4C7D;
 }
 
-/* === VALORACIÓN === */
+/* valoración */
 .valoracion-section {
     margin-top: 2rem;
     padding: 1.5rem;
@@ -225,7 +225,7 @@
     color: #ffc107;
 }
 
-/* === ESTILOS DE CUMPLIMIENTO === */
+/* estilo cumplimiento */
 .cumple {
     color: #388E3C;
     font-weight: bold;
@@ -241,7 +241,7 @@
     font-style: italic;
 }
 
-/* === PIE === */
+/* pie */
 .detail-footer {
     margin-top: 1.5rem;
     text-align: right;
@@ -259,7 +259,7 @@
     color: #fff !important;
 }
 
-/* === RESPONSIVE === */
+/* responsive */
 @media (max-width: 600px) {
     .detail-card {
         padding: 1.2rem;

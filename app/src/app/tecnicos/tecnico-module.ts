@@ -21,7 +21,6 @@ import { MatTooltipModule } from '@angular/material/tooltip';
 import { ReactiveFormsModule } from '@angular/forms';
 import { MatSlideToggleModule } from '@angular/material/slide-toggle';
 
-
 import { TecnicosIndex } from './tecnicos-index/tecnicos-index';
 import { TecnicosDetail } from './tecnicos-detail/tecnicos-detail';
 import { TecnicosForm } from './tecnicos-form/tecnicos-form';

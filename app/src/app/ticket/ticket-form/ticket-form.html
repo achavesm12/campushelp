@@ -1,0 +1,141 @@
+<form [formGroup]="ticketForm" (ngSubmit)="submitTicket()" novalidate>
+
+    <div class="detail-container">
+        <mat-card class="detail-card">
+
+            <mat-card class="form-card">
+                <mat-card-header class="primary-title title">
+                    <mat-card-title>{{ titleForm }}</mat-card-title>
+                </mat-card-header>
+
+                <mat-card-content>
+
+                    <!-- titulo ticket -->
+                    <div class="row">
+                        <div class="col">
+                            <mat-form-field class="full-width" floatLabel="auto">
+                                <mat-label>Título del ticket</mat-label>
+                                <input matInput formControlName="titulo" placeholder="Ej: Problema con WiFi" />
+
+                                @if (ticketForm.controls['titulo'].invalid && ticketForm.controls['titulo'].touched) {
+                                <mat-error>
+                                    @if (ticketForm.controls['titulo'].errors?.['required']) {
+                                    El título es obligatorio
+                                    }
+                                    @if (ticketForm.controls['titulo'].errors?.['minlength']) {
+                                    Mínimo 3 caracteres
+                                    }
+                                </mat-error>
+                                }
+                            </mat-form-field>
+                        </div>
+                    </div>
+
+                    <!-- descripción -->
+                    <div class="row">
+                        <div class="col">
+                            <mat-form-field class="full-width" floatLabel="auto">
+                                <mat-label>Descripción del problema</mat-label>
+                                <textarea matInput formControlName="descripcion" rows="4"
+                                    placeholder="Explique el problema en detalle"></textarea>
+
+                                @if (ticketForm.controls['descripcion'].invalid &&
+                                ticketForm.controls['descripcion'].touched) {
+                                <mat-error>
+                                    @if (ticketForm.controls['descripcion'].errors?.['required']) {
+                                    La descripción es obligatoria
+                                    }
+                                    @if (ticketForm.controls['descripcion'].errors?.['minlength']) {
+                                    Mínimo 5 caracteres
+                                    }
+                                </mat-error>
+                                }
+                            </mat-form-field>
+                        </div>
+                    </div>
+
+                    <!-- prioridad -->
+                    <div class="row">
+                        <div class="col">
+                            <mat-form-field class="full-width" floatLabel="auto">
+                                <mat-label>Prioridad</mat-label>
+                                <mat-select formControlName="prioridadId" placeholder="Seleccione prioridad">
+                                    @for (p of prioridadesList(); track p.id) {
+                                    <mat-option [value]="p.id">{{ p.nombre }}</mat-option>
+                                    }
+                                </mat-select>
+
+                                @if (ticketForm.controls['prioridadId'].invalid &&
+                                ticketForm.controls['prioridadId'].touched) {
+                                <mat-error>Debe seleccionar una prioridad</mat-error>
+                                }
+                            </mat-form-field>
+                        </div>
+                    </div>
+
+                    <!-- etiqueta -->
+                    <div class="row">
+                        <div class="col">
+                            <mat-form-field class="full-width" floatLabel="auto">
+                                <mat-label>Etiqueta</mat-label>
+                                <mat-select formControlName="etiquetaId" placeholder="Seleccione una etiqueta">
+                                    @for (item of etiquetasList(); track item.id) {
+                                    <mat-option [value]="item.id">{{ item.nombre }}</mat-option>
+                                    }
+                                </mat-select>
+
+                                @if (ticketForm.controls['etiquetaId'].invalid &&
+                                ticketForm.controls['etiquetaId'].touched) {
+                                <mat-error>Debe seleccionar una etiqueta</mat-error>
+                                }
+                            </mat-form-field>
+                        </div>
+                    </div>
+
+                    <!-- categoría calculada -->
+                    <div class="row">
+                        <div class="col">
+                            <mat-form-field class="full-width" floatLabel="auto">
+                                <mat-label>Categoría</mat-label>
+                                <input matInput formControlName="categoriaNombre"
+                                    placeholder="Seleccione una etiqueta primero" />
+
+                                @if (!categoriaSeleccionada()) {
+                                <mat-hint>Seleccione una etiqueta para obtener su categoría</mat-hint>
+                                }
+                            </mat-form-field>
+                        </div>
+                    </div>
+
+                    <!-- información solicitante -->
+                    <div class="row">
+                        <div class="col">
+                            <mat-form-field class="full-width" floatLabel="auto">
+                                <mat-label>Solicitante</mat-label>
+                                <input matInput formControlName="solicitanteNombre">
+                            </mat-form-field>
+                        </div>
+
+                        <div class="col">
+                            <mat-form-field class="full-width" floatLabel="auto">
+                                <mat-label>Correo</mat-label>
+                                <input matInput formControlName="solicitanteEmail">
+                            </mat-form-field>
+                        </div>
+                    </div>
+
+
+                </mat-card-content>
+
+                <!-- botones -->
+                <mat-card-actions class="button-row">
+                    <button matButton class="btn-tertiary" type="button" (click)="onReset()">Borrar</button>
+                    <button matButton class="btn-secondary" type="button" (click)="onBack()">Regresar</button>
+                    <button matButton class="btn-primary" type="submit" [disabled]="loading()">Guardar</button>
+                </mat-card-actions>
+
+            </mat-card>
+        </mat-card>
+    </div>
+
+</form>

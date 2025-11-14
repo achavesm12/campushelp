@@ -1,4 +1,4 @@
-/* === ENCABEZADO DE ACCIONES === */
+/* header*/
 .actions-header {
     display: flex;
     justify-content: flex-end;
@@ -6,7 +6,7 @@
     padding: 0.5rem 1rem 0 1rem;
 }
 
-/* === BOTÓN AGREGAR CATEGORÍA === */
+/* btn agregar categoría*/
 .actions-header button {
     background: linear-gradient(135deg, #4D4C7D, #827397);
     color: #fff !important;
@@ -55,7 +55,7 @@
     }
 }
 
-/* === GRID PRINCIPAL === */
+/* grid principal */
 .grid-container {
     display: flex;
     flex-direction: column;
@@ -63,7 +63,7 @@
     padding: 1rem 2rem;
 }
 
-/* === CONTENEDOR DE CARDS === */
+/* card container */
 .product-list {
     display: flex;
     flex-wrap: wrap;
@@ -71,7 +71,7 @@
     gap: 2rem;
 }
 
-/* === CARD INDIVIDUAL === */
+/* card individual */
 .category-card {
     width: 280px;
     height: auto;
@@ -89,7 +89,7 @@
     justify-content: space-between;
 }
 
-/* === CINTA SUPERIOR === */
+/* cinta superior */
 .category-card::before {
     content: "";
     display: block;
@@ -98,7 +98,7 @@
     background: linear-gradient(90deg, #827397, #E9D5DA, #F8E4C8);
 }
 
-/* === CONTENIDO DEL CARD === */
+/* card contenido */
 .category-card-content {
     padding: 1.5rem;
 }
@@ -109,7 +109,7 @@
     background: rgba(255, 255, 255, 0.35);
 }
 
-/* === ENCABEZADO CON AVATAR === */
+/* encabezado con avatar */
 .card-header {
     display: flex;
     align-items: center;
@@ -138,14 +138,14 @@
     color: #1a1a2e;
 }
 
-/* === CUERPO === */
+/* body */
 .card-body p {
     margin: 0.4rem 0;
     font-size: 0.95rem;
     color: #1e1e1e;
 }
 
-/* === FOOTER DE ACCIONES === */
+/* footer */
 .card-footer {
     display: flex;
     justify-content: flex-end;

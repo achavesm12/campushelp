@@ -1,5 +1,6 @@
 import { Router } from 'express'
 import { TecnicoController } from '../controllers/tecnicoController'
+
 export class TecnicoRoutes {
     static get routes(): Router {
         const router = Router()

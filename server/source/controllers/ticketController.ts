@@ -1,8 +1,6 @@
 import { Request, Response, NextFunction } from "express";
 import { PrismaClient, Role } from "../../generated/prisma";
 import { AppError } from "../errors/custom.error";
-import { join } from "../../generated/prisma/runtime/library";
-import { deAT } from "date-fns/locale";
 
 export class TicketController {
     prisma = new PrismaClient();
@@ -69,7 +67,6 @@ export class TicketController {
         }
     }
 
-
     getById = async (request: Request, response: Response, next: NextFunction) => {
         try {
             const idTicket = parseInt(request.params.id);
@@ -80,27 +77,52 @@ export class TicketController {
             const tickets = await this.prisma.ticket.findFirst({
                 where: { id: idTicket },
                 include: {
-                    solicitante: true,
+                    solicitante: { select: { id: true, nombre: true } },
                     categoria: {
-                        include: {
-                            sla: true
+                        select: {
+                            id: true,
+                            nombre: true,
+                            sla: {
+                                select: {
+                                    maxRespuestaHrs: true,
+                                    maxResolucionHrs: true
+                                }
+                            }
                         }
                     },
                     historial: {
-                        include: {
+                        select: {
+                            id: true,
+                            fromStatus: true,
+                            toStatus: true,
+                            nota: true,
+                            createdAt: true,
                             imagenes: true,
                             actor: {
-                                select: { id: true, nombre: true, email: true }
-                            }
+                                select: {
+                                    id: true,
+                                    nombre: true
+                                }
+                            },
                         },
                         orderBy: {
                             createdAt: 'asc'
                         }
                     },
-                    valoracion: true,
+                    valoracion: {
+                        select: {
+                            puntaje: true,
+                            comentario: true
+                        }
+                    },
                     asignacion: {
-                        include: {
-                            usuario: true
+                        select: {
+                            usuario: {
+                                select: {
+                                    id: true,
+                                    nombre: true
+                                }
+                            }
                         }
                     }
                 }
@@ -222,7 +244,7 @@ export class TicketController {
             const slaResolucion = new Date(fechaCreacion.getTime() + categoria.sla.maxResolucionHrs * 3600000);
 
             //Crear ticket
-            const newTicket = this.prisma.ticket.create({
+            const newTicket = await this.prisma.ticket.create({
                 data: {
                     titulo,
                     descripcion,
@@ -239,7 +261,13 @@ export class TicketController {
                             sla: true
                         }
                     },
-                    solicitante: true
+                    solicitante: {
+                        select: {
+                            id: true,
+                            nombre: true,
+                            email: true
+                        }
+                    },
                 },
             });
 

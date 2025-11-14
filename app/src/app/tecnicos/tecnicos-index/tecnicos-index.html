@@ -1,4 +1,3 @@
-<!-- Encabezado con botón para crear técnico -->
 <div class="actions-header">
     <button mat-flat-button color="primary" (click)="nuevoTecnico()">
         <mat-icon>add</mat-icon> Agregar Técnico
@@ -11,7 +10,7 @@
         @for (item of datos(); track item.id) {
         <div class="product-card">
             <mat-card class="technician-card">
-                <!-- Encabezado con avatar y nombre -->
+                <!-- encabezado con avatar y nombre -->
                 <div class="card-header">
                     <div class="avatar">{{ item.nombre ? item.nombre.charAt(0) : '?' }}</div>
                     <div class="info">
@@ -19,7 +18,7 @@
                     </div>
                 </div>
 
-                <!-- Cuerpo de información -->
+                <!-- información -->
                 <div class="card-body">
                     <p><strong>Carga actual:</strong> {{ item.cargaActual }}</p>
                     <p>
@@ -30,14 +29,14 @@
                     </p>
                 </div>
 
-                <!-- Footer con botón -->
+                <!-- footer con botón -->
                 <div class="card-footer">
                     <button mat-icon-button matTooltip="Detalle Técnico" aria-label="Detalle Técnico"
                         (click)="detalle(item.id)">
                         <mat-icon>info</mat-icon>
                     </button>
 
-                    <!-- Editar -->
+                    <!-- editar -->
                     <button mat-icon-button matTooltip="Editar Técnico" aria-label="Editar Técnico"
                         (click)="editar(item.id)">
                         <mat-icon>edit</mat-icon>

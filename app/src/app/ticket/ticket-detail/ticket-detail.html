@@ -2,7 +2,7 @@
 <div class="detail-container">
     <mat-card class="detail-card">
 
-        <!-- ENCABEZADO -->
+        <!-- encabezado -->
         <div class="detail-header">
             <div class="avatar">{{ ticket()?.titulo?.charAt(0) || '?' }}</div>
             <div class="info">
@@ -17,7 +17,7 @@
 
         <div class="divider"></div>
 
-        <!-- INFORMACIÓN GENERAL -->
+        <!-- información general -->
         <section class="info-section">
             <h3>Información general</h3>
             <div class="info-content">
@@ -29,7 +29,7 @@
             </div>
         </section>
 
-        <!-- SLA Y CUMPLIMIENTO -->
+        <!-- sla y cumplimiento -->
         <section class="sla-section-box">
             <h3>SLA y cumplimiento</h3>
             <div class="sla-content">
@@ -58,7 +58,7 @@
         </section>
 
 
-        <!-- HISTORIAL DE ESTADOS -->
+        <!-- historial de estados -->
         <section class="historial-section">
             <h3>Historial de estados</h3>
 
@@ -97,7 +97,7 @@
         </section>
 
 
-        <!-- VALORACIÓN DEL SERVICIO (solo lectura) -->
+        <!-- valoración del servicio -->
         @if (ticket()?.status === 'CLOSED') {
         <section class="valoracion-section">
             <h3>Valoración del servicio</h3>
@@ -119,7 +119,7 @@
         </section>
         }
 
-        <!-- PIE -->
+        <!-- pie -->
         <div class="detail-footer">
             <button mat-stroked-button color="accent" (click)="goBack()">Regresar</button>
         </div>

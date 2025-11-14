@@ -8,6 +8,7 @@ export class EtiquetaRoutes {
 
         router.get('/', controller.get);
         router.get('/:id', controller.getById);
+        router.get("/:id/categoria", controller.getCategoriaPorEtiqueta);
 
         return router;
     }

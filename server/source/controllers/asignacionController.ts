@@ -1,6 +1,5 @@
 import { Request, Response, NextFunction } from "express";
 import { PrismaClient } from "../../generated/prisma";
-import { AppError } from "../errors/custom.error";
 import { addHours, differenceInHours, format } from "date-fns";
 import { es } from "date-fns/locale"; // si quieres usar días en español
 

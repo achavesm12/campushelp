@@ -121,4 +121,12 @@ export class BaseAPI<T extends BaseEntity> {
   getSlas(): Observable<any[]> {
     return this.http.get<any[]>(`${this.urlAPI}/sla`);
   }
+
+  /**
+ * Obtiene la categoría asociada a una etiqueta
+ */
+  getCategoriaPorEtiqueta(etiquetaId: number): Observable<any> {
+    return this.http.get<any>(`${this.urlAPI}/etiquetas/${etiquetaId}/categoria`);
+  }
+
 }

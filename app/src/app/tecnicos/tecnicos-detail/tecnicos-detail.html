@@ -1,5 +1,7 @@
 <div class="detail-container">
     <mat-card class="detail-card">
+
+        <!-- ENCABEZADO -->
         <div class="detail-header">
             <div class="avatar">{{ tecnico()?.nombre?.charAt(0) || '?' }}</div>
             <div class="info">
@@ -8,18 +10,23 @@
             </div>
         </div>
 
+        <!-- CUERPO -->
         <div class="detail-body">
+
             <p>
-                <strong>Disponibilidad:</strong>
+                <strong>{{ 'TECNICOS.DETALLE_CARD.DISPONIBILIDAD' | translate }}:</strong>
                 <mat-icon [color]="tecnico()?.disponibilidad ? 'primary' : 'warn'">
                     {{ tecnico()?.disponibilidad ? 'check_circle' : 'cancel' }}
                 </mat-icon>
             </p>
 
-            <p><strong>Carga actual:</strong> {{ tecnico()?.cargaActual }}</p>
+            <p>
+                <strong>{{ 'TECNICOS.DETALLE_CARD.CARGA' | translate }}:</strong>
+                {{ tecnico()?.cargaActual }}
+            </p>
 
             <div class="especialidades">
-                <strong>Especialidades:</strong>
+                <strong>{{ 'TECNICOS.DETALLE_CARD.ESPECIALIDADES' | translate }}:</strong>
 
                 <div class="chips-container">
                     @for (esp of tecnico()?.especialidades; track esp.id) {
@@ -29,10 +36,15 @@
                     }
                 </div>
             </div>
+
         </div>
 
+        <!-- FOOTER -->
         <div class="detail-footer">
-            <button mat-stroked-button color="accent" (click)="goBack()">Regresar</button>
+            <button mat-stroked-button color="accent" (click)="goBack()">
+                {{ 'TECNICOS.DETALLE_CARD.REGRESAR' | translate }}
+            </button>
         </div>
+
     </mat-card>
 </div>

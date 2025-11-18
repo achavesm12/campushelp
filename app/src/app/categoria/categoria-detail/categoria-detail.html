@@ -1,12 +1,16 @@
 @if(categoria()) {
 <div class="detail-container">
     <mat-card class="detail-card">
+
         <!-- header -->
         <div class="detail-header">
             <div class="avatar">{{ categoria()?.nombre?.charAt(0) || '?' }}</div>
             <div class="info">
                 <h2>{{ categoria()?.nombre }}</h2>
-                <p class="email">SLA: {{ categoria()?.sla?.nombre }}</p>
+                <p class="email">
+                    {{ 'CATEGORIES.DETAIL.SLA' | translate }}:
+                    {{ categoria()?.sla?.nombre }}
+                </p>
             </div>
         </div>
 
@@ -14,17 +18,21 @@
 
         <!-- body -->
         <div class="detail-body">
+
             <p>
-                <strong>Tiempo máx. de respuesta:</strong>
-                {{ categoria()?.sla?.maxRespuestaHrs }} horas
+                <strong>{{ 'CATEGORIES.DETAIL.MAX_RESPONSE' | translate }}:</strong>
+                {{ categoria()?.sla?.maxRespuestaHrs }}
+                {{ 'CATEGORIES.DETAIL.HOURS' | translate }}
             </p>
+
             <p>
-                <strong>Tiempo máx. de resolución:</strong>
-                {{ categoria()?.sla?.maxResolucionHrs }} horas
+                <strong>{{ 'CATEGORIES.DETAIL.MAX_RESOLUTION' | translate }}:</strong>
+                {{ categoria()?.sla?.maxResolucionHrs }}
+                {{ 'CATEGORIES.DETAIL.HOURS' | translate }}
             </p>
 
             <div class="chips-section">
-                <p><strong>Etiquetas:</strong></p>
+                <p><strong>{{ 'CATEGORIES.LABELS' | translate }}:</strong></p>
                 <div class="chips-container">
                     @for (item of categoria()?.etiquetas; track $index) {
                     <span class="chip etiqueta">{{ item.nombre }}</span>
@@ -33,23 +41,28 @@
             </div>
 
             <div class="chips-section">
-                <p><strong>Especialidades:</strong></p>
+                <p><strong>{{ 'CATEGORIES.SPECIALTIES' | translate }}:</strong></p>
                 <div class="chips-container">
                     @for (item of categoria()?.especialidades; track $index) {
                     <span class="chip especialidad">{{ item.nombre }}</span>
                     }
                 </div>
             </div>
+
         </div>
 
         <!-- footer -->
         <div class="detail-footer">
-            <button mat-stroked-button color="accent" (click)="goBack()">Regresar</button>
+            <button mat-stroked-button color="accent" (click)="goBack()">
+                {{ 'CATEGORIES.DETAIL.BACK' | translate }}
+            </button>
         </div>
+
     </mat-card>
 </div>
+
 } @else {
 <mat-card-content>
-    <p class="mat-body text">Categoría no encontrada</p>
+    <p class="mat-body text">{{ 'CATEGORIES.NOT_FOUND' | translate }}</p>
 </mat-card-content>
 }

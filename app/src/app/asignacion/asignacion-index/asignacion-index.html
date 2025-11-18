@@ -4,16 +4,18 @@
     <!-- Agrupación por día -->
     @for (dia of diasUnicos(datos()); track dia) {
     <div class="dia-header">
-        <h2>{{ dia | titlecase }}</h2>
+        <h2>{{ traducirDia(dia) | translate }}</h2>
     </div>
 
     <div class="asignacion-list">
+
         @for (item of filtrarPorDia(dia); track item.id) {
         <div class="asignacion-card" [ngClass]="estadoColor(item.estado)">
             <mat-card class="asignacion-mat-card">
 
                 <!-- Cabecera -->
                 <div class="card-header">
+
                     <mat-icon class="icono-categoria">
                         {{
                         item.categoria === 'Soporte de Red' ? 'wifi' :
@@ -24,6 +26,7 @@
                         'assignment'
                         }}
                     </mat-icon>
+
                     <div class="info">
                         <h3>{{ item.titulo }}</h3>
                         <p class="categoria">{{ item.categoria }}</p>
@@ -32,10 +35,14 @@
 
                 <!-- Cuerpo -->
                 <div class="card-body">
-                    <p><strong>ID:</strong> {{ item.id }}</p>
-                    <p><strong>Estado:</strong> {{ item.estado }}</p>
-                    <p><strong>Técnico:</strong> {{ item.tecnico }}</p>
-                    <p><strong>Tiempo restante SLA:</strong> {{ item.slaRestanteHoras }} h</p>
+                    <p><strong>{{ 'ASSIGNMENTS.ID' | translate }}:</strong> {{ item.id }}</p>
+                    <p><strong>{{ 'ASSIGNMENTS.STATUS' | translate }}:</strong> {{ item.estado }}</p>
+                    <p><strong>{{ 'ASSIGNMENTS.TECHNICIAN' | translate }}:</strong> {{ item.tecnico }}</p>
+
+                    <p>
+                        <strong>{{ 'ASSIGNMENTS.SLA_REMAINING' | translate }}:</strong>
+                        {{ item.slaRestanteHoras }} h
+                    </p>
 
                     <!-- Barra de SLA -->
                     <mat-progress-bar mode="determinate" [value]="calcularSLAProgreso(item.slaRestanteHoras)"
@@ -45,25 +52,35 @@
 
                 <!-- Footer con acciones -->
                 <div class="card-footer acciones-rapidas">
-                    <button mat-icon-button matTooltip="Ver detalle del ticket" (click)="verDetalle(item.id)">
+
+                    <!-- Ver detalle -->
+                    <button mat-icon-button [matTooltip]="'ASSIGNMENTS.TOOLTIP_DETAIL' | translate"
+                        (click)="verDetalle(item.id)">
                         <mat-icon>info</mat-icon>
                     </button>
-                    <button mat-icon-button matTooltip="Cambiar estado (no funcional)">
+
+                    <!-- Cambiar estado -->
+                    <button mat-icon-button [matTooltip]="'ASSIGNMENTS.TOOLTIP_STATUS' | translate">
                         <mat-icon>sync</mat-icon>
                     </button>
-                    <button mat-icon-button matTooltip="Agregar comentario (no funcional)">
+
+                    <!-- Comentario -->
+                    <button mat-icon-button [matTooltip]="'ASSIGNMENTS.TOOLTIP_COMMENT' | translate">
                         <mat-icon>comment</mat-icon>
                     </button>
+
                 </div>
 
             </mat-card>
         </div>
         }
+
     </div>
     }
-    } @else {
+    }
+    @else {
     <div>
-        <p>No hay asignaciones registradas.</p>
+        <p>{{ 'ASSIGNMENTS.EMPTY' | translate }}</p>
     </div>
     }
 </div>

@@ -1,11 +1,9 @@
 <div class="actions-header">
     <button mat-flat-button class="btn-primary" (click)="nuevaCategoria()">
         <mat-icon>add</mat-icon>
-        <span>Agregar Categoría</span>
+        <span>{{ 'CATEGORIES.ADD' | translate }}</span>
     </button>
 </div>
-
-
 
 <div class="grid-container">
     @if(datos().length > 0) {
@@ -13,7 +11,8 @@
         @for (item of datos(); track item.id) {
         <div class="product-card">
             <mat-card class="category-card">
-                <!-- Header con avatar e información -->
+
+                <!-- Header -->
                 <div class="card-header">
                     <div class="avatar">{{ item.nombre ? item.nombre.charAt(0) : '?' }}</div>
                     <div class="info">
@@ -21,32 +20,37 @@
                     </div>
                 </div>
 
-                <!-- Cuerpo de la tarjeta -->
+                <!-- Body -->
                 <div class="card-body">
-                    <p><strong>Etiquetas:</strong> {{ item.etiquetas.length }}</p>
-                    <p><strong>Especialidades:</strong> {{ item.especialidades.length }}</p>
+                    <p><strong>{{ 'CATEGORIES.LABELS' | translate }}:</strong> {{ item.etiquetas.length }}</p>
+                    <p><strong>{{ 'CATEGORIES.SPECIALTIES' | translate }}:</strong> {{ item.especialidades.length }}</p>
                 </div>
 
-                <!-- Footer con botón -->
+                <!-- Footer -->
                 <div class="card-footer">
-                    <button mat-icon-button matTooltip="Detalle Categoría" aria-label="Detalle Categoría"
-                        (click)="detalle(item.id)">
+
+                    <!-- Detalle -->
+                    <button mat-icon-button matTooltip="{{ 'CATEGORIES.DETAIL_TOOLTIP' | translate }}"
+                        aria-label="{{ 'CATEGORIES.DETAIL_TOOLTIP' | translate }}" (click)="detalle(item.id)">
                         <mat-icon>info</mat-icon>
                     </button>
 
                     <!-- Editar -->
-                    <button mat-icon-button matTooltip="Editar Categoría" aria-label="Editar Categoría"
-                        (click)="editar(item.id)">
+                    <button mat-icon-button matTooltip="{{ 'CATEGORIES.EDIT_TOOLTIP' | translate }}"
+                        aria-label="{{ 'CATEGORIES.EDIT_TOOLTIP' | translate }}" (click)="editar(item.id)">
                         <mat-icon>edit</mat-icon>
                     </button>
+
                 </div>
+
             </mat-card>
         </div>
         }
     </div>
+
     } @else {
     <div>
-        <p>No se encontraron categorías registradas.</p>
+        <p>{{ 'CATEGORIES.EMPTY' | translate }}</p>
     </div>
     }
 </div>

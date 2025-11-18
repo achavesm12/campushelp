@@ -15,6 +15,7 @@ import { TicketRoutingModule } from './ticket-routing-module';
 import { TicketIndex } from './ticket-index/ticket-index';
 import { TicketDetail } from './ticket-detail/ticket-detail';
 import { TicketForm } from './ticket-form/ticket-form';
+import { TranslateModule } from '@ngx-translate/core';
 
 @NgModule({
   declarations: [
@@ -35,7 +36,8 @@ import { TicketForm } from './ticket-form/ticket-form';
     MatInputModule,
     MatSelectModule,
     MatOptionModule,
-    MatProgressSpinnerModule
+    MatProgressSpinnerModule,
+    TranslateModule
   ]
 })
 export class TicketModule { }

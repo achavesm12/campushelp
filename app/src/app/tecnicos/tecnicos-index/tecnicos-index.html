@@ -1,55 +1,80 @@
 <div class="actions-header">
     <button mat-flat-button color="primary" (click)="nuevoTecnico()">
-        <mat-icon>add</mat-icon> Agregar Técnico
+        <mat-icon>add</mat-icon>
+        {{ 'TECNICOS.AGREGAR' | translate }}
     </button>
 </div>
 
 <div class="grid-container">
+
     @if(datos().length > 0) {
+
     <div class="product-list">
+
         @for (item of datos(); track item.id) {
+
         <div class="product-card">
             <mat-card class="technician-card">
-                <!-- encabezado con avatar y nombre -->
+
+                <!-- Encabezado -->
                 <div class="card-header">
-                    <div class="avatar">{{ item.nombre ? item.nombre.charAt(0) : '?' }}</div>
+                    <div class="avatar">
+                        {{ item.nombre ? item.nombre.charAt(0) : '?' }}
+                    </div>
+
                     <div class="info">
-                        <h2>{{ item.nombre || 'Técnico' }}</h2>
+                        <h2>
+                            {{ item.nombre || ('TECNICOS.TECNICO' | translate) }}
+                        </h2>
                     </div>
                 </div>
 
-                <!-- información -->
+                <!-- Información -->
                 <div class="card-body">
-                    <p><strong>Carga actual:</strong> {{ item.cargaActual }}</p>
+
                     <p>
-                        <strong>Disponible:</strong>
+                        <strong>{{ 'TECNICOS.CARGA_ACTUAL' | translate }}:</strong>
+                        {{ item.cargaActual }}
+                    </p>
+
+                    <p>
+                        <strong>{{ 'TECNICOS.DISPONIBLE' | translate }}:</strong>
                         <mat-icon [color]="item.disponibilidad ? 'primary' : 'warn'">
                             {{ item.disponibilidad ? 'check_circle' : 'cancel' }}
                         </mat-icon>
                     </p>
+
                 </div>
 
-                <!-- footer con botón -->
+                <!-- Footer / acciones -->
                 <div class="card-footer">
-                    <button mat-icon-button matTooltip="Detalle Técnico" aria-label="Detalle Técnico"
-                        (click)="detalle(item.id)">
+
+                    <!-- Detalle -->
+                    <button mat-icon-button matTooltip="{{ 'TECNICOS.DETALLE' | translate }}"
+                        aria-label="{{ 'TECNICOS.DETALLE' | translate }}" (click)="detalle(item.id)">
                         <mat-icon>info</mat-icon>
                     </button>
 
-                    <!-- editar -->
-                    <button mat-icon-button matTooltip="Editar Técnico" aria-label="Editar Técnico"
-                        (click)="editar(item.id)">
+                    <!-- Editar -->
+                    <button mat-icon-button matTooltip="{{ 'TECNICOS.EDITAR' | translate }}"
+                        aria-label="{{ 'TECNICOS.EDITAR' | translate }}" (click)="editar(item.id)">
                         <mat-icon>edit</mat-icon>
                     </button>
 
                 </div>
+
             </mat-card>
         </div>
+
         }
     </div>
+
     } @else {
+
     <div>
-        <p>No se encontraron técnicos con los filtros aplicados.</p>
+        <p>{{ 'TECNICOS.NO_ENCONTRADOS' | translate }}</p>
     </div>
+
     }
+
 </div>

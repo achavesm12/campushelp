@@ -21,7 +21,7 @@ export class TicketForm implements OnInit, OnDestroy {
 
   private destroy$ = new Subject<void>();
 
-  titleForm = 'Crear ticket';
+  titleForm = 'TICKETS.FORM.TITLE_CREATE';
   loading = signal<boolean>(false);
 
   // Signals para listas

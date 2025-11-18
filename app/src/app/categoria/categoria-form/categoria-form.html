@@ -7,7 +7,9 @@
 
             <mat-card class="form-card">
                 <mat-card-header class="primary-title title">
-                    <mat-card-title>{{ titleForm }} Categoría</mat-card-title>
+                    <mat-card-title>
+                        {{ titleForm | translate }}
+                    </mat-card-title>
                 </mat-card-header>
 
                 <mat-card-content>
@@ -16,16 +18,20 @@
                     <div class="row">
                         <div class="col">
                             <mat-form-field class="full-width" floatLabel="auto">
-                                <mat-label>Nombre de la categoría</mat-label>
-                                <input matInput formControlName="nombre" placeholder="Ej: Soporte a usuario final" />
+                                <mat-label>{{ 'CATEGORIES.FORM.NAME' | translate }}</mat-label>
+
+                                <input matInput formControlName="nombre"
+                                    [placeholder]="'CATEGORIES.FORM.NAME_PLACEHOLDER' | translate" />
+
                                 @if (categoriaForm.controls['nombre'].invalid &&
                                 categoriaForm.controls['nombre'].touched) {
+
                                 <mat-error>
                                     @if (categoriaForm.controls['nombre'].errors?.['required']) {
-                                    El nombre es obligatorio
+                                    {{ 'CATEGORIES.FORM.NAME_REQUIRED' | translate }}
                                     }
                                     @if (categoriaForm.controls['nombre'].errors?.['minlength']) {
-                                    Mínimo 3 caracteres
+                                    {{ 'CATEGORIES.FORM.NAME_MIN' | translate }}
                                     }
                                 </mat-error>
                                 }
@@ -37,18 +43,27 @@
                     <div class="row">
                         <div class="col">
                             <mat-form-field class="full-width" floatLabel="auto">
-                                <mat-label>SLA asociado</mat-label>
-                                <mat-select formControlName="slaId" placeholder="Seleccione un SLA">
+
+                                <mat-label>{{ 'CATEGORIES.FORM.SLA' | translate }}</mat-label>
+
+                                <mat-select formControlName="slaId"
+                                    [placeholder]="'CATEGORIES.FORM.SLA_PLACEHOLDER' | translate">
+
                                     @for (sla of slaList(); track sla.id) {
                                     <mat-option [value]="sla.id">
-                                        {{ sla.nombre }} — Resp: {{ sla.maxRespuestaHrs }}h / Res: {{
-                                        sla.maxResolucionHrs }}h
+                                        {{ sla.nombre }} — {{ 'CATEGORIES.FORM.RESPONSE_SHORT' | translate }}:
+                                        {{ sla.maxRespuestaHrs }}h /
+                                        {{ 'CATEGORIES.FORM.RESOLUTION_SHORT' | translate }}:
+                                        {{ sla.maxResolucionHrs }}h
                                     </mat-option>
                                     }
+
                                 </mat-select>
-                                @if (categoriaForm.controls['slaId'].invalid && categoriaForm.controls['slaId'].touched)
-                                {
-                                <mat-error>Debe seleccionar un SLA</mat-error>
+
+                                @if (categoriaForm.controls['slaId'].invalid &&
+                                categoriaForm.controls['slaId'].touched) {
+
+                                <mat-error>{{ 'CATEGORIES.FORM.SLA_REQUIRED' | translate }}</mat-error>
                                 }
                             </mat-form-field>
                         </div>
@@ -57,48 +72,75 @@
                     <!-- etiquetas -->
                     <div class="row">
                         <div class="col">
+
                             <mat-form-field class="full-width" floatLabel="auto">
-                                <mat-label>Etiquetas asociadas</mat-label>
+
+                                <mat-label>{{ 'CATEGORIES.FORM.LABELS' | translate }}</mat-label>
+
                                 <mat-select formControlName="etiquetas" multiple
-                                    placeholder="Seleccione una o varias etiquetas">
+                                    [placeholder]="'CATEGORIES.FORM.LABELS_PLACEHOLDER' | translate">
+
                                     @for (item of etiquetasList(); track item.id) {
                                     <mat-option [value]="item.id">{{ item.nombre }}</mat-option>
                                     }
+
                                 </mat-select>
+
                                 @if (categoriaForm.controls['etiquetas'].invalid &&
                                 categoriaForm.controls['etiquetas'].touched) {
-                                <mat-error>Debe seleccionar al menos una etiqueta</mat-error>
+
+                                <mat-error>{{ 'CATEGORIES.FORM.LABELS_REQUIRED' | translate }}</mat-error>
                                 }
                             </mat-form-field>
+
                         </div>
                     </div>
 
                     <!-- especialidades -->
                     <div class="row">
                         <div class="col">
+
                             <mat-form-field class="full-width" floatLabel="auto">
-                                <mat-label>Especialidades relacionadas</mat-label>
+
+                                <mat-label>{{ 'CATEGORIES.FORM.SPECIALTIES' | translate }}</mat-label>
+
                                 <mat-select formControlName="especialidades" multiple
-                                    placeholder="Seleccione una o varias especialidades">
+                                    [placeholder]="'CATEGORIES.FORM.SPECIALTIES_PLACEHOLDER' | translate">
+
                                     @for (esp of especialidadesList(); track esp.id) {
                                     <mat-option [value]="esp.id">{{ esp.nombre }}</mat-option>
                                     }
+
                                 </mat-select>
+
                                 @if (categoriaForm.controls['especialidades'].invalid &&
                                 categoriaForm.controls['especialidades'].touched) {
-                                <mat-error>Debe seleccionar al menos una especialidad</mat-error>
+
+                                <mat-error>{{ 'CATEGORIES.FORM.SPECIALTIES_REQUIRED' | translate }}</mat-error>
                                 }
+
                             </mat-form-field>
+
                         </div>
                     </div>
+
                 </mat-card-content>
 
                 <!-- botones -->
                 <mat-card-actions class="button-row">
-                    <button matButton class="btn-tertiary" type="button" (click)="onReset()">Borrar</button>
-                    <button matButton class="btn-secondary" type="button" (click)="onBack()">Regresar</button>
-                    <button matButton class="btn-primary" type="submit" [disabled]="loading()">Guardar</button>
+                    <button matButton class="btn-tertiary" type="button" (click)="onReset()">
+                        {{ 'CATEGORIES.FORM.CLEAR' | translate }}
+                    </button>
+
+                    <button matButton class="btn-secondary" type="button" (click)="onBack()">
+                        {{ 'CATEGORIES.FORM.BACK' | translate }}
+                    </button>
+
+                    <button matButton class="btn-primary" type="submit" [disabled]="loading()">
+                        {{ 'CATEGORIES.FORM.SAVE' | translate }}
+                    </button>
                 </mat-card-actions>
+
             </mat-card>
         </mat-card>
     </div>

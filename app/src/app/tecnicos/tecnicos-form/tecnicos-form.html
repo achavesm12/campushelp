@@ -6,8 +6,13 @@
             <input type="hidden" formControlName="id" />
 
             <mat-card class="form-card">
+
+                <!-- título del formulario -->
                 <mat-card-header class="primary-title title">
-                    <mat-card-title>{{ titleForm }} Técnico</mat-card-title>
+                    <mat-card-title>
+                        {{ titleForm | translate }}
+                    </mat-card-title>
+
                 </mat-card-header>
 
                 <mat-card-content>
@@ -16,15 +21,18 @@
                     <div class="row">
                         <div class="col">
                             <mat-form-field class="full-width" floatLabel="auto">
-                                <mat-label>Nombre completo</mat-label>
-                                <input matInput formControlName="nombre" placeholder="Ej: Carlos López" />
+                                <mat-label>{{ 'TECNICOS.FORM.NOMBRE' | translate }}</mat-label>
+
+                                <input matInput formControlName="nombre"
+                                    [placeholder]="'TECNICOS.FORM.NOMBRE_PLACEHOLDER' | translate" />
+
                                 @if (tecnicoForm.controls['nombre'].invalid && tecnicoForm.controls['nombre'].touched) {
                                 <mat-error>
                                     @if (tecnicoForm.controls['nombre'].errors?.['required']) {
-                                    El nombre es obligatorio
+                                    {{ 'TECNICOS.FORM.NOMBRE_REQUIRED' | translate }}
                                     }
                                     @if (tecnicoForm.controls['nombre'].errors?.['minlength']) {
-                                    Mínimo 2 caracteres
+                                    {{ 'TECNICOS.FORM.NOMBRE_MIN' | translate }}
                                     }
                                 </mat-error>
                                 }
@@ -36,15 +44,18 @@
                     <div class="row">
                         <div class="col">
                             <mat-form-field class="full-width" floatLabel="auto">
-                                <mat-label>Correo electrónico</mat-label>
-                                <input matInput formControlName="email" placeholder="ejemplo@correo.com" />
+                                <mat-label>{{ 'TECNICOS.FORM.EMAIL' | translate }}</mat-label>
+
+                                <input matInput formControlName="email"
+                                    [placeholder]="'TECNICOS.FORM.EMAIL_PLACEHOLDER' | translate" />
+
                                 @if (tecnicoForm.controls['email'].invalid && tecnicoForm.controls['email'].touched) {
                                 <mat-error>
                                     @if (tecnicoForm.controls['email'].errors?.['required']) {
-                                    El correo es obligatorio
+                                    {{ 'TECNICOS.FORM.EMAIL_REQUIRED' | translate }}
                                     }
                                     @if (tecnicoForm.controls['email'].errors?.['email']) {
-                                    Formato inválido
+                                    {{ 'TECNICOS.FORM.EMAIL_INVALID' | translate }}
                                     }
                                 </mat-error>
                                 }
@@ -56,16 +67,18 @@
                     <div class="row">
                         <div class="col">
                             <mat-form-field class="full-width" floatLabel="auto">
-                                <mat-label>Especialidades</mat-label>
-                                <mat-select placeholder="Seleccione una o varias" formControlName="especialidades"
-                                    multiple>
+                                <mat-label>{{ 'TECNICOS.FORM.ESPECIALIDADES' | translate }}</mat-label>
+
+                                <mat-select [placeholder]="'TECNICOS.FORM.ESPECIALIDADES_PLACEHOLDER' | translate"
+                                    formControlName="especialidades" multiple>
                                     @for (item of espList(); track item.id) {
                                     <mat-option [value]="item.id">{{ item.nombre }}</mat-option>
                                     }
                                 </mat-select>
+
                                 @if (tecnicoForm.controls['especialidades'].invalid &&
                                 tecnicoForm.controls['especialidades'].touched) {
-                                <mat-error>Debe elegir al menos una especialidad</mat-error>
+                                <mat-error>{{ 'TECNICOS.FORM.ESPECIALIDADES_REQUIRED' | translate }}</mat-error>
                                 }
                             </mat-form-field>
                         </div>
@@ -74,17 +87,19 @@
                     <!-- disponibilidad -->
                     <div class="row align-center">
                         <mat-slide-toggle color="primary" formControlName="disponibilidad">
-                            Disponible
+                            {{ 'TECNICOS.FORM.DISPONIBLE' | translate }}
                         </mat-slide-toggle>
                     </div>
 
-                    <!-- caega actual -->
+                    <!-- carga actual -->
                     <div class="row">
                         <div class="col">
                             <mat-form-field class="full-width" floatLabel="auto">
-                                <mat-label>Carga actual</mat-label>
+                                <mat-label>{{ 'TECNICOS.FORM.CARGA_ACTUAL' | translate }}</mat-label>
+
                                 <input matInput formControlName="cargaActual" readonly />
-                                <mat-hint>Se calcula automáticamente</mat-hint>
+
+                                <mat-hint>{{ 'TECNICOS.FORM.CARGA_HINT' | translate }}</mat-hint>
                             </mat-form-field>
                         </div>
                     </div>
@@ -93,10 +108,21 @@
 
                 <!-- acciones -->
                 <mat-card-actions class="button-row">
-                    <button matButton class="btn-tertiary" type="button" (click)="onReset()">Borrar</button>
-                    <button matButton class="btn-secondary" type="button" (click)="onBack()">Regresar</button>
-                    <button matButton class="btn-primary" type="submit" [disabled]="loading()">Guardar</button>
+
+                    <button matButton class="btn-tertiary" type="button" (click)="onReset()">
+                        {{ 'TECNICOS.FORM.BORRAR' | translate }}
+                    </button>
+
+                    <button matButton class="btn-secondary" type="button" (click)="onBack()">
+                        {{ 'TECNICOS.FORM.REGRESAR' | translate }}
+                    </button>
+
+                    <button matButton class="btn-primary" type="submit" [disabled]="loading()">
+                        {{ 'TECNICOS.FORM.GUARDAR' | translate }}
+                    </button>
+
                 </mat-card-actions>
+
             </mat-card>
 
         </mat-card>

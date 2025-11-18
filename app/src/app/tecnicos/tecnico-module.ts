@@ -25,6 +25,8 @@ import { TecnicosIndex } from './tecnicos-index/tecnicos-index';
 import { TecnicosDetail } from './tecnicos-detail/tecnicos-detail';
 import { TecnicosForm } from './tecnicos-form/tecnicos-form';
 
+import { TranslateModule } from '@ngx-translate/core';
+
 @NgModule({
   declarations: [
     TecnicosIndex,
@@ -53,6 +55,7 @@ import { TecnicosForm } from './tecnicos-form/tecnicos-form';
     MatTooltipModule,
     ReactiveFormsModule,
     MatSlideToggleModule,
+    TranslateModule
   ]
 })
 export class TecnicoModule { }

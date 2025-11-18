@@ -35,7 +35,7 @@ import { MatMenuModule } from '@angular/material/menu';
 import { MatSidenavModule } from '@angular/material/sidenav';
 import { MatListModule } from '@angular/material/list';
 import {MatBadgeModule} from '@angular/material/badge' 
-
+import { TranslateModule } from '@ngx-translate/core';
 
 @NgModule({
   declarations: [
@@ -51,7 +51,8 @@ import {MatBadgeModule} from '@angular/material/badge'
     MatMenuModule,
     MatSidenavModule,
     MatListModule,
-    MatBadgeModule
+    MatBadgeModule,
+    TranslateModule
   ],
   exports: [
     Header,

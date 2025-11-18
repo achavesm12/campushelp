@@ -105,7 +105,11 @@ export class TecnicoController {
                     disponibilidad: body.disponibilidad ?? true,
                     cargaActual: 0,
                     especialidades: {
-                        connect: body.especialidades.map((e: number) => ({ id: e })),
+                        connect: body.especialidades.map((e: any) => ({
+                            id: Number(e.id ?? e)
+                        })),
+
+                        //connect: body.especialidades.map((e: number) => ({ id: e })),
                     },
                 },
                 include: { especialidades: true },

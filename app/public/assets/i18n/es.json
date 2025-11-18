@@ -1,0 +1,194 @@
+{
+    "HOME": {
+        "WELCOME": "Bienvenido a",
+        "SUBTITLE": "Gestión de incidentes, mantenimientos y soporte desde una interfaz moderna y práctica.",
+        "CARDS": {
+            "LISTAS": {
+                "TITLE": "Listas",
+                "DESCRIPTION": "Consulta y gestiona las listas y detalles de nuestro equipo."
+            },
+            "MANTENIMIENTOS": {
+                "TITLE": "Mantenimientos",
+                "DESCRIPTION": "Registra tus incidentes en nuestro sistema."
+            },
+            "TICKETS": {
+                "TITLE": "Tickets",
+                "DESCRIPTION": "Visualiza y da seguimiento a los tickets registrados."
+            }
+        }
+    },
+    "HEADER": {
+        "INICIO": "Inicio",
+        "LISTAS": "Listas",
+        "MANTENIMIENTOS": "Mantenimientos",
+        "TECNICOS": "Técnicos",
+        "CATEGORIAS": "Categorías",
+        "TICKETS": "Tickets",
+        "ASIGNACIONES": "Asignaciones",
+        "USUARIOS": "Usuarios",
+        "CONFIGURACION": "Configuración",
+        "LOGOUT": "Cerrar sesión"
+    },
+    "TECNICOS": {
+        "AGREGAR": "Agregar Técnico",
+        "CARGA_ACTUAL": "Carga actual",
+        "DISPONIBLE": "Disponible",
+        "NO_ENCONTRADOS": "No se encontraron técnicos con los filtros aplicados.",
+        "DETALLE": "Detalle Técnico",
+        "EDITAR": "Editar Técnico",
+        "TECNICO": "Técnico",
+        "DETALLE_CARD": {
+            "DISPONIBILIDAD": "Disponibilidad",
+            "CARGA": "Carga actual",
+            "ESPECIALIDADES": "Especialidades",
+            "REGRESAR": "Regresar"
+        },
+        "FORM": {
+            "TITULO_CREAR": "Crear",
+            "TITULO_EDITAR": "Editar",
+            "NOMBRE": "Nombre completo",
+            "NOMBRE_PLACEHOLDER": "Ej: Carlos López",
+            "NOMBRE_REQUIRED": "El nombre es obligatorio",
+            "NOMBRE_MIN": "Mínimo 2 caracteres",
+            "EMAIL": "Correo electrónico",
+            "EMAIL_PLACEHOLDER": "ejemplo@correo.com",
+            "EMAIL_REQUIRED": "El correo es obligatorio",
+            "EMAIL_INVALID": "Formato inválido",
+            "ESPECIALIDADES": "Especialidades",
+            "ESPECIALIDADES_PLACEHOLDER": "Seleccione una o varias",
+            "ESPECIALIDADES_REQUIRED": "Debe elegir al menos una especialidad",
+            "DISPONIBLE": "Disponible",
+            "CARGA_ACTUAL": "Carga actual",
+            "CARGA_HINT": "Se calcula automáticamente",
+            "BORRAR": "Borrar",
+            "REGRESAR": "Regresar",
+            "GUARDAR": "Guardar"
+        }
+    },
+    "CATEGORIES": {
+        "ADD": "Agregar Categoría",
+        "LABELS": "Etiquetas",
+        "SPECIALTIES": "Especialidades",
+        "DETAIL_TOOLTIP": "Detalle Categoría",
+        "EDIT_TOOLTIP": "Editar Categoría",
+        "EMPTY": "No se encontraron categorías registradas.",
+        "NOT_FOUND": "Categoría no encontrada",
+        "DETAIL": {
+            "SLA": "SLA",
+            "MAX_RESPONSE": "Tiempo máx. de respuesta",
+            "MAX_RESOLUTION": "Tiempo máx. de resolución",
+            "HOURS": "horas",
+            "BACK": "Regresar"
+        },
+        "FORM": {
+            "CATEGORY": "Categoría",
+            "TITLE_CREATE": "Crear",
+            "TITLE_EDIT": "Editar",
+            "NAME": "Nombre de la categoría",
+            "NAME_PLACEHOLDER": "Ej: Soporte a usuario final",
+            "NAME_REQUIRED": "El nombre es obligatorio",
+            "NAME_MIN": "Mínimo 3 caracteres",
+            "SLA": "SLA asociado",
+            "SLA_PLACEHOLDER": "Seleccione un SLA",
+            "SLA_REQUIRED": "Debe seleccionar un SLA",
+            "RESPONSE_SHORT": "Resp",
+            "RESOLUTION_SHORT": "Res",
+            "LABELS": "Etiquetas asociadas",
+            "LABELS_PLACEHOLDER": "Seleccione una o varias etiquetas",
+            "LABELS_REQUIRED": "Debe seleccionar al menos una etiqueta",
+            "SPECIALTIES": "Especialidades relacionadas",
+            "SPECIALTIES_PLACEHOLDER": "Seleccione una o varias especialidades",
+            "SPECIALTIES_REQUIRED": "Debe seleccionar al menos una especialidad",
+            "CLEAR": "Borrar",
+            "BACK": "Regresar",
+            "SAVE": "Guardar"
+        }
+    },
+    "TICKETS": {
+        "ADD": "Crear Ticket",
+        "CATEGORY": "Categoría",
+        "REQUESTER": "Solicitante",
+        "EMPTY": "No se encontraron tickets registrados.",
+        "TOOLTIP_DETAIL": "Ver Detalle",
+        "NOT_FOUND": "Ticket no encontrado",
+        "DETAIL": {
+            "GENERAL_INFO": "Información general",
+            "DESCRIPTION": "Descripción",
+            "CREATED_AT": "Fecha de creación",
+            "REQUESTER": "Solicitante",
+            "CATEGORY": "Categoría",
+            "PRIORITY": "Prioridad",
+            "SLA_SECTION": "SLA y cumplimiento",
+            "RESOLUTION_DAYS": "Días de resolución",
+            "SLA_RESPONSE": "SLA de respuesta",
+            "SLA_RESOLUTION": "SLA de resolución",
+            "HOURS": "hora(s)",
+            "RESPONSE_COMPLIANCE": "Cumplimiento de respuesta",
+            "RESOLUTION_COMPLIANCE": "Cumplimiento de resolución",
+            "COMPLIED": "✔️ Cumplido",
+            "NOT_COMPLIED": "No cumplido",
+            "NOT_AVAILABLE": "No disponible",
+            "HISTORY": "Historial de estados",
+            "START": "Inicio",
+            "OBSERVATION": "Observación",
+            "NO_OBSERVATION": "Sin observación",
+            "RECORDED_BY": "Registrado por",
+            "UNKNOWN": "Desconocido",
+            "NO_HISTORY": "No hay historial registrado para este ticket.",
+            "RATING_SECTION": "Valoración del servicio",
+            "SCORE": "Puntaje",
+            "COMMENT": "Comentario",
+            "NO_COMMENT": "Sin comentario",
+            "REGISTERED_ON": "Registrado el",
+            "NO_RATING": "Este ticket no tiene valoración registrada."
+        },
+        "FORM": {
+            "TICKET": "Ticket",
+            "TITLE_CREATE": "Crear",
+            "TITLE_EDIT": "Editar",
+            "TITLE": "Título del ticket",
+            "TITLE_PLACEHOLDER": "Ej: Problema con WiFi",
+            "TITLE_REQUIRED": "El título es obligatorio",
+            "TITLE_MIN": "Mínimo 3 caracteres",
+            "DESCRIPTION": "Descripción del problema",
+            "DESCRIPTION_PLACEHOLDER": "Explique el problema en detalle",
+            "DESCRIPTION_REQUIRED": "La descripción es obligatoria",
+            "DESCRIPTION_MIN": "Mínimo 5 caracteres",
+            "PRIORITY": "Prioridad",
+            "PRIORITY_PLACEHOLDER": "Seleccione prioridad",
+            "PRIORITY_REQUIRED": "Debe seleccionar una prioridad",
+            "LABEL": "Etiqueta",
+            "LABEL_PLACEHOLDER": "Seleccione una etiqueta",
+            "LABEL_REQUIRED": "Debe seleccionar una etiqueta",
+            "CATEGORY": "Categoría",
+            "CATEGORY_PLACEHOLDER": "Seleccione una etiqueta primero",
+            "CATEGORY_HINT": "Seleccione una etiqueta para obtener su categoría",
+            "REQUESTER": "Solicitante",
+            "EMAIL": "Correo"
+        }
+    },
+    "ASSIGNMENTS": {
+        "ID": "ID",
+        "STATUS": "Estado",
+        "TECHNICIAN": "Técnico",
+        "SLA_REMAINING": "Tiempo restante SLA",
+        "TOOLTIP_DETAIL": "Ver detalle del ticket",
+        "TOOLTIP_STATUS": "Cambiar estado (no funcional)",
+        "TOOLTIP_COMMENT": "Agregar comentario (no funcional)",
+        "EMPTY": "No hay asignaciones registradas."
+    },
+    "DAYS": {
+        "MONDAY": "Lunes",
+        "TUESDAY": "Martes",
+        "WEDNESDAY": "Miércoles",
+        "THURSDAY": "Jueves",
+        "FRIDAY": "Viernes",
+        "SATURDAY": "Sábado",
+        "SUNDAY": "Domingo"
+    },
+    "COMMON": {
+        "BACK": "Regresar",
+        "CLEAR": "Borrar",
+        "SAVE": "Guardar"
+    }
+}

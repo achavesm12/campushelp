@@ -102,6 +102,26 @@
     animation: fadeIn 0.2s ease-in-out;
 }
 
+.lang-selector {
+    background: transparent;
+    border: 1px solid #ffffff55;
+    color: white;
+    padding: 6px 10px;
+    border-radius: 6px;
+    font-weight: 600;
+    cursor: pointer;
+    outline: none;
+}
+
+.lang-selector:hover {
+    background: rgba(255, 255, 255, 0.15);
+}
+
+.lang-selector option {
+    color: black;
+    /* opciones del dropdown */
+}
+
 @keyframes fadeIn {
     from {
         opacity: 0;

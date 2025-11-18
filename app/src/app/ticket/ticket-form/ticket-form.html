@@ -5,7 +5,9 @@
 
             <mat-card class="form-card">
                 <mat-card-header class="primary-title title">
-                    <mat-card-title>{{ titleForm }}</mat-card-title>
+                    <mat-card-title>
+                        {{ titleForm | translate }}
+                    </mat-card-title>
                 </mat-card-header>
 
                 <mat-card-content>
@@ -14,16 +16,18 @@
                     <div class="row">
                         <div class="col">
                             <mat-form-field class="full-width" floatLabel="auto">
-                                <mat-label>Título del ticket</mat-label>
-                                <input matInput formControlName="titulo" placeholder="Ej: Problema con WiFi" />
+                                <mat-label>{{ 'TICKETS.FORM.TITLE' | translate }}</mat-label>
+
+                                <input matInput formControlName="titulo"
+                                    [placeholder]="'TICKETS.FORM.TITLE_PLACEHOLDER' | translate" />
 
                                 @if (ticketForm.controls['titulo'].invalid && ticketForm.controls['titulo'].touched) {
                                 <mat-error>
                                     @if (ticketForm.controls['titulo'].errors?.['required']) {
-                                    El título es obligatorio
+                                    {{ 'TICKETS.FORM.TITLE_REQUIRED' | translate }}
                                     }
                                     @if (ticketForm.controls['titulo'].errors?.['minlength']) {
-                                    Mínimo 3 caracteres
+                                    {{ 'TICKETS.FORM.TITLE_MIN' | translate }}
                                     }
                                 </mat-error>
                                 }
@@ -35,20 +39,24 @@
                     <div class="row">
                         <div class="col">
                             <mat-form-field class="full-width" floatLabel="auto">
-                                <mat-label>Descripción del problema</mat-label>
+                                <mat-label>{{ 'TICKETS.FORM.DESCRIPTION' | translate }}</mat-label>
+
                                 <textarea matInput formControlName="descripcion" rows="4"
-                                    placeholder="Explique el problema en detalle"></textarea>
+                                    [placeholder]="'TICKETS.FORM.DESCRIPTION_PLACEHOLDER' | translate">
+                                </textarea>
 
                                 @if (ticketForm.controls['descripcion'].invalid &&
                                 ticketForm.controls['descripcion'].touched) {
+
                                 <mat-error>
                                     @if (ticketForm.controls['descripcion'].errors?.['required']) {
-                                    La descripción es obligatoria
+                                    {{ 'TICKETS.FORM.DESCRIPTION_REQUIRED' | translate }}
                                     }
                                     @if (ticketForm.controls['descripcion'].errors?.['minlength']) {
-                                    Mínimo 5 caracteres
+                                    {{ 'TICKETS.FORM.DESCRIPTION_MIN' | translate }}
                                     }
                                 </mat-error>
+
                                 }
                             </mat-form-field>
                         </div>
@@ -58,8 +66,11 @@
                     <div class="row">
                         <div class="col">
                             <mat-form-field class="full-width" floatLabel="auto">
-                                <mat-label>Prioridad</mat-label>
-                                <mat-select formControlName="prioridadId" placeholder="Seleccione prioridad">
+                                <mat-label>{{ 'TICKETS.FORM.PRIORITY' | translate }}</mat-label>
+
+                                <mat-select formControlName="prioridadId"
+                                    [placeholder]="'TICKETS.FORM.PRIORITY_PLACEHOLDER' | translate">
+
                                     @for (p of prioridadesList(); track p.id) {
                                     <mat-option [value]="p.id">{{ p.nombre }}</mat-option>
                                     }
@@ -67,7 +78,9 @@
 
                                 @if (ticketForm.controls['prioridadId'].invalid &&
                                 ticketForm.controls['prioridadId'].touched) {
-                                <mat-error>Debe seleccionar una prioridad</mat-error>
+
+                                <mat-error>{{ 'TICKETS.FORM.PRIORITY_REQUIRED' | translate }}</mat-error>
+
                                 }
                             </mat-form-field>
                         </div>
@@ -77,8 +90,11 @@
                     <div class="row">
                         <div class="col">
                             <mat-form-field class="full-width" floatLabel="auto">
-                                <mat-label>Etiqueta</mat-label>
-                                <mat-select formControlName="etiquetaId" placeholder="Seleccione una etiqueta">
+                                <mat-label>{{ 'TICKETS.FORM.LABEL' | translate }}</mat-label>
+
+                                <mat-select formControlName="etiquetaId"
+                                    [placeholder]="'TICKETS.FORM.LABEL_PLACEHOLDER' | translate">
+
                                     @for (item of etiquetasList(); track item.id) {
                                     <mat-option [value]="item.id">{{ item.nombre }}</mat-option>
                                     }
@@ -86,7 +102,9 @@
 
                                 @if (ticketForm.controls['etiquetaId'].invalid &&
                                 ticketForm.controls['etiquetaId'].touched) {
-                                <mat-error>Debe seleccionar una etiqueta</mat-error>
+
+                                <mat-error>{{ 'TICKETS.FORM.LABEL_REQUIRED' | translate }}</mat-error>
+
                                 }
                             </mat-form-field>
                         </div>
@@ -96,12 +114,15 @@
                     <div class="row">
                         <div class="col">
                             <mat-form-field class="full-width" floatLabel="auto">
-                                <mat-label>Categoría</mat-label>
+                                <mat-label>{{ 'TICKETS.FORM.CATEGORY' | translate }}</mat-label>
+
                                 <input matInput formControlName="categoriaNombre"
-                                    placeholder="Seleccione una etiqueta primero" />
+                                    [placeholder]="'TICKETS.FORM.CATEGORY_PLACEHOLDER' | translate" />
 
                                 @if (!categoriaSeleccionada()) {
-                                <mat-hint>Seleccione una etiqueta para obtener su categoría</mat-hint>
+                                <mat-hint>
+                                    {{ 'TICKETS.FORM.CATEGORY_HINT' | translate }}
+                                </mat-hint>
                                 }
                             </mat-form-field>
                         </div>
@@ -111,27 +132,33 @@
                     <div class="row">
                         <div class="col">
                             <mat-form-field class="full-width" floatLabel="auto">
-                                <mat-label>Solicitante</mat-label>
+                                <mat-label>{{ 'TICKETS.FORM.REQUESTER' | translate }}</mat-label>
                                 <input matInput formControlName="solicitanteNombre">
                             </mat-form-field>
                         </div>
 
                         <div class="col">
                             <mat-form-field class="full-width" floatLabel="auto">
-                                <mat-label>Correo</mat-label>
+                                <mat-label>{{ 'TICKETS.FORM.EMAIL' | translate }}</mat-label>
                                 <input matInput formControlName="solicitanteEmail">
                             </mat-form-field>
                         </div>
                     </div>
 
-
                 </mat-card-content>
 
-                <!-- botones -->
                 <mat-card-actions class="button-row">
-                    <button matButton class="btn-tertiary" type="button" (click)="onReset()">Borrar</button>
-                    <button matButton class="btn-secondary" type="button" (click)="onBack()">Regresar</button>
-                    <button matButton class="btn-primary" type="submit" [disabled]="loading()">Guardar</button>
+                    <button matButton class="btn-tertiary" type="button" (click)="onReset()">
+                        {{ 'COMMON.CLEAR' | translate }}
+                    </button>
+
+                    <button matButton class="btn-secondary" type="button" (click)="onBack()">
+                        {{ 'COMMON.BACK' | translate }}
+                    </button>
+
+                    <button matButton class="btn-primary" type="submit" [disabled]="loading()">
+                        {{ 'COMMON.SAVE' | translate }}
+                    </button>
                 </mat-card-actions>
 
             </mat-card>

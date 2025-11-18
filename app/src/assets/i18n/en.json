@@ -1,0 +1,20 @@
+{
+    "HOME": {
+        "WELCOME": "Welcome to",
+        "SUBTITLE": "Manage incidents, maintenance and support from a modern and practical interface.",
+        "CARDS": {
+            "LISTAS": {
+                "TITLE": "Lists",
+                "DESCRIPTION": "Check and manage the lists and details of our team."
+            },
+            "MANTENIMIENTOS": {
+                "TITLE": "Maintenance",
+                "DESCRIPTION": "Register your incidents in our system."
+            },
+            "TICKETS": {
+                "TITLE": "Tickets",
+                "DESCRIPTION": "View and track the registered tickets."
+            }
+        }
+    }
+}

@@ -57,4 +57,19 @@ export class AsignacionesIndex {
   calcularSLAProgreso(restante: number): number {
     return Math.max(0, 100 - restante * 4);
   }
+
+  traducirDia(dia: string): string {
+    const mapaDias: Record<string, string> = {
+      'lunes': 'DAYS.MONDAY',
+      'martes': 'DAYS.TUESDAY',
+      'miércoles': 'DAYS.WEDNESDAY',
+      'jueves': 'DAYS.THURSDAY',
+      'viernes': 'DAYS.FRIDAY',
+      'sábado': 'DAYS.SATURDAY',
+      'domingo': 'DAYS.SUNDAY'
+    };
+
+    return mapaDias[dia.toLowerCase()] || dia;
+  }
+
 }

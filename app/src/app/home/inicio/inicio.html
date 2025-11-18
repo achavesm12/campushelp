@@ -1,31 +1,37 @@
 <div class="home-container">
     <div class="welcome-card">
-        <h1 class="title">Bienvenido a <span>CampusHelp</span></h1>
+        <h1 class="title">
+            {{ 'HOME.WELCOME' | translate }}
+            <span>CampusHelp</span>
+        </h1>
+
         <p class="subtitle">
-            Gestión de incidentes, mantenimientos y soporte desde una interfaz moderna y práctica.
+            {{ 'HOME.SUBTITLE' | translate }}
         </p>
 
         <div class="shortcuts">
+
             <!-- TARJETA LISTAS -->
             <mat-card class="shortcut-card" (click)="goTo('/tecnicos')">
                 <mat-icon>engineering</mat-icon>
-                <h3>Listas</h3>
-                <p>Consulta y gestiona las listas y detalles de nuestro equipo.</p>
+                <h3>{{ 'HOME.CARDS.LISTAS.TITLE' | translate }}</h3>
+                <p>{{ 'HOME.CARDS.LISTAS.DESCRIPTION' | translate }}</p>
             </mat-card>
 
             <!-- TARJETA MANTENIMIENTOS -->
             <mat-card class="shortcut-card" (click)="goTo('/categorias')">
                 <mat-icon>category</mat-icon>
-                <h3>Mantenimientos</h3>
-                <p>Registra tus incidentes en nuestro sistema.</p>
+                <h3>{{ 'HOME.CARDS.MANTENIMIENTOS.TITLE' | translate }}</h3>
+                <p>{{ 'HOME.CARDS.MANTENIMIENTOS.DESCRIPTION' | translate }}</p>
             </mat-card>
 
             <!-- TARJETA TICKETS -->
             <mat-card class="shortcut-card" (click)="goTo('/tickets')">
                 <mat-icon>confirmation_number</mat-icon>
-                <h3>Tickets</h3>
-                <p>Visualiza y da seguimiento a los tickets registrados.</p>
+                <h3>{{ 'HOME.CARDS.TICKETS.TITLE' | translate }}</h3>
+                <p>{{ 'HOME.CARDS.TICKETS.DESCRIPTION' | translate }}</p>
             </mat-card>
+
         </div>
     </div>
 </div>

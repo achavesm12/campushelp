@@ -23,7 +23,7 @@ export class CategoriaForm implements OnInit, OnDestroy {
   private destroy$ = new Subject<void>();
 
   //título del form, id de la categoria y bandera de creación/actualización
-  titleForm = 'Crear';
+  titleForm = 'TECNICOS.FORM.TITULO_CREAR';
   idCategoria: number | null = null;
   isCreate = true;
 
@@ -69,7 +69,9 @@ export class CategoriaForm implements OnInit, OnDestroy {
     this.route.params.pipe(takeUntil(this.destroy$)).subscribe(params => {
       this.idCategoria = params['id'] ? Number(params['id']) : null;
       this.isCreate = this.idCategoria === null;
-      this.titleForm = this.isCreate ? 'Crear' : 'Actualizar';
+      this.titleForm = this.isCreate
+        ? 'CATEGORIES.FORM.TITULO_CREAR'
+        : 'CATEGORIES.FORM.TITULO_EDITAR';
 
       if (!this.isCreate && this.idCategoria) {
         this.loadCategoria();

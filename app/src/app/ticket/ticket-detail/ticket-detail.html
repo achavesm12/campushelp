@@ -7,6 +7,7 @@
             <div class="avatar">{{ ticket()?.titulo?.charAt(0) || '?' }}</div>
             <div class="info">
                 <h2>{{ ticket()?.titulo }}</h2>
+
                 <div class="estado-badge">
                     <span class="badge" [ngClass]="ticket()?.status?.toLowerCase()">
                         {{ ticket()?.status }}
@@ -19,70 +20,120 @@
 
         <!-- información general -->
         <section class="info-section">
-            <h3>Información general</h3>
+            <h3>{{ 'TICKETS.DETAIL.GENERAL_INFO' | translate }}</h3>
+
             <div class="info-content">
-                <p><strong>Descripción:</strong> {{ ticket()?.descripcion }}</p>
-                <p><strong>Fecha de creación:</strong> {{ ticket()?.createdAt | date:'medium' }}</p>
-                <p><strong>Solicitante:</strong> {{ ticket()?.solicitante?.nombre }}</p>
-                <p><strong>Categoría:</strong> {{ ticket()?.categoria?.nombre }}</p>
-                <p><strong>Prioridad:</strong> {{ ticket()?.categoria?.sla?.prioridad }}</p>
+                <p>
+                    <strong>{{ 'TICKETS.DETAIL.DESCRIPTION' | translate }}:</strong>
+                    {{ ticket()?.descripcion }}
+                </p>
+
+                <p>
+                    <strong>{{ 'TICKETS.DETAIL.CREATED_AT' | translate }}:</strong>
+                    {{ ticket()?.createdAt | date:'medium' }}
+                </p>
+
+                <p>
+                    <strong>{{ 'TICKETS.DETAIL.REQUESTER' | translate }}:</strong>
+                    {{ ticket()?.solicitante?.nombre }}
+                </p>
+
+                <p>
+                    <strong>{{ 'TICKETS.DETAIL.CATEGORY' | translate }}:</strong>
+                    {{ ticket()?.categoria?.nombre }}
+                </p>
+
+                <p>
+                    <strong>{{ 'TICKETS.DETAIL.PRIORITY' | translate }}:</strong>
+                    {{ ticket()?.categoria?.sla?.prioridad }}
+                </p>
             </div>
         </section>
 
-        <!-- sla y cumplimiento -->
+        <!-- SLA -->
         <section class="sla-section-box">
-            <h3>SLA y cumplimiento</h3>
+            <h3>{{ 'TICKETS.DETAIL.SLA_SECTION' | translate }}</h3>
+
             <div class="sla-content">
-                <p><strong>Días de resolución:</strong> {{ ticket()?.diasResolucion }}</p>
-                <p><strong>SLA de Respuesta:</strong> {{ ticket()?.categoria?.sla?.maxRespuestaHrs }} hora(s)</p>
-                <p><strong>SLA de Resolución:</strong> {{ ticket()?.categoria?.sla?.maxResolucionHrs }} hora(s)</p>
+                <p>
+                    <strong>{{ 'TICKETS.DETAIL.RESOLUTION_DAYS' | translate }}:</strong>
+                    {{ ticket()?.diasResolucion }}
+                </p>
 
                 <p>
-                    <strong>Cumplimiento de respuesta:</strong>
+                    <strong>{{ 'TICKETS.DETAIL.SLA_RESPONSE' | translate }}:</strong>
+                    {{ ticket()?.categoria?.sla?.maxRespuestaHrs }}
+                    {{ 'TICKETS.DETAIL.HOURS' | translate }}
+                </p>
+
+                <p>
+                    <strong>{{ 'TICKETS.DETAIL.SLA_RESOLUTION' | translate }}:</strong>
+                    {{ ticket()?.categoria?.sla?.maxResolucionHrs }}
+                    {{ 'TICKETS.DETAIL.HOURS' | translate }}
+                </p>
+
+                <p>
+                    <strong>{{ 'TICKETS.DETAIL.RESPONSE_COMPLIANCE' | translate }}:</strong>
                     <span [ngClass]="ticket()?.cumplioRespuesta === true ? 'cumple' :
-                    ticket()?.cumplioRespuesta === false ? 'no-cumple' : 'sin-dato'">
-                        {{ ticket()?.cumplioRespuesta === true ? '✔️ Cumplido' :
-                        ticket()?.cumplioRespuesta === false ? 'No cumplido' : 'No disponible' }}
+                                     ticket()?.cumplioRespuesta === false ? 'no-cumple' : 'sin-dato'">
+
+                        {{ ticket()?.cumplioRespuesta === true
+                        ? ('TICKETS.DETAIL.COMPLIED' | translate)
+                        : ticket()?.cumplioRespuesta === false
+                        ? ('TICKETS.DETAIL.NOT_COMPLIED' | translate)
+                        : ('TICKETS.DETAIL.NOT_AVAILABLE' | translate)
+                        }}
                     </span>
                 </p>
 
                 <p>
-                    <strong>Cumplimiento de resolución:</strong>
+                    <strong>{{ 'TICKETS.DETAIL.RESOLUTION_COMPLIANCE' | translate }}:</strong>
                     <span [ngClass]="ticket()?.cumplioResolucion === true ? 'cumple' :
-                    ticket()?.cumplioResolucion === false ? 'no-cumple' : 'sin-dato'">
-                        {{ ticket()?.cumplioResolucion === true ? '✔️ Cumplido' :
-                        ticket()?.cumplioResolucion === false ? 'No cumplido' : 'No disponible' }}
+                                     ticket()?.cumplioResolucion === false ? 'no-cumple' : 'sin-dato'">
+
+                        {{ ticket()?.cumplioResolucion === true
+                        ? ('TICKETS.DETAIL.COMPLIED' | translate)
+                        : ticket()?.cumplioResolucion === false
+                        ? ('TICKETS.DETAIL.NOT_COMPLIED' | translate)
+                        : ('TICKETS.DETAIL.NOT_AVAILABLE' | translate)
+                        }}
                     </span>
                 </p>
             </div>
         </section>
 
-
-        <!-- historial de estados -->
+        <!-- historial -->
         <section class="historial-section">
-            <h3>Historial de estados</h3>
+            <h3>{{ 'TICKETS.DETAIL.HISTORY' | translate }}</h3>
 
             @if (ticket()?.historial?.length) {
             <div class="historial-list">
+
                 @for (item of ticket()?.historial; track item.id) {
                 <div class="historial-item">
+
                     <div class="historial-header">
                         <span class="estado">
-                            {{ item.fromStatus || 'Inicio' }} → <strong>{{ item.toStatus }}</strong>
+                            {{ item.fromStatus || ('TICKETS.DETAIL.START' | translate) }}
+                            → <strong>{{ item.toStatus }}</strong>
                         </span>
+
                         <span class="fecha">{{ item.createdAt | date:'medium' }}</span>
                     </div>
 
                     <p class="nota">
-                        <strong>Observación:</strong> {{ item.nota || 'Sin observación' }}
+                        <strong>{{ 'TICKETS.DETAIL.OBSERVATION' | translate }}:</strong>
+                        {{ item.nota || ('TICKETS.DETAIL.NO_OBSERVATION' | translate) }}
                     </p>
 
                     <p class="actor">
-                        <strong>Registrado por:</strong> {{ item.actor?.nombre || 'Desconocido' }}
+                        <strong>{{ 'TICKETS.DETAIL.RECORDED_BY' | translate }}:</strong>
+                        {{ item.actor?.nombre || ('TICKETS.DETAIL.UNKNOWN' | translate) }}
                     </p>
 
                     @if (item.imagenes?.length) {
                     <div class="imagenes">
+
                         @for (img of item.imagenes; track img.id) {
                         <img [src]="'http://localhost:3000/images/' + img.url" alt="Evidencia" class="evidencia-img" />
                         }
@@ -90,44 +141,69 @@
                     }
                 </div>
                 }
+
             </div>
+
             } @else {
-            <p class="sin-historial">No hay historial registrado para este ticket.</p>
+
+            <p class="sin-historial">
+                {{ 'TICKETS.DETAIL.NO_HISTORY' | translate }}
+            </p>
+
             }
         </section>
 
-
-        <!-- valoración del servicio -->
+        <!-- valoración -->
         @if (ticket()?.status === 'CLOSED') {
         <section class="valoracion-section">
-            <h3>Valoración del servicio</h3>
+            <h3>{{ 'TICKETS.DETAIL.RATING_SECTION' | translate }}</h3>
 
             @if (valoracion) {
+
             <div class="valoracion-existente">
-                <p><strong>Puntaje:</strong></p>
+
+                <p><strong>{{ 'TICKETS.DETAIL.SCORE' | translate }}:</strong></p>
+
                 <div class="stars">
-                    @for (i of [1, 2, 3, 4, 5]; track i) {
+                    @for (i of [1,2,3,4,5]; track i) {
                     <mat-icon [class.active]="i <= valoracion.puntaje">star</mat-icon>
                     }
                 </div>
-                <p><strong>Comentario:</strong> {{ valoracion.comentario || 'Sin comentario' }}</p>
-                <p class="fecha">Registrado el {{ valoracion.createdAt | date:'medium' }}</p>
+
+                <p>
+                    <strong>{{ 'TICKETS.DETAIL.COMMENT' | translate }}:</strong>
+                    {{ valoracion.comentario || ('TICKETS.DETAIL.NO_COMMENT' | translate) }}
+                </p>
+
+                <p class="fecha">
+                    {{ 'TICKETS.DETAIL.REGISTERED_ON' | translate }}
+                    {{ valoracion.createdAt | date:'medium' }}
+                </p>
+
             </div>
+
             } @else {
-            <p class="sin-valoracion">Este ticket no tiene valoración registrada.</p>
+
+            <p class="sin-valoracion">
+                {{ 'TICKETS.DETAIL.NO_RATING' | translate }}
+            </p>
+
             }
+
         </section>
         }
 
         <!-- pie -->
         <div class="detail-footer">
-            <button mat-stroked-button color="accent" (click)="goBack()">Regresar</button>
+            <button mat-stroked-button color="accent" (click)="goBack()">
+                {{ 'COMMON.BACK' | translate }}
+            </button>
         </div>
 
     </mat-card>
 </div>
 } @else {
 <mat-card-content>
-    <p class="mat-body text">Ticket no encontrado</p>
+    <p class="mat-body text">{{ 'TICKETS.NOT_FOUND' | translate }}</p>
 </mat-card-content>
 }

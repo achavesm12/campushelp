@@ -21,7 +21,7 @@ export class TecnicosForm implements OnInit, OnDestroy {
   private destroy$ = new Subject<void>();
 
   //título del form, id del técnico y bandera de creación/actualización
-  titleForm = 'Crear';
+  titleForm = 'TECNICOS.FORM.TITULO_CREAR';
   idTecnico: number | null = null;
   isCreate = true;
 
@@ -48,17 +48,21 @@ export class TecnicosForm implements OnInit, OnDestroy {
   ngOnInit(): void {
     this.initForm();
 
-    console.log('🟣 Iniciando formulario de técnico...');
+    console.log('Iniciando formulario de técnico...');
 
     this.espService.get().pipe(takeUntil(this.destroy$)).subscribe({
       next: (data) => {
-        console.log('🟢 Especialidades cargadas desde API:', data);
+        console.log('Especialidades cargadas desde API:', data);
         this.espList.set(data);
 
         this.route.params.pipe(takeUntil(this.destroy$)).subscribe(params => {
           this.idTecnico = params['id'] ? Number(params['id']) : null;
           this.isCreate = this.idTecnico === null;
-          this.titleForm = this.isCreate ? 'Crear' : 'Actualizar';
+          this.titleForm = this.isCreate
+            ? 'TECNICOS.FORM.TITULO_CREAR'
+            : 'TECNICOS.FORM.TITULO_EDITAR';
+
+          //this.titleForm = this.isCreate ? 'Crear' : 'Actualizar';
 
           console.log('Parámetros de ruta ->', params);
           console.log('Modo de formulario ->', this.isCreate ? 'CREAR' : 'EDITAR');

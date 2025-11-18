@@ -4,32 +4,47 @@
     </div>
 
     <nav class="header-nav">
-        <a routerLink="/inicio" routerLinkActive="active">Inicio</a>
+        <a routerLink="/inicio" routerLinkActive="active">
+            {{ 'HEADER.INICIO' | translate }}
+        </a>
 
-        <!-- MENÚ LISTAS -->
         <button mat-button [matMenuTriggerFor]="menuListas">
-            Listas
+            {{ 'HEADER.LISTAS' | translate }}
         </button>
         <mat-menu #menuListas="matMenu">
-            <button mat-menu-item routerLink="/tecnicos">Técnicos</button>
-            <button mat-menu-item routerLink="/categorias">Categorías</button>
-            <button mat-menu-item routerLink="/tickets">Tickets</button>
-            <button mat-menu-item routerLink="/asignaciones">Asignaciones</button> 
+            <button mat-menu-item routerLink="/tecnicos">
+                {{ 'HEADER.TECNICOS' | translate }}
+            </button>
+            <button mat-menu-item routerLink="/categorias">
+                {{ 'HEADER.CATEGORIAS' | translate }}
+            </button>
+            <button mat-menu-item routerLink="/tickets">
+                {{ 'HEADER.TICKETS' | translate }}
+            </button>
+            <button mat-menu-item routerLink="/asignaciones">
+                {{ 'HEADER.ASIGNACIONES' | translate }}
+            </button>
         </mat-menu>
 
-        <!-- MENÚ MANTENIMIENTOS -->
         <button mat-button [matMenuTriggerFor]="menuMantenimientos">
-            Mantenimientos
+            {{ 'HEADER.MANTENIMIENTOS' | translate }}
         </button>
         <mat-menu #menuMantenimientos="matMenu">
-            <button mat-menu-item routerLink="/usuarios">Usuarios</button>
-            <button mat-menu-item routerLink="/configuracion">Configuración</button>
+            <button mat-menu-item routerLink="/usuarios">
+                {{ 'HEADER.USUARIOS' | translate }}
+            </button>
+            <button mat-menu-item routerLink="/configuracion">
+                {{ 'HEADER.CONFIGURACION' | translate }}
+            </button>
         </mat-menu>
 
+        <a routerLink="/login" class="logout">
+            {{ 'HEADER.LOGOUT' | translate }}
+        </a>
 
-
-
-        <!-- BOTÓN DE CERRAR SESIÓN -->
-        <a routerLink="/login" class="logout">Cerrar sesión</a>
+        <select #selector (change)="cambiarIdioma(selector.value)" class="lang-selector">
+            <option value="es">ES</option>
+            <option value="en">EN</option>
+        </select>
     </nav>
 </header>

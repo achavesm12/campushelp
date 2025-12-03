@@ -176,7 +176,86 @@ mat-form-field.mat-focused {
     box-shadow: 0 0 8px rgba(130, 115, 151, 0.35);
 }
 
-/* responsive */
+/* =============================== */
+/* 🔥 ESTILOS NUEVOS PARA AUTOCOMPLETE */
+/* =============================== */
+
+.lista-etiquetas {
+    border: 1px solid #d9d9e8;
+    border-radius: 10px;
+    background: rgba(255, 255, 255, 0.7);
+    padding: 6px;
+    max-height: 180px;
+    overflow-y: auto;
+    margin-top: -10px;
+    margin-bottom: 10px;
+    box-shadow: 0 4px 12px rgba(77, 76, 125, 0.15);
+    animation: fadeIn 0.25s ease-in-out;
+}
+
+.item-etiqueta {
+    padding: 8px 12px;
+    margin-bottom: 4px;
+    border-radius: 8px;
+    cursor: pointer;
+    background: #f4f3ff;
+    color: #363062;
+    transition: 0.2s ease;
+    font-weight: 500;
+}
+
+.item-etiqueta:hover {
+    background: #E9D5DA;
+    color: #1a1a2e;
+    transform: translateX(3px);
+}
+
+.etiqueta-seleccionada {
+    margin-top: 6px;
+    background: #ECEAFF;
+    padding: 8px 14px;
+    border-radius: 10px;
+    color: #4D4C7D;
+    font-weight: 550;
+    border-left: 4px solid #827397;
+}
+
+/* CHIP ELEGANTE PARA ETIQUETA SELECCIONADA */
+.chip-etiqueta-seleccionada {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+
+    background: rgba(130, 115, 151, 0.08);
+    border-left: 4px solid #827397;
+    border-radius: 12px;
+    padding: 10px 14px;
+    margin-top: 8px;
+
+    font-family: "Poppins", sans-serif;
+    animation: fadeIn 0.3s ease;
+}
+
+.chip-icon {
+    color: #4D4C7D;
+    font-size: 20px;
+}
+
+.chip-title {
+    color: #4D4C7D;
+    font-weight: 600;
+    font-size: 0.9rem;
+}
+
+.chip-value {
+    color: #1a1a2e;
+    font-weight: 600;
+    font-size: 0.95rem;
+}
+
+
+/* =============================== */
+
 @media (max-width: 600px) {
     .form-card {
         padding: 1.5rem;
@@ -198,5 +277,4 @@ mat-form-field.mat-focused {
     .mat-mdc-text-field--disabled .mdc-floating-label {
         color: #999 !important;
     }
-
 }

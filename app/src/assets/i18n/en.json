@@ -165,7 +165,8 @@
             "CATEGORY_PLACEHOLDER": "Select a label first",
             "CATEGORY_HINT": "Select a label to auto-detect its category",
             "REQUESTER": "Requester",
-            "EMAIL": "Email"
+            "EMAIL": "Email",
+            "SELECTED_LABEL": "Selected label"
         }
     },
     "ASSIGNMENTS": {

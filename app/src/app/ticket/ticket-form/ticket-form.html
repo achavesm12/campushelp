@@ -89,26 +89,47 @@
                     <!-- etiqueta -->
                     <div class="row">
                         <div class="col">
+
+                            <!-- INPUT BÚSQUEDA -->
                             <mat-form-field class="full-width" floatLabel="auto">
                                 <mat-label>{{ 'TICKETS.FORM.LABEL' | translate }}</mat-label>
 
-                                <mat-select formControlName="etiquetaId"
-                                    [placeholder]="'TICKETS.FORM.LABEL_PLACEHOLDER' | translate">
+                                <input matInput [value]="busquedaEtiqueta()"
+                                    (input)="onBuscarEtiqueta($any($event.target).value)"
+                                    placeholder="{{ 'TICKETS.FORM.LABEL_PLACEHOLDER' | translate }}" />
 
-                                    @for (item of etiquetasList(); track item.id) {
-                                    <mat-option [value]="item.id">{{ item.nombre }}</mat-option>
-                                    }
-                                </mat-select>
-
-                                @if (ticketForm.controls['etiquetaId'].invalid &&
+                                @if(ticketForm.controls['etiquetaId'].invalid &&
                                 ticketForm.controls['etiquetaId'].touched) {
-
-                                <mat-error>{{ 'TICKETS.FORM.LABEL_REQUIRED' | translate }}</mat-error>
-
+                                <mat-error>
+                                    {{ 'TICKETS.FORM.LABEL_REQUIRED' | translate }}
+                                </mat-error>
                                 }
                             </mat-form-field>
+
+                            <!-- LISTA FILTRADA -->
+                            @if(etiquetasFiltradas().length > 0) {
+                            <div class="lista-etiquetas">
+                                @for(e of etiquetasFiltradas(); track e.id) {
+                                <div class="item-etiqueta" (click)="seleccionarEtiqueta(e)">
+                                    {{ e.nombre }}
+                                </div>
+                                }
+                            </div>
+                            }
+
+                            <!-- SELECCIONADA -->
+                            @if(ticketForm.value.etiquetaId) {
+                            <div class="chip-etiqueta-seleccionada">
+                                <mat-icon class="chip-icon">label</mat-icon>
+                                <span class="chip-title">{{ 'TICKETS.FORM.SELECTED_LABEL' | translate }}</span>
+                                <span class="chip-value">{{ busquedaEtiqueta() }}</span>
+                            </div>
+                            }
+
+
                         </div>
                     </div>
+
 
                     <!-- categoría calculada -->
                     <div class="row">

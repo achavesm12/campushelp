@@ -1,11 +1,14 @@
 import { Component, OnDestroy, OnInit, signal } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
-import { ActivatedRoute, Router } from '@angular/router';
+import { Router } from '@angular/router';
 import { Subject, takeUntil } from 'rxjs';
+
 import { NotificationService } from '../../share/services/app/notification.service';
 import { TicketService } from '../../share/services/api/ticket.service';
+
 import { EtiquetaModel } from '../../share/models/etiqueta.model';
 import { CategoriaModel } from '../../share/models/categoria.model';
+
 import { EtiquetaService } from '../../share/services/api/etiqueta.service';
 import { PrioridadModel } from '../../share/models/prioridad.model';
 import { PrioridadService } from '../../share/services/api/prioridad.service';
@@ -24,14 +27,18 @@ export class TicketForm implements OnInit, OnDestroy {
   titleForm = 'TICKETS.FORM.TITLE_CREATE';
   loading = signal<boolean>(false);
 
-  // Signals para listas
+  // listas
   etiquetasList = signal<EtiquetaModel[]>([]);
+  etiquetasFiltradas = signal<EtiquetaModel[]>([]);
   prioridadesList = signal<PrioridadModel[]>([]);
 
-  // Categoría seleccionada según etiqueta
+  // búsqueda de etiqueta
+  busquedaEtiqueta = signal<string>('');
+
+  // categoría calculada
   categoriaSeleccionada = signal<CategoriaModel | null>(null);
 
-  // usuario solicitante
+  // usuario solicitante (temporal)
   private solicitanteId = 3;
 
   ticketForm!: FormGroup;
@@ -39,18 +46,17 @@ export class TicketForm implements OnInit, OnDestroy {
   constructor(
     private fb: FormBuilder,
     private router: Router,
-    private route: ActivatedRoute,
     private etiquetaService: EtiquetaService,
     private prioridadService: PrioridadService,
     private ticketService: TicketService,
     private usuarioService: UsuarioService,
     private noti: NotificationService
-
   ) { }
 
   ngOnInit(): void {
     this.initForm();
 
+    // cargar solicitante
     this.usuarioService.getById(this.solicitanteId)
       .pipe(takeUntil(this.destroy$))
       .subscribe({
@@ -62,36 +68,31 @@ export class TicketForm implements OnInit, OnDestroy {
 
           this.ticketForm.get('solicitanteNombre')?.disable();
           this.ticketForm.get('solicitanteEmail')?.disable();
-
         },
         error: () => {
           this.noti.error("Error", "No se pudo cargar el solicitante", 2000);
         }
       });
 
-    // Cargar etiquetas
+    // cargar etiquetas
     this.etiquetaService.get()
       .pipe(takeUntil(this.destroy$))
       .subscribe({
-        next: (data) => this.etiquetasList.set(data),
-        error: () => this.noti.error("Error", "No se pudieron cargar las etiquetas", 2000)
+        next: (data) => {
+          this.etiquetasList.set(data);
+          this.etiquetasFiltradas.set(data); // inicialmente todas
+        },
+        error: () =>
+          this.noti.error("Error", "No se pudieron cargar las etiquetas", 2000)
       });
 
-    // Cargar prioridades
+    // cargar prioridades
     this.prioridadService.get()
       .pipe(takeUntil(this.destroy$))
       .subscribe({
         next: (data) => this.prioridadesList.set(data),
-        error: () => this.noti.error("Error", "No se pudieron cargar las prioridades", 2000)
-      });
-
-    // ver cambios en la etiqueta seleccionada para obtener la categoría
-    this.ticketForm.get('etiquetaId')?.valueChanges
-      .pipe(takeUntil(this.destroy$))
-      .subscribe(etiquetaId => {
-        if (etiquetaId) {
-          this.loadCategoriaPorEtiqueta(etiquetaId);
-        }
+        error: () =>
+          this.noti.error("Error", "No se pudieron cargar las prioridades", 2000)
       });
   }
 
@@ -106,7 +107,32 @@ export class TicketForm implements OnInit, OnDestroy {
       categoriaNombre: [{ value: null, disabled: true }],
       solicitanteId: [this.solicitanteId],
     });
-  };
+  }
+
+  // 🔎 cuando el usuario escribe en el input de etiqueta
+  onBuscarEtiqueta(texto: string) {
+    this.busquedaEtiqueta.set(texto);
+
+    const t = texto.toLowerCase().trim();
+    const lista = this.etiquetasList();
+
+    // si no hay texto, mostrar todas
+    if (!t) {
+      this.etiquetasFiltradas.set(lista);
+      return;
+    }
+
+    this.etiquetasFiltradas.set(
+      lista.filter(e => e.nombre.toLowerCase().includes(t))
+    );
+  }
+
+  // cuando selecciona una etiqueta de la lista
+  seleccionarEtiqueta(e: EtiquetaModel) {
+    this.ticketForm.patchValue({ etiquetaId: e.id });
+    this.busquedaEtiqueta.set(e.nombre);   // mostrar el nombre en el input
+    this.loadCategoriaPorEtiqueta(e.id);   // actualizar categoría
+  }
 
   private loadCategoriaPorEtiqueta(etiquetaId: number): void {
     this.loading.set(true);
@@ -126,8 +152,7 @@ export class TicketForm implements OnInit, OnDestroy {
           this.noti.error("Error", "No se pudo obtener la categoría", 2000);
         }
       });
-
-  };
+  }
 
   submitTicket(): void {
     this.ticketForm.markAllAsTouched();
@@ -167,34 +192,40 @@ export class TicketForm implements OnInit, OnDestroy {
           this.noti.error("Error", msg, 2000);
         }
       });
-  };
+  }
 
   onReset(): void {
+    const solicitante = this.ticketForm.getRawValue().solicitanteNombre;
+    const correo = this.ticketForm.getRawValue().solicitanteEmail;
+
     this.ticketForm.reset({
       titulo: null,
       descripcion: null,
       prioridadId: null,
       etiquetaId: null,
       categoriaNombre: null,
-      solicitanteNombre: this.ticketForm.getRawValue().solicitanteNombre,
-      solicitanteEmail: this.ticketForm.getRawValue().solicitanteEmail,
+      solicitanteNombre: solicitante,
+      solicitanteEmail: correo,
       solicitanteId: this.solicitanteId
     });
 
     this.categoriaSeleccionada.set(null);
+    this.busquedaEtiqueta.set('');
+    this.etiquetasFiltradas.set(this.etiquetasList());
   }
 
   onBack(): void {
     this.router.navigate(['/tickets']);
-  };
+  }
 
   ngOnDestroy(): void {
     this.destroy$.next();
     this.destroy$.complete();
-  };
+  }
 
   hasError(ctrl: string, error: string): boolean {
     const c = this.ticketForm.get(ctrl);
     return !!c && c.touched && c.hasError(error);
-  };
+  }
+
 }

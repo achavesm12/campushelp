@@ -165,7 +165,8 @@
             "CATEGORY_PLACEHOLDER": "Seleccione una etiqueta primero",
             "CATEGORY_HINT": "Seleccione una etiqueta para obtener su categoría",
             "REQUESTER": "Solicitante",
-            "EMAIL": "Correo"
+            "EMAIL": "Correo",
+            "SELECTED_LABEL": "Etiqueta seleccionada"
         }
     },
     "ASSIGNMENTS": {

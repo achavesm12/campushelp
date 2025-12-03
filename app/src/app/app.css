@@ -1,10 +1,15 @@
+/* Layout normal con header y footer */
 .body-container {
     padding-top: 64px;
-    /* altura del header */
     padding-bottom: 60px;
-    /* altura del footer */
     width: 100%;
     box-sizing: border-box;
     min-height: calc(100vh - 64px);
-    /* garantiza al menos toda la ventana */
+}
+
+/* Layout sin header ni footer (login) */
+.body-container.no-layout {
+    padding-top: 0 !important;
+    padding-bottom: 0 !important;
+    min-height: 100vh;
 }

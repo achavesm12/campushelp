@@ -50,3 +50,14 @@ body {
 .cdk-overlay-pane {
     filter: drop-shadow(0px 6px 12px rgba(0, 0, 0, 0.25)) !important;
 }
+
+body.no-layout app-header,
+body.no-layout app-footer {
+    display: none !important;
+}
+
+body.no-layout .body-container {
+    padding-top: 0 !important;
+    padding-bottom: 0 !important;
+    min-height: 100vh !important;
+}

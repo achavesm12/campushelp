@@ -10,6 +10,7 @@ import { AsignacionVisualModel } from '../../share/models/asignacionVisual.model
   styleUrls: ['./asignacion-index.css']
 })
 export class AsignacionesIndex {
+
   datos = signal<AsignacionVisualModel[]>([]);
 
   constructor(
@@ -31,10 +32,18 @@ export class AsignacionesIndex {
     });
   }
 
+  // ====== AUTOTRIAGE ======
+  irAutotriage() {
+    this.router.navigate(['/asignaciones/autotriage']);
+  }
+
+
+  // ====== DETALLE ======
   verDetalle(id: number) {
     this.router.navigate(['/tickets', id]);
   }
 
+  // ====== AGRUPACIÓN POR DÍAS ======
   diasUnicos(asignaciones: AsignacionVisualModel[]): string[] {
     return [...new Set(asignaciones.map(a => a.dia))];
   }

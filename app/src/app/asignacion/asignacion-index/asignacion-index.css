@@ -167,6 +167,38 @@ mat-progress-bar {
     transform: scale(1.1);
 }
 
+/*=== BOTÓN AUTOTRIAGE ===*/
+.btn-autotriage {
+    background: #3A6EA5 !important;
+    color: white !important;
+    font-weight: 600;
+    padding: 10px 18px;
+    border-radius: 12px;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+}
+
+.btn-autotriage:hover {
+    background: #2F5E8E !important;
+}
+
+/* centrar la cabecera de acciones */
+.actions-header {
+    display: flex;
+    justify-content: flex-end;
+    padding: 10px;
+}
+
+/* mensaje vacío */
+.no-data-msg {
+    text-align: center;
+    margin-top: 40px;
+    color: #6b6b6b;
+    font-weight: 600;
+}
+
+
 /* responsive */
 @media (max-width: 700px) {
     .asignacion-list {

@@ -9,6 +9,7 @@ import { TecnicoModule } from './tecnicos/tecnico-module';
 import { TicketModule } from './ticket/ticket-module';
 import { AsignacionModule } from './asignacion/asignacion-module';
 import { AppRoutingModule } from './app-routing-module';
+import { CommonModule } from '@angular/common';
 
 import { App } from './app';
 import { NgxSonnerToaster } from 'ngx-sonner';
@@ -20,6 +21,11 @@ import { HttpErrorInterceptorService } from './share/interceptor/http-error-inte
 import { HttpClientModule, HttpClient } from '@angular/common/http';
 import { TranslateModule, TranslateLoader } from '@ngx-translate/core';
 import { TranslateHttpLoader } from '@ngx-translate/http-loader';
+
+
+import { AuthInterceptor } from './share/interceptor/auth.interceptor';
+
+
 
 export function HttpLoaderFactory(http: HttpClient) {
   return new TranslateHttpLoader(http, './assets/i18n/', '.json');
@@ -33,6 +39,7 @@ export function HttpLoaderFactory(http: HttpClient) {
   imports: [
     BrowserModule,
     HttpClientModule,
+    CommonModule,
     AppRoutingModule,
     CoreModule,
     ShareModule,
@@ -51,18 +58,29 @@ export function HttpLoaderFactory(http: HttpClient) {
         useFactory: HttpLoaderFactory,
         deps: [HttpClient]
       }
-    })
+    }),
+
   ],
 
   providers: [
     provideBrowserGlobalErrorListeners(),
     provideHttpClient(withInterceptorsFromDi()),
+
+    // Manejo de errores global
     {
       provide: HTTP_INTERCEPTORS,
       useClass: HttpErrorInterceptorService,
       multi: true
+    },
+
+    // interceptor de autenticación (añade el token a cada request)
+    {
+      provide: HTTP_INTERCEPTORS,
+      useClass: AuthInterceptor,
+      multi: true
     }
   ],
+
 
   bootstrap: [App]
 })

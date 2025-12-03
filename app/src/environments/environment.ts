@@ -7,7 +7,8 @@ export const environment = {
     endPointSla: 'sla',
     endPointAsignaciones: 'asignacion',
     endPointValoraciones: 'valoracion',
-    endPointTecnicos : 'tecnico'
+    endPointTecnicos: 'tecnico',
+    endPointNotificaciones: "notificaciones",
 };
 
 //rutas del api 

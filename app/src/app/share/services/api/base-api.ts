@@ -2,43 +2,66 @@ import { Inject, Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
 import { HttpClient } from '@angular/common/http';
 import { environment } from '../../../../environments/environment.development';
+
+/**
+ * Todas las entidades deben tener al menos un ID opcional
+ */
 export interface BaseEntity {
   id?: number;
 }
+
 @Injectable({
   providedIn: 'root',
 })
 export class BaseAPI<T extends BaseEntity> {
-  /**
-   * URL base del API, configurada en los archivos de entorno (environment.ts)
-   * Ejemplo:
-   *  environment.apiURL = 'http://localhost:3000'
-   * 
-   * URL final de ejemplo si el endpoint = 'productos':
-   *    http://localhost:3000/productos
-   */
+
+  /** URL base del API (definida en environment.ts) */
   urlAPI: string = environment.apiURL;
 
   constructor(
-    private http: HttpClient,
+    protected http: HttpClient,
     /**
-     * Nombre del endpoint o recurso (por ejemplo: 'productos', 'usuarios', 'ordenes')
-     * Se inyecta al crear una instancia concreta del servicio.
+     * Nombre del recurso (por ejemplo: 'tickets', 'categorias')
      */
-    @Inject(String) private endpoint: string
+    @Inject(String) protected endpoint: string
   ) { }
-  /**
-   * Obtiene la lista completa de elementos del recurso
-   * Ejemplo final: GET http://localhost:3000/productos
-   */
+
+  // ============================================================
+  // MÉTODOS CRUD BÁSICOS
+  // ============================================================
+
+  /** GET /endpoint */
   get(): Observable<T[]> {
     return this.http.get<T[]>(`${this.urlAPI}/${this.endpoint}`);
   }
+
+  /** GET /endpoint/id */
+  getById(id: number): Observable<T> {
+    return this.http.get<T>(`${this.urlAPI}/${this.endpoint}/${id}`);
+  }
+
+  /** POST /endpoint */
+  create(item: Partial<T>): Observable<T> {
+    return this.http.post<T>(`${this.urlAPI}/${this.endpoint}`, item);
+  }
+
+  /** PUT /endpoint/id */
+  update(item: Partial<T>): Observable<T> {
+    return this.http.put<T>(`${this.urlAPI}/${this.endpoint}/${item.id}`, item);
+  }
+
+  /** DELETE /endpoint/id */
+  delete(item: T): Observable<T> {
+    return this.http.delete<T>(`${this.urlAPI}/${this.endpoint}/${item.id}`);
+  }
+
+  // ============================================================
+  // MÉTODOS PERSONALIZADOS (GENÉRICOS)
+  // ============================================================
+
   /**
-  * Permite ejecutar un método GET personalizado, útil para endpoints con acciones específicas
-  * Ejemplo:
-  *  getMethod('activos') → GET http://localhost:3000/productos/activos
-  */
+   * GET /endpoint/action
+   */
   getMethod(
     action: string,
     options: { [param: string]: unknown } = {}
@@ -48,85 +71,100 @@ export class BaseAPI<T extends BaseEntity> {
       options
     );
   }
-  /**
-     * Obtiene un elemento por su ID
-     * Ejemplo: GET http://localhost:3000/productos/5
-     */
-  getById(id: number): Observable<T> {
-    return this.http.get<T>(`${this.urlAPI}/${this.endpoint}/${id}`);
-  }
-  /**
-    * Crea un nuevo elemento
-    * Ejemplo: POST http://localhost:3000/productos
-    */
-  create(item: Partial<T>): Observable<T> {
-    return this.http.post<T>(`${this.urlAPI}/${this.endpoint}`, item);
-  }
-  /**
-     * Actualiza un elemento existente
-     * Ejemplo: PUT http://localhost:3000/productos/5
-     */
-  update(item: Partial<T>): Observable<T> {
-    return this.http.put<T>(`${this.urlAPI}/${this.endpoint}/${item.id}`, item);
-  }
-  /**
-    * Elimina un elemento existente
-    * Ejemplo: DELETE http://localhost:3000/productos/5
-    */
-  delete(item: T) {
-    return this.http.delete<T>(`${this.urlAPI}/${this.endpoint}/${item.id}`);
-  }
-
-  getByUsuarioYRol(idUsuario: number, rol: string): Observable<T[]> {
-    const params = {
-      idUsuario: idUsuario.toString(),
-      role: rol
-    };
-
-    return this.http.get<T[]>(`${this.urlAPI}/${this.endpoint}`, { params });
-  }
 
   /**
- * Permite obtener datos de otro tipo (distinto de T) desde el mismo endpoint base.
- * Útil cuando el backend devuelve modelos extendidos para visualización.
- */
-  getCustom<U>(): Observable<U[]> {
-    return this.http.get<U[]>(`${this.urlAPI}/${this.endpoint}`);
-  }
-
-  /**
-   * Permite obtener por ticketId
+   * GET /endpoint/action (devuelve tipo U)
    */
-  getByTicket(ticketId: number): Observable<T> {
-    return this.http.get<T>(`${this.urlAPI}/${this.endpoint}/ticket/${ticketId}`);
+  getCustom<U>(action: string): Observable<U> {
+    return this.http.get<U>(`${this.urlAPI}/${this.endpoint}/${action}`);
   }
 
-  /** 
-  *Nuevo método genérico para crear una valoración o entidad similar
-  */
+  /**
+   * GET /endpoint/action/id
+   */
+  getCustomById<U>(action: string, id: number | string): Observable<U> {
+    return this.http.get<U>(`${this.urlAPI}/${this.endpoint}/${action}/${id}`);
+  }
+
+  /**
+   * POST /endpoint/action
+   */
+  postCustom<U>(action: string, body: any): Observable<U> {
+    return this.http.post<U>(`${this.urlAPI}/${this.endpoint}/${action}`, body);
+  }
+
+  /**
+   * POST /endpoint (para valoraciones u otros casos especiales)
+   */
   createForTicket(data: any): Observable<T> {
     return this.http.post<T>(`${this.urlAPI}/${this.endpoint}`, data);
   }
 
+  // ============================================================
+  // MÉTODOS ESPECIALES SEGÚN LÓGICA DEL SISTEMA
+  // ============================================================
+
   /**
-  *Obtiene todas las etiquetas disponibles
-  */
+   * GET /etiquetas (fuera del endpoint actual)
+   */
   getEtiquetas(): Observable<any[]> {
     return this.http.get<any[]>(`${this.urlAPI}/etiquetas`);
   }
 
   /**
-  *Obtiene todos los SLA disponibles
-  */
+   * GET /sla (fuera del endpoint actual)
+   */
   getSlas(): Observable<any[]> {
     return this.http.get<any[]>(`${this.urlAPI}/sla`);
   }
 
   /**
- * Obtiene la categoría asociada a una etiqueta
- */
+   * GET /etiquetas/id/categoria
+   */
   getCategoriaPorEtiqueta(etiquetaId: number): Observable<any> {
     return this.http.get<any>(`${this.urlAPI}/etiquetas/${etiquetaId}/categoria`);
   }
 
+  // ============================================================
+  // MÉTODOS PARA PUT/PATCH CON FORM-DATA
+  // ============================================================
+
+  /**
+   * PUT /endpoint/path con FormData
+   */
+  putFormData(path: string, formData: FormData): Observable<any> {
+    return this.http.put(`${this.urlAPI}/${this.endpoint}/${path}`, formData);
+  }
+
+  /**
+   * PATCH /endpoint/id/estado  (actualizar estado del ticket)
+   */
+  updateStatus(id: number, data: FormData) {
+    return this.http.patch(
+      `${this.urlAPI}/${this.endpoint}/${id}/estado`,
+      data
+    );
+  }
+
+  // ============================================================
+  // MÉTODOS ESPECÍFICOS PARA RELACIONES USUARIO–ROL
+  // ============================================================
+
+  /**
+   * GET /endpoint?idUsuario=x&role=y
+   */
+  getByUsuarioYRol(idUsuario: number, rol: string): Observable<T[]> {
+    const params = {
+      idUsuario: idUsuario.toString(),
+      role: rol,
+    };
+    return this.http.get<T[]>(`${this.urlAPI}/${this.endpoint}`, { params });
+  }
+
+  /**
+   * GET /endpoint/ticket/:id
+   */
+  getByTicket(ticketId: number): Observable<T> {
+    return this.http.get<T>(`${this.urlAPI}/${this.endpoint}/ticket/${ticketId}`);
+  }
 }

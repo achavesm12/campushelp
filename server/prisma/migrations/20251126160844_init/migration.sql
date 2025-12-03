@@ -1,0 +1,2 @@
+-- AlterTable
+ALTER TABLE `notificacion` MODIFY `tipo` ENUM('LOGIN', 'TICKET_STATUS_CHANGE', 'TICKET_ASSIGNED') NOT NULL;

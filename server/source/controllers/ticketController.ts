@@ -2,6 +2,22 @@ import { Request, Response, NextFunction } from "express";
 import { PrismaClient, Role } from "../../generated/prisma";
 import { AppError } from "../errors/custom.error";
 
+import multer from "multer";
+import path from "path";
+
+// === MULTER PARA IMÁGENES DE HISTORIAL ===
+const storage = multer.diskStorage({
+    destination: function (req, file, cb) {
+        cb(null, path.join(__dirname, "../../uploads/tickets"));
+    },
+    filename: function (req, file, cb) {
+        const unique = Date.now() + "-" + Math.round(Math.random() * 1e9);
+        cb(null, unique + "-" + file.originalname.replace(/\s/g, "_"));
+    },
+});
+
+export const uploadHistorial = multer({ storage });
+
 export class TicketController {
     prisma = new PrismaClient();
 
@@ -286,4 +302,150 @@ export class TicketController {
             response.status(500).json({ message: "Error interno al crear el ticket", details: error.message, });
         }
     };
+
+    updateStatus = async (request: Request, response: Response, next: NextFunction) => {
+        try {
+            console.log("🔥 updateStatus() ejecutado");
+
+            const ticketId = parseInt(request.params.id);
+            if (isNaN(ticketId)) return next(AppError.badRequest("El ID no es válido"));
+
+            const { nuevoEstado, observacion, actorId } = request.body;
+            console.log("📥 Datos recibidos:", { nuevoEstado, observacion, actorId });
+
+            if (!nuevoEstado || !observacion || !actorId) {
+                return next(AppError.badRequest("Datos requeridos"));
+            }
+
+            const imagenes = request.files as Express.Multer.File[];
+
+            // Buscar ticket ORIGINAL (estado viejo)
+            const ticket = await this.prisma.ticket.findUnique({
+                where: { id: ticketId },
+                include: {
+                    solicitante: true,
+                    asignacion: true
+                }
+            });
+
+            if (!ticket) {
+                return next(AppError.notFound("Ticket no encontrado"));
+            }
+
+            console.log("📌 Ticket encontrado:", ticket.status);
+
+            // Validación de transición
+            const transicionesValidas: Record<string, string[]> = {
+                PENDING: ["ASSIGNED"],
+                ASSIGNED: ["IN_PROGRESS"],
+                IN_PROGRESS: ["RESOLVED"],
+                RESOLVED: ["CLOSED"],
+                CLOSED: []
+            };
+
+            if (!transicionesValidas[ticket.status].includes(nuevoEstado)) {
+                return next(AppError.badRequest(
+                    `Transición no permitida: ${ticket.status} → ${nuevoEstado}`
+                ));
+            }
+
+            if (!imagenes || imagenes.length === 0) {
+                return next(AppError.badRequest("Debe adjuntar al menos una imagen"));
+            }
+
+            let resultado: any;
+
+            console.log("🔄 Ejecutando transacción…");
+
+            // ============================================================
+            // 🔄 TRANSACCIÓN
+            // ============================================================
+            await this.prisma.$transaction(async (tx) => {
+
+                // 1. Actualizar ticket
+                const ticketActualizado = await tx.ticket.update({
+                    where: { id: ticketId },
+                    data: { status: nuevoEstado }
+                });
+
+                // 2. Historial
+                const historial = await tx.ticketHistorial.create({
+                    data: {
+                        ticketId,
+                        fromStatus: ticket.status,
+                        toStatus: nuevoEstado,
+                        nota: observacion,
+                        actorId: Number(actorId),
+                    }
+                });
+
+                // 3. Imágenes
+                const imgs = imagenes.map((img) => ({
+                    ticketHistorialId: historial.id,
+                    url: "/uploads/tickets/" + img.filename
+                }));
+
+                await tx.ticketImagen.createMany({ data: imgs });
+
+                console.log("✅ Estado actualizado correctamente:", ticket.status, "→", nuevoEstado);
+
+                // Guardamos el resultado fuera
+                resultado = { ticketActualizado, historial, imagenes: imgs };
+            });
+
+            // ============================================================
+            // 📌 NOTIFICACIONES (POST-TRANSACCIÓN)
+            // ============================================================
+
+            const solicitanteId = ticket.solicitanteId;
+            const tecnicoId = ticket.asignacion?.usuarioId;
+
+            const estadoAnterior = ticket.status;
+            const estadoNuevo = resultado.ticketActualizado.status;
+
+            console.log("📣 Enviando notificaciones…");
+            console.log("➡ Solicitante:", solicitanteId);
+            console.log("➡ Técnico:", tecnicoId);
+            console.log("➡ Estado:", estadoAnterior, "→", estadoNuevo);
+
+            // Notificación para solicitante
+            await this.prisma.notificacion.create({
+                data: {
+                    usuarioId: solicitanteId,
+                    tipo: "TICKET_STATUS",
+                    mensaje: `El ticket #${ticket.id} cambió de ${estadoAnterior} → ${estadoNuevo}.`,
+                    actorId: Number(actorId),
+                    ticketId: ticket.id
+                }
+            });
+
+            // Notificación para el técnico (si hay asignación)
+            if (tecnicoId) {
+                await this.prisma.notificacion.create({
+                    data: {
+                        usuarioId: tecnicoId,
+                        tipo: "TICKET_STATUS",
+                        mensaje: `El ticket #${ticket.id} que tiene asignado cambió a ${estadoNuevo}.`,
+                        actorId: Number(actorId),
+                        ticketId: ticket.id
+                    }
+                });
+            }
+
+            console.log("✅ Notificaciones enviadas correctamente");
+
+            // ============================================================
+
+            return response.status(200).json({
+                message: "Estado del ticket actualizado",
+                data: resultado
+            });
+
+        } catch (error) {
+            console.error("❌ ERROR updateStatus:", error);
+            next(error);
+        }
+    };
+
+
 }

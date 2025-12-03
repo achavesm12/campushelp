@@ -1,0 +1,95 @@
+/* === CONTENEDOR GENERAL DEL MODAL === */
+.dialog-container {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    padding: 1.5rem;
+    background: rgba(0, 0, 0, 0.35);
+    /* oscurece detrás */
+}
+
+/* === TARJETA DEL MODAL === */
+.modal-card {
+    background: #ffffff;
+    width: 95%;
+    max-width: 520px;
+    padding: 2rem;
+    border-radius: 16px;
+    box-shadow: 0 8px 24px rgba(0, 0, 0, 0.25);
+    color: #222;
+}
+
+/* === TÍTULO === */
+.modal-title {
+    margin: 0 0 1.5rem 0;
+    font-size: 1.6rem;
+    font-weight: 700;
+    color: #222;
+    text-align: center;
+}
+
+/* === CAMPOS DEL FORMULARIO === */
+.form-field {
+    margin-bottom: 1.3rem;
+}
+
+/* --- Eliminar bordes rosas de Angular Material --- */
+.mat-form-field-appearance-outline .mat-form-field-outline {
+    color: #bfbfbf !important;
+    /* gris suave */
+}
+
+.mat-form-field-label {
+    color: #444 !important;
+    font-weight: 600;
+}
+
+input,
+textarea,
+mat-select {
+    color: #222 !important;
+}
+
+/* === INPUT FILE === */
+.form-field label {
+    display: block;
+    font-weight: 600;
+    margin-bottom: 0.4rem;
+    color: #222;
+}
+
+input[type="file"] {
+    border: 1px solid #ccc;
+    padding: 0.4rem;
+    border-radius: 6px;
+    width: 100%;
+    background: #fafafa;
+    color: #222;
+}
+
+/* === FOOTER === */
+.modal-footer {
+    margin-top: 1.8rem;
+    display: flex;
+    justify-content: flex-end;
+    gap: 1rem;
+}
+
+/* === BOTÓN CANCELAR === */
+.btn-cancelar {
+    border-color: #4D4C7D !important;
+    color: #4D4C7D !important;
+    font-weight: 600;
+    border-radius: 10px !important;
+    padding: 0.5rem 1.4rem !important;
+}
+
+/* === BOTÓN GUARDAR === (estilo como el de Regresar pero sólido) */
+.btn-guardar {
+    background: linear-gradient(135deg, #4D4C7D, #827397) !important;
+    color: white !important;
+    font-weight: 600;
+    border-radius: 10px !important;
+    padding: 0.5rem 1.4rem !important;
+    box-shadow: 0 0 10px rgba(130, 115, 151, 0.3);
+}

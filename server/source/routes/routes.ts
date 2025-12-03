@@ -9,6 +9,8 @@ import { SlaRoutes } from './sla.routes';
 import { EtiquetaRoutes } from './etiqueta.routes';
 import { PrioridadRoutes } from './prioridad.routes';
 import { UsuarioRoutes } from './usuario.routes';
+import { AuthRoutes } from './auth.routes';
+import { NotificacionRoutes } from './notificacion.routes';
 
 export class AppRoutes {
     static get routes(): Router {
@@ -25,6 +27,8 @@ export class AppRoutes {
         router.use('/etiquetas', EtiquetaRoutes.routes);
         router.use("/prioridades", PrioridadRoutes.routes);
         router.use("/usuarios", UsuarioRoutes.routes);
+        router.use('/auth', AuthRoutes.routes());
+        router.use('/notificaciones', NotificacionRoutes.routes);
 
         return router;
     }

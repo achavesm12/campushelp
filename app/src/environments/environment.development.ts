@@ -10,5 +10,7 @@ export const environment = {
     endPointSla: 'sla',
     endPointAsignaciones: 'asignacion',
     endPointLogin: 'auth/login',
-    endPointValoraciones: 'valoraciones'
+    endPointValoraciones: 'valoraciones',
+    endPointNotificaciones: "notificaciones"
+
 };

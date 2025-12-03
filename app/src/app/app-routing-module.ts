@@ -4,7 +4,19 @@ import { Inicio } from './home/inicio/inicio';
 import { PageNotFound } from './share/page-not-found/page-not-found';
 
 const routes: Routes = [
+
+  // 🔥 LOGIN LAZY LOADED
+  {
+    path: 'auth',
+    loadChildren: () => import('./auth/auth-module').then(m => m.AuthModule)
+  },
+
+  // Si se entra a /login, redirige a /auth
+  { path: 'login', redirectTo: 'auth', pathMatch: 'full' },
+
+  // 🔥 Página de inicio
   { path: 'inicio', component: Inicio },
+
   {
     path: 'tecnicos',
     loadChildren: () =>
@@ -21,13 +33,16 @@ const routes: Routes = [
       import('./ticket/ticket-module').then(m => m.TicketModule)
   },
   {
-  path: 'asignaciones',
-  loadChildren: () =>
-    import('./asignacion/asignacion-module').then(m => m.AsignacionModule)
-},
+    path: 'asignaciones',
+    loadChildren: () =>
+      import('./asignacion/asignacion-module').then(m => m.AsignacionModule)
+  },
 
-  { path: '', redirectTo: '/inicio', pathMatch: 'full' },
-  { path: '**', component: PageNotFound }
+  // 🔥 ESTA ES LA RUTA QUE NO TE ESTABA FUNCIONANDO
+  { path: '', redirectTo: '/auth', pathMatch: 'full' },
+
+  // 404
+  { path: '**', component: PageNotFound },
 ];
 
 @NgModule({

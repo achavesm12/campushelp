@@ -11,11 +11,18 @@ import { MatButtonModule } from '@angular/material/button';
 import { MatTooltipModule } from '@angular/material/tooltip';
 import { MatProgressBarModule } from '@angular/material/progress-bar';
 import { TranslateModule } from '@ngx-translate/core';
+import { AsignacionManual } from './asignacion-manual/asignacion-manual';
+import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
+import { MatSnackBarModule } from '@angular/material/snack-bar';
+import { FormsModule } from '@angular/forms';
+import { AsignacionAutotriage } from './asignacion-autotriage/asignacion-autotriage';
 
 @NgModule({
   declarations: [
     AsignacionesIndex,
-    AsignacionDetail
+    AsignacionDetail,
+    AsignacionManual,
+    AsignacionAutotriage
   ],
   imports: [
     CommonModule,
@@ -27,7 +34,10 @@ import { TranslateModule } from '@ngx-translate/core';
     MatButtonModule,
     MatTooltipModule,
     MatProgressBarModule,
-    TranslateModule
+    TranslateModule,
+    MatProgressSpinnerModule,
+    MatSnackBarModule,
+    FormsModule
   ]
 })
 export class AsignacionModule { }

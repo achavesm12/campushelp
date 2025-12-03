@@ -16,12 +16,14 @@ import { TicketIndex } from './ticket-index/ticket-index';
 import { TicketDetail } from './ticket-detail/ticket-detail';
 import { TicketForm } from './ticket-form/ticket-form';
 import { TranslateModule } from '@ngx-translate/core';
+import { UpdateTicketModal } from './update-ticket-modal/update-ticket-modal';
 
 @NgModule({
   declarations: [
     TicketIndex,
     TicketDetail,
-    TicketForm
+    TicketForm,
+    UpdateTicketModal
   ],
   imports: [
     CommonModule,

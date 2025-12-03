@@ -1,9 +1,15 @@
+@if (mostrarHeader()) {
+
 <header class="app-header">
+
+    <!-- IZQUIERDA -->
     <div class="header-left">
         <img src="logo.png" alt="Logo CampusHelp" class="logo">
     </div>
 
+    <!-- CENTRO -->
     <nav class="header-nav">
+
         <a routerLink="/inicio" routerLinkActive="active">
             {{ 'HEADER.INICIO' | translate }}
         </a>
@@ -12,39 +18,131 @@
             {{ 'HEADER.LISTAS' | translate }}
         </button>
         <mat-menu #menuListas="matMenu">
-            <button mat-menu-item routerLink="/tecnicos">
-                {{ 'HEADER.TECNICOS' | translate }}
-            </button>
-            <button mat-menu-item routerLink="/categorias">
-                {{ 'HEADER.CATEGORIAS' | translate }}
-            </button>
-            <button mat-menu-item routerLink="/tickets">
-                {{ 'HEADER.TICKETS' | translate }}
-            </button>
-            <button mat-menu-item routerLink="/asignaciones">
-                {{ 'HEADER.ASIGNACIONES' | translate }}
-            </button>
+            <button mat-menu-item routerLink="/tecnicos">{{ 'HEADER.TECNICOS' | translate }}</button>
+            <button mat-menu-item routerLink="/categorias">{{ 'HEADER.CATEGORIAS' | translate }}</button>
+            <button mat-menu-item routerLink="/tickets">{{ 'HEADER.TICKETS' | translate }}</button>
+            <button mat-menu-item routerLink="/asignaciones">{{ 'HEADER.ASIGNACIONES' | translate }}</button>
         </mat-menu>
 
         <button mat-button [matMenuTriggerFor]="menuMantenimientos">
             {{ 'HEADER.MANTENIMIENTOS' | translate }}
         </button>
         <mat-menu #menuMantenimientos="matMenu">
-            <button mat-menu-item routerLink="/usuarios">
-                {{ 'HEADER.USUARIOS' | translate }}
-            </button>
-            <button mat-menu-item routerLink="/configuracion">
-                {{ 'HEADER.CONFIGURACION' | translate }}
-            </button>
+            <button mat-menu-item routerLink="/usuarios">{{ 'HEADER.USUARIOS' | translate }}</button>
+            <button mat-menu-item routerLink="/configuracion">{{ 'HEADER.CONFIGURACION' | translate }}</button>
         </mat-menu>
 
-        <a routerLink="/login" class="logout">
+    </nav>
+
+    <!-- DERECHA -->
+    <div class="header-right">
+
+        <!-- CAMPANA -->
+        <div class="notif-wrapper">
+
+            <button class="notif-btn" (click)="togglePanel()">
+                <mat-icon>notifications</mat-icon>
+            </button>
+
+            @if (noLeidas() > 0) {
+            <span class="notif-badge">{{ noLeidas() }}</span>
+            }
+
+            @if (panelAbierto()) {
+            <div class="notif-panel">
+
+                <!-- 🔥 NOMBRE / CORREO DEL USUARIO -->
+                <div class="notif-usuario" *ngIf="usuarioActual()">
+                    <strong>Notificaciones de:</strong><br>
+                    <span>{{ usuarioActual().nombre || usuarioActual().correo }}</span>
+                </div>
+
+                <h3 class="notif-title">Notificaciones</h3>
+
+                <!-- 🔽 SCROLL INTERNO -->
+                <div class="notif-scroll">
+
+                    <!-- 🔽 GRUPOS DE FECHA -->
+                    @for (grupo of grupos(); track grupo.nombre) {
+
+                    @if (grupo.items.length > 0) {
+
+                    <!-- 🔹 TÍTULO DEL GRUPO -->
+                    <h4 class="notif-group">{{ grupo.nombre }}</h4>
+
+                    <ul class="notif-list">
+
+                        @for (n of grupo.items; track n.id) {
+
+                        <li class="notif-item" [ngClass]="[
+                                        clasePorTipo(n.tipo),
+                                        n.leida ? 'leida' : ''
+                                    ]">
+
+                            <!-- ENCABEZADO -->
+                            <div class="notif-top">
+                                <mat-icon class="notif-icon">
+                                    {{ iconoPorTipo(n.tipo) }}
+                                </mat-icon>
+
+                                <div class="notif-meta">
+                                    <span class="notif-type">{{ tipoLegible(n.tipo) }}</span>
+                                    <span class="notif-date">{{ formatearFecha(n.createdAt) }}</span>
+                                </div>
+                            </div>
+
+                            <!-- MENSAJE -->
+                            <p class="notif-message">{{ n.mensaje }}</p>
+
+                            <!-- 🔥 TICKET RELACIONADO (solo si aplica) -->
+                            @if (n.ticketId) {
+                            <p class="notif-ticket">
+                                Ticket relacionado: <strong>#{{ n.ticketId }}</strong>
+                            </p>
+                            }
+
+                            <!-- BOTÓN -->
+                            @if (!n.leida) {
+                            <button class="btn-leer" (click)="marcarComoLeida(n)">
+                                Marcar como leída
+                            </button>
+                            }
+
+                        </li>
+
+                        }
+
+                    </ul>
+
+                    }
+
+                    }
+
+                    <!-- SIN NOTIFICACIONES -->
+                    @if (notificaciones().length === 0) {
+                    <p class="empty">Sin notificaciones</p>
+                    }
+
+                </div>
+
+            </div>
+            }
+
+        </div>
+
+        <!-- LOGOUT -->
+        <a routerLink="/auth" class="logout">
             {{ 'HEADER.LOGOUT' | translate }}
         </a>
 
+        <!-- IDIOMA -->
         <select #selector (change)="cambiarIdioma(selector.value)" class="lang-selector">
             <option value="es">ES</option>
             <option value="en">EN</option>
         </select>
-    </nav>
+
+    </div>
+
 </header>
+
+}

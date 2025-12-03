@@ -259,6 +259,39 @@
     color: #fff !important;
 }
 
+/* MISMO ESTILO QUE btn-primary */
+.btn-actualizar {
+    background: linear-gradient(135deg, #4D4C7D, #827397) !important;
+    border-radius: 10px !important;
+    padding: 0.6rem 1.4rem !important;
+    font-weight: 600 !important;
+    transition: all 0.25s ease !important;
+    box-shadow: 0 0 10px rgba(130, 115, 151, 0.3) !important;
+    border: none !important;
+}
+
+/* ESTO ES LO IMPORTANTE → FORZAR EL COLOR BLANCO EN LABEL */
+.btn-actualizar .mdc-button__label {
+    color: white !important;
+}
+
+/* HOVER */
+.btn-actualizar:hover {
+    transform: translateY(-3px);
+    box-shadow: 0 0 14px rgba(77, 76, 125, 0.4) !important;
+}
+
+.btn-asignar-manual {
+    background: linear-gradient(135deg, #4D4C7D, #827397);
+    color: #fff !important;
+    font-weight: 600;
+    border-radius: 12px;
+    padding: 0.7rem 1.3rem;
+    margin-right: 12px;
+}
+
+
+
 /* responsive */
 @media (max-width: 600px) {
     .detail-card {

@@ -1,5 +1,6 @@
 import { Router } from 'express'
-import { TicketController } from '../controllers/ticketController'
+import { TicketController, uploadHistorial } from '../controllers/ticketController'
+import { authMiddleware } from '../middleware/auth.middleware'
 
 export class TicketRoutes {
     static get routes(): Router {
@@ -12,7 +13,17 @@ export class TicketRoutes {
 
         router.post('/', controller.create);
 
+        router.patch('/:id/estado',
+            uploadHistorial.array("imagenes"),
+            controller.updateStatus
+        );
 
+        router.patch(
+            "/:id/estado",
+            authMiddleware,                       // proteger la ruta
+            uploadHistorial.array("imagenes"),    // subir imágenes
+            controller.updateStatus                // lógica de cambio de estado
+        );
 
         return router
     }

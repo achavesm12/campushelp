@@ -1,17 +1,21 @@
-import { Router } from 'express'
-import { AsignacionController } from '../controllers/asignacionController'
-
+import { Router } from "express";
+import { AsignacionController } from "../controllers/asignacionController";
+import { authMiddleware } from "../middleware/auth.middleware";
 
 export class AsignacionRoutes {
     static get routes(): Router {
-        const router = Router()
-        const controller = new AsignacionController()
-        //localhost:3000/orden
-        router.get('/', controller.get) //1 o 0
+        const router = Router();
+        const controller = new AsignacionController();
 
-        //localhost:3000/categoria/2
-        //router.get('/:id', controller.getById) //tiene parametro
+        router.get("/", authMiddleware, controller.get);
+        router.get("/manual/:idTicket", authMiddleware, controller.getTecnicosDisponibles);
 
-        return router
+        router.post("/manual", authMiddleware, controller.asignacionManual);
+
+        router.post("/automatico", authMiddleware, controller.asignacionAutomatica);
+
+        router.get("/visual", authMiddleware, controller.getVisual);
+
+        return router;
     }
 }

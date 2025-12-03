@@ -1,9 +1,6 @@
 // This is your Prisma schema file,
 // learn more about it in the docs: https://pris.ly/d/prisma-schema
 
-// Looking for ways to speed up your queries, or scale easily with your serverless or edge functions?
-// Try Prisma Accelerate: https://pris.ly/cli/accelerate-init
-
 generator client {
   provider = "prisma-client-js"
   output   = "../generated/prisma"
@@ -14,23 +11,51 @@ datasource db {
   url      = env("DATABASE_URL")
 }
 
+// ========================= ENUMS ===============================
+
+enum Role {
+  ADMIN
+  TECH
+  CLIENT
+}
+
+enum TicketStatus {
+  PENDING
+  ASSIGNED
+  IN_PROGRESS
+  RESOLVED
+  CLOSED
+}
+
+enum NotificationType {
+  LOGIN
+  TICKET_ASSIGNED
+  TICKET_STATUS
+  TICKET_CLOSED
+  TICKET_PROGRESS
+}
+
+// ========================= MODELOS ===============================
+
 model Usuario {
-  id                 Int               @id @default(autoincrement())
-  email              String            @unique
-  nombre             String?
-  role               Role              @default(CLIENT)
-  password           String
-  lastLoginAt        DateTime?
-  disponibilidad     Boolean?          @default(true)
-  cargaActual        Int?              @default(0)
-  createdAt          DateTime          @default(now())
-  updatedAt          DateTime          @default(now()) @updatedAt
-  ticketsSolicitados Ticket[]          @relation("TicketsPorUsuario")
-  valoraciones       Valoracion[]
-  notificaciones     Notificacion[]
-  especialidades     Especialidad[]
-  asignaciones       Asignacion[]
-  TicketHistorial    TicketHistorial[]
+  id             Int       @id @default(autoincrement())
+  email          String    @unique
+  nombre         String?
+  role           Role      @default(CLIENT)
+  password       String
+  lastLoginAt    DateTime?
+  disponibilidad Boolean?  @default(true)
+  cargaActual    Int?      @default(0)
+  createdAt      DateTime  @default(now())
+  updatedAt      DateTime  @default(now()) @updatedAt
+
+  ticketsSolicitados  Ticket[]          @relation("TicketsPorUsuario")
+  valoraciones        Valoracion[]
+  notificaciones      Notificacion[]
+  especialidades      Especialidad[]
+  asignaciones        Asignacion[]
+  TicketHistorial     TicketHistorial[]
+  notificacionesActor Notificacion[]    @relation("ActorNotificacion")
 }
 
 model Especialidad {
@@ -72,50 +97,56 @@ model Etiqueta {
 
 model Prioridad {
   id      Int      @id @default(autoincrement())
-  nombre  String   @unique 
+  nombre  String   @unique
   tickets Ticket[]
 }
 
 model Ticket {
-  id            Int               @id @default(autoincrement())
+  id            Int          @id @default(autoincrement())
   titulo        String
-  descripcion   String            @db.VarChar(500)
-  status        TicketStatus      @default(PENDING)
-  createdAt     DateTime          @default(now())
-  updatedAt     DateTime          @default(now()) @updatedAt
+  descripcion   String       @db.VarChar(500)
+  status        TicketStatus @default(PENDING)
+  createdAt     DateTime     @default(now())
+  updatedAt     DateTime     @default(now()) @updatedAt
   closedAt      DateTime?
   solicitanteId Int
   categoriaId   Int
-  solicitante   Usuario           @relation("TicketsPorUsuario", fields: [solicitanteId], references: [id])
-  categoria     Categoria         @relation(fields: [categoriaId], references: [id])
+  prioridadId   Int
+
+  solicitante Usuario   @relation("TicketsPorUsuario", fields: [solicitanteId], references: [id])
+  categoria   Categoria @relation(fields: [categoriaId], references: [id])
+  prioridad   Prioridad @relation(fields: [prioridadId], references: [id])
+
   historial     TicketHistorial[]
   asignacion    Asignacion?
   valoracion    Valoracion?
-  prioridadId   Int
-  prioridad     Prioridad         @relation(fields: [prioridadId], references: [id])
+  notificacions Notificacion[]
 }
 
 model TicketHistorial {
-  id         Int            @id @default(autoincrement())
+  id         Int          @id @default(autoincrement())
   ticketId   Int
-  fromStatus TicketStatus?
+  fromStatus TicketStatus
   toStatus   TicketStatus
-  nota       String?
+  nota       String
   actorId    Int
-  createdAt  DateTime       @default(now())
-  updatedAt  DateTime       @default(now()) @updatedAt
-  ticket     Ticket         @relation(fields: [ticketId], references: [id])
-  actor      Usuario        @relation(fields: [actorId], references: [id])
-  imagenes   TicketImagen[]
+  createdAt  DateTime     @default(now())
+  updatedAt  DateTime     @default(now()) @updatedAt
+
+  ticket Ticket  @relation(fields: [ticketId], references: [id])
+  actor  Usuario @relation(fields: [actorId], references: [id])
+
+  imagenes TicketImagen[] @relation("HistorialImagenes")
 }
 
 model TicketImagen {
-  id          Int             @id @default(autoincrement())
-  historialId Int
-  url         String          @default("image-not-found.jpg")
-  createdAt   DateTime        @default(now())
-  updatedAt   DateTime        @default(now()) @updatedAt
-  historial   TicketHistorial @relation(fields: [historialId], references: [id])
+  id                Int      @id @default(autoincrement())
+  ticketHistorialId Int
+  url               String
+  createdAt         DateTime @default(now())
+  updatedAt         DateTime @default(now()) @updatedAt
+
+  historial TicketHistorial @relation("HistorialImagenes", fields: [ticketHistorialId], references: [id])
 }
 
 model Asignacion {
@@ -126,19 +157,29 @@ model Asignacion {
   justificacion String?
   createdAt     DateTime @default(now())
   updatedAt     DateTime @default(now()) @updatedAt
-  ticket        Ticket   @relation(fields: [ticketId], references: [id])
-  usuario       Usuario  @relation(fields: [usuarioId], references: [id])
+
+  ticket  Ticket  @relation(fields: [ticketId], references: [id])
+  usuario Usuario @relation(fields: [usuarioId], references: [id])
 }
 
 model Notificacion {
-  id        Int      @id @default(autoincrement())
-  usuarioId Int
-  tipo      String
-  mensaje   String
-  leida     Boolean  @default(false)
+  id Int @id @default(autoincrement())
+
+  usuarioId Int // destinatario
+  actorId   Int? // quien generó la notificación
+  ticketId  Int? // si aplica
+
+  tipo        NotificationType
+  mensaje     String
+  descripcion String? // más detalle opcional
+  leida       Boolean          @default(false)
+
   createdAt DateTime @default(now())
   updatedAt DateTime @default(now()) @updatedAt
-  usuario   Usuario  @relation(fields: [usuarioId], references: [id])
+
+  usuario Usuario  @relation(fields: [usuarioId], references: [id])
+  actor   Usuario? @relation("ActorNotificacion", fields: [actorId], references: [id])
+  ticket  Ticket?  @relation(fields: [ticketId], references: [id])
 }
 
 model Valoracion {
@@ -151,18 +192,4 @@ model Valoracion {
   updatedAt  DateTime @default(now()) @updatedAt
   ticket     Ticket   @relation(fields: [ticketId], references: [id])
   usuario    Usuario  @relation(fields: [usuarioId], references: [id])
-}
-
-enum Role {
-  ADMIN
-  TECH
-  CLIENT
-}
-
-enum TicketStatus {
-  PENDING
-  ASSIGNED
-  IN_PROGRESS
-  RESOLVED
-  CLOSED
 }

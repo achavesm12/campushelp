@@ -75,7 +75,7 @@
                 <p>
                     <strong>{{ 'TICKETS.DETAIL.RESPONSE_COMPLIANCE' | translate }}:</strong>
                     <span [ngClass]="ticket()?.cumplioRespuesta === true ? 'cumple' :
-                                     ticket()?.cumplioRespuesta === false ? 'no-cumple' : 'sin-dato'">
+                                    ticket()?.cumplioRespuesta === false ? 'no-cumple' : 'sin-dato'">
 
                         {{ ticket()?.cumplioRespuesta === true
                         ? ('TICKETS.DETAIL.COMPLIED' | translate)
@@ -89,7 +89,7 @@
                 <p>
                     <strong>{{ 'TICKETS.DETAIL.RESOLUTION_COMPLIANCE' | translate }}:</strong>
                     <span [ngClass]="ticket()?.cumplioResolucion === true ? 'cumple' :
-                                     ticket()?.cumplioResolucion === false ? 'no-cumple' : 'sin-dato'">
+                                    ticket()?.cumplioResolucion === false ? 'no-cumple' : 'sin-dato'">
 
                         {{ ticket()?.cumplioResolucion === true
                         ? ('TICKETS.DETAIL.COMPLIED' | translate)
@@ -135,8 +135,9 @@
                     <div class="imagenes">
 
                         @for (img of item.imagenes; track img.id) {
-                        <img [src]="'http://localhost:3000/images/' + img.url" alt="Evidencia" class="evidencia-img" />
+                        <img [src]="'http://localhost:3000' + img.url" alt="Evidencia" class="evidencia-img" />
                         }
+
                     </div>
                     }
                 </div>
@@ -195,6 +196,21 @@
 
         <!-- pie -->
         <div class="detail-footer">
+
+            <!-- BOTÓN PARA ACTUALIZAR ESTADO -->
+            @if (puedeActualizar()) {
+            <button mat-flat-button color="primary" class="btn-actualizar" (click)="abrirFormularioEstado()">
+                {{ 'TICKETS.DETAIL.UPDATE_STATE' | translate }}
+            </button>
+            }
+
+            <!-- BOTÓN PARA ASIGNACIÓN MANUAL -->
+            @if (ticket()?.status === 'PENDING') {
+            <button mat-flat-button class="btn-asignar-manual" [routerLink]="['/asignaciones/manual', ticket()?.id]">
+                Asignar Manualmente
+            </button>
+            }
+
             <button mat-stroked-button color="accent" (click)="goBack()">
                 {{ 'COMMON.BACK' | translate }}
             </button>

@@ -1,0 +1,150 @@
+@if (ticket != null) {
+
+<!-- BOTÓN VOLVER -->
+<button mat-stroked-button class="btn-volver" (click)="volver()">
+    ← Volver
+</button>
+
+<div class="layout">
+
+    <!-- PANEL IZQUIERDO -->
+    <div class="left-panel">
+
+        <!-- HEADER DEL TICKET -->
+        <div class="ticket-header">
+            <div class="ticket-icon">
+                {{ ticket?.titulo?.charAt(0) }}
+            </div>
+
+            <div>
+                <h2 class="ticket-title">
+                    Ticket #{{ ticket?.id }} — {{ ticket?.titulo }}
+                </h2>
+
+                <div class="ticket-badges">
+                    <span class="badge neutral">{{ ticket?.prioridad }}</span>
+                    <span class="badge neutral">{{ ticket?.categoria }}</span>
+
+                    <span class="badge sla" [class.sla-ok]="ticket?.horasRestantes >= 0"
+                        [class.sla-bad]="ticket?.horasRestantes < 0">
+                        SLA: {{ ticket?.slaResolucion }}h
+                    </span>
+                </div>
+            </div>
+        </div>
+
+        <!-- CARD: DETALLE DEL TICKET -->
+        <div class="ticket-card">
+            <h3 class="section-title">Detalle del Ticket</h3>
+
+            <p><strong>Título:</strong> {{ ticket?.titulo }}</p>
+            <p><strong>Categoría:</strong> {{ ticket?.categoria }}</p>
+            <p><strong>Prioridad:</strong> {{ ticket?.prioridad }}</p>
+            <p><strong>SLA Resolución:</strong> {{ ticket?.slaResolucion }} horas</p>
+
+            <p>
+                <strong>Horas restantes:</strong>
+                <span [class.text-bad]="ticket?.horasRestantes < 0">
+                    {{ ticket?.horasRestantes }}
+                </span>
+            </p>
+        </div>
+
+        <!-- CARD: JUSTIFICACIÓN -->
+        <div class="ticket-card">
+            <h3 class="section-title">Justificación*</h3>
+
+            <textarea [(ngModel)]="justificacion" placeholder="Explique por qué se asigna manualmente este ticket"
+                class="just-input" rows="3"></textarea>
+
+            @if (errorJustificacion) {
+            <p class="error-msg">Debe escribir una justificación.</p>
+            }
+        </div>
+
+    </div>
+
+    <!-- PANEL DERECHO -->
+    <div class="right-panel">
+
+        <!-- FILTROS -->
+        <div class="filters">
+            <button mat-stroked-button (click)="filtrarEspecialidad()" [class.active-filter]="filtroEspecialidad">
+                Cumplen especialidad
+            </button>
+
+            <button mat-stroked-button (click)="filtrarDisponibles()" [class.active-filter]="filtroDisponibles">
+                Solo disponibles
+            </button>
+        </div>
+
+        <h3 class="section-title">Técnicos Disponibles</h3>
+
+        @if (tecnicosFiltrados != null && tecnicosFiltrados.length > 0) {
+
+        @for (t of tecnicosFiltrados; track t.id) {
+
+        <div class="tech-card">
+
+            <div class="tech-header">
+
+                <div class="tech-avatar">
+                    {{ t.nombre?.charAt(0) }}
+                </div>
+
+                <div>
+                    <h4 class="tech-name">{{ t.nombre }}</h4>
+
+                    <div class="esp-list">
+                        @for (esp of t.especialidades; track esp.id) {
+                        <span class="badge esp">{{ esp.nombre }}</span>
+                        }
+                    </div>
+                </div>
+
+            </div>
+
+            <div class="tech-details">
+                <p><strong>Carga actual:</strong> {{ t.carga }} ticket(s)</p>
+
+                <p>
+                    <strong>Disponibilidad:</strong>
+                    <span class="ok" [hidden]="!t.disponibilidad">Disponible</span>
+                    <span class="bad" [hidden]="t.disponibilidad">Ocupado</span>
+                </p>
+
+                @if (!t.cumpleEspecialidad) {
+                <p class="noesp">✖ No cumple la especialidad requerida.</p>
+                }
+            </div>
+
+            <button mat-flat-button class="assign-btn" [disabled]="!t.cumpleEspecialidad || t.disabled"
+                (click)="asignar(t.id)">
+                Asignar a {{ t.nombre }}
+            </button>
+
+        </div>
+
+        }
+
+        } @else {
+
+        <p class="no-tech-msg">
+            No hay técnicos disponibles según los filtros.
+        </p>
+
+        }
+
+    </div>
+
+</div>
+
+} @else {
+
+<!-- LOADING -->
+<div class="loading-container">
+    <mat-spinner></mat-spinner>
+    <p>Cargando datos del ticket...</p>
+</div>
+
+}

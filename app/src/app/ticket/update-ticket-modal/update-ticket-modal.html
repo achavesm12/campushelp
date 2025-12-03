@@ -1,0 +1,48 @@
+<div class="dialog-container">
+    <div class="modal-card">
+
+        <h2 class="modal-title">Actualizar estado del ticket</h2>
+
+        <form [formGroup]="form">
+
+            <!-- Nuevo Estado -->
+            <div class="form-field">
+                <mat-form-field appearance="outline">
+                    <mat-label>Nuevo estado</mat-label>
+                    <mat-select formControlName="nuevoEstado">
+                        <mat-option *ngFor="let est of estadosDisponibles" [value]="est">
+                            {{ est }}
+                        </mat-option>
+                    </mat-select>
+                </mat-form-field>
+            </div>
+
+            <!-- Observación -->
+            <div class="form-field">
+                <mat-form-field appearance="outline">
+                    <mat-label>Observación</mat-label>
+                    <textarea matInput formControlName="observacion" rows="3"></textarea>
+                </mat-form-field>
+            </div>
+
+            <!-- Imágenes -->
+            <div class="form-field">
+                <label>Imágenes (obligatorio)</label>
+                <input type="file" (change)="onFileChange($event)" multiple />
+            </div>
+
+        </form>
+
+        <!-- Footer -->
+        <div class="modal-footer">
+            <button mat-stroked-button class="btn-cancelar" (click)="cerrar()">
+                Cancelar
+            </button>
+
+            <button mat-flat-button class="btn-guardar" (click)="guardar()">
+                Guardar
+            </button>
+        </div>
+
+    </div>
+</div>

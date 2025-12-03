@@ -1,0 +1,52 @@
+<button class="btn-volver" (click)="volver()">
+    <mat-icon>arrow_back</mat-icon> Volver
+</button>
+
+<h1 class="title">Resultados del Autotriage</h1>
+
+<div class="resultados-container">
+
+    @if (resultado().length === 0) {
+    <p class="processing">Procesando asignaciones...</p>
+    }
+
+    @for (item of resultado(); track item.ticketId) {
+
+    <div class="resultado-card">
+
+        <div class="header">
+            <h2 class="ticket-title">Ticket #{{ item.ticketId }}</h2>
+            <span class="badge-prioridad">
+                Prioridad: {{ item.prioridad }}
+            </span>
+        </div>
+
+        <div class="info">
+            <p><strong>Técnico asignado:</strong> {{ item.tecnico }}</p>
+
+            <p><strong>Especialidades:</strong>
+                @for (esp of item.especialidades; track esp) {
+                <span class="badge-esp">{{ esp }}</span>
+                }
+            </p>
+
+            <p><strong>Horas restantes SLA:</strong> {{ item.horasRestantes }} h</p>
+
+            <p><strong>Puntaje calculado:</strong>
+                <span class="puntaje">{{ item.puntaje }}</span>
+            </p>
+
+            <p><strong>Carga del técnico:</strong> {{ item.cargaActual }} ticket(s)</p>
+        </div>
+
+        <hr />
+
+        <div class="justificacion">
+            <p><strong>Justificación:</strong></p>
+            <p class="just-text">{{ item.justificacion }}</p>
+        </div>
+
+    </div>
+
+    }
+</div>

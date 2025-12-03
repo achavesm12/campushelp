@@ -1,0 +1,110 @@
+/* ========= CONTENEDOR GENERAL ========= */
+.title {
+    text-align: center;
+    margin-bottom: 30px;
+    font-size: 32px;
+    font-weight: 700;
+    color: #363062;
+}
+
+/* ========= TARJETA DE RESULTADO ========= */
+.resultados-container {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 25px;
+}
+
+.resultado-card {
+    background: white;
+    width: 75%;
+    padding: 28px;
+    border-radius: 18px;
+    box-shadow: 0 4px 20px rgba(0, 0, 0, 0.08);
+    border: 1px solid #ececec;
+}
+
+/* ========= HEADER ========= */
+.header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.ticket-title {
+    margin: 0;
+    font-size: 24px;
+    font-weight: 700;
+    color: #363062;
+}
+
+/* === BADGE DE PRIORIDAD (QUITAMOS ROSADO) === */
+.badge-prioridad {
+    background: #E9D5DA;
+    padding: 6px 16px;
+    border-radius: 12px;
+    font-size: 14px;
+    font-weight: 600;
+    color: #4D4C7D;
+}
+
+/* ========= INFORMACIÓN DEL TICKET ========= */
+.info p {
+    margin: 10px 0;
+    font-size: 15px;
+    color: #363062;
+}
+
+/* LABELS (antes rosados, ahora gris elegante) */
+.info p strong {
+    color: #6b6b6b;
+    font-weight: 600;
+}
+
+/* BADGES DE ESPECIALIDAD (limpios y modernos) */
+.badge-esp {
+    background: #ecebfd;
+    padding: 4px 10px;
+    border-radius: 10px;
+    margin-right: 6px;
+    font-size: 13px;
+    color: #4D4C7D;
+    border: 1px solid #d8d3f5;
+}
+
+/* ========= PUNTAJE ========= */
+.puntaje {
+    font-weight: 700;
+    color: #4D4C7D;
+    font-size: 16px;
+}
+
+/* ========= JUSTIFICACIÓN ========= */
+.justificacion {
+    margin-top: 18px;
+    color: #000000
+}
+
+.just-text {
+    font-style: italic;
+    color: #333;
+}
+
+/* ========= BOTÓN VOLVER ========= */
+.btn-volver {
+    margin-bottom: 15px;
+    background: #ecebfd;
+    border: 1px solid #4D4C7D33;
+    padding: 8px 18px;
+    border-radius: 10px;
+    color: #4D4C7D;
+    font-weight: 600;
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+    transition: 0.2s ease;
+}
+
+.btn-volver:hover {
+    background: #e0defa;
+}
